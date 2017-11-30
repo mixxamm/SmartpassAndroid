@@ -15,5 +15,6 @@
     </string>
     <string name="wachtwoord">Wachtwoord</string>
     <string name="error_field_required">Dit veld is verplicht</string>
-    <string name="leerlingNaam"></string>
+    <string name="leerlingNaam">Ilias Achabar</string>
+    <string name="geldigTot"></string>
 </resources>
