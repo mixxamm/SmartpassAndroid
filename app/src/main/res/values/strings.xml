@@ -16,5 +16,5 @@
     <string name="wachtwoord">Wachtwoord</string>
     <string name="error_field_required">Dit veld is verplicht</string>
     <string name="leerlingNaam">Ilias Achabar</string>
-    <string name="geldigTot"></string>
+    <string name="geldigTot">Geldig tot en met: 3/12/2017</string>
 </resources>

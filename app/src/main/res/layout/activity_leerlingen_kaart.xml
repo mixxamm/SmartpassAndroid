@@ -9,12 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <ImageView
-            android:layout_margin="16dp"
+        <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/demopf128"
-            />
+            android:layout_margin="16dp"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,15 +27,13 @@
             android:layout_height="wrap_content"
             android:text="@string/geldigTot"
             android:textSize="20sp"
-            android:gravity="center_horizontal"/>
+            android:gravity="center_horizontal"
+            android:textColor="#8BC34A"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_cancel_black_48dp"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="KOOP NAAR BUITEN VOOR SLECHTS €14,99 (2 dagen geldig)"/>
+            android:layout_height="155dp"
+            android:src="@drawable/ic_check_circle_black_48dp"/>
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
