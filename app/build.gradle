@@ -29,7 +29,8 @@ dependencies {
     compile 'com.android.support:design:25.4.0'
     testCompile 'junit:junit:4.12'
 
-    //Add Libraries
-    compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'com.google.zxing:core:3.2.1'
+    //Libraries
+    compile 'de.hdodenhof:circleimageview:2.1.0'//Afbeelding in cirkelvorm
+    compile 'com.google.zxing:core:3.2.1'//QR-code generator
+    compile 'com.google.android.gms:play-services-vision:11.6.0'//QR-code lezer
 }

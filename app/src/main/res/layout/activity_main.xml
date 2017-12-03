@@ -28,6 +28,14 @@
         android:src="@drawable/btn_aanmelden_165x40"
         android:layout_centerInParent="true"
         />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/smartschool_login"
+        android:layout_centerHorizontal="true"
+        android:text="Leerkracht login"
+        android:id="@+id/leerkrachtLogin"
+        />
 </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
