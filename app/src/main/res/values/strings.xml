@@ -17,4 +17,7 @@
     <string name="error_field_required">Dit veld is verplicht</string>
     <string name="leerlingNaam">Maxim Janssens</string>
     <string name="geldigTot">Kon geen informatie ophalen</string>
+    <string name="mijnSchool">mijn-school</string>
+    <string name="smartschool">.smartschool.be</string>
+    <string name="Account">Account</string>
 </resources>
