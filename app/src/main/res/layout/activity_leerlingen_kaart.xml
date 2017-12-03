@@ -28,11 +28,11 @@
             android:text="@string/geldigTot"
             android:textSize="20sp"
             android:gravity="center_horizontal"
-            android:textColor="#8BC34A"/>
+            android:textColor="#455A64"/>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="155dp"
-            android:src="@drawable/ic_check_circle_black_48dp"/>
+            android:src="@drawable/sync_alert"/>
 
     </LinearLayout>
 
