@@ -41,6 +41,7 @@
                     android:layout_weight="0.5">
 
                     <EditText
+                        android:id="@+id/login"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/mijnSchool"

@@ -29,6 +29,7 @@ dependencies {
     compile 'com.android.support:design:25.4.0'
     testCompile 'junit:junit:4.12'
 
-    //Add Library
+    //Add Libraries
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.google.zxing:core:3.2.1'
 }

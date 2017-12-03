@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import static com.mixxamm.smartpassalpha.R.id.login;
+
 import static com.mixxamm.smartpassalpha.R.id.smartschool_login;
 
 public class MainActivity extends AppCompatActivity {
