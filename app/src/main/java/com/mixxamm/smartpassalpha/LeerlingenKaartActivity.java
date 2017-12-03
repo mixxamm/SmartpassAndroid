@@ -23,7 +23,7 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
     Thread thread;
     public final static int QRcodeWidth = 500;
     Bitmap bitmap;
-    int id;
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_leerlingen_kaart);
 
         imageView = (ImageView)findViewById(R.id.imageView);
-        id = 0;
+        id = "De leerling Maxim Janssens uit 6NI mag naar buiten";
         QRCodeWriter writer = new QRCodeWriter();
         try {
             BitMatrix bitMatrix = writer.encode(String.valueOf(id), BarcodeFormat.QR_CODE, 512, 512);

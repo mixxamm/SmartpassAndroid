@@ -46,7 +46,7 @@ public class LeerkrachtenActivity extends AppCompatActivity {
                     public void run() {
                         info.setText(barcode.displayValue);
 
-                            
+
 
                         }
 
