@@ -52,6 +52,7 @@ public class ScanActivity extends AppCompatActivity {
                 }
             }
 
+
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 
@@ -59,7 +60,7 @@ public class ScanActivity extends AppCompatActivity {
 
             @Override
             public void surfaceDestroyed(SurfaceHolder holder) {
-
+                cameraSource.stop();//Stopt de camera nadat de scanactiviteit is gesloten (bespaart enorm veel batterij)
             }
         });
         barcode.setProcessor(new Detector.Processor<Barcode>() {
@@ -76,7 +77,9 @@ public class ScanActivity extends AppCompatActivity {
                     intent.putExtra("barcode", barcodes.valueAt(0));
                     setResult(RESULT_OK, intent);
                     finish();
+
                 }
+
             }
         });
     }

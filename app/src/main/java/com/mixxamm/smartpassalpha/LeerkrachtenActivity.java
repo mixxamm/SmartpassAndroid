@@ -15,8 +15,8 @@ import com.google.android.gms.vision.barcode.Barcode;
 
 public class LeerkrachtenActivity extends AppCompatActivity {
 
-    Button scanButton;
-    TextView info;
+    Button scanButton;//Knop object aanmaken
+    TextView info;//TextView met informatie aanmaken
     public static final int REQUEST_CODE = 100;
     public static final int PERMISSION_REQUEST = 200;
     @Override
