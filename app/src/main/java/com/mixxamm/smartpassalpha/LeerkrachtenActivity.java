@@ -44,11 +44,8 @@ public class LeerkrachtenActivity extends AppCompatActivity {
                 info.post(new Runnable() {
                     @Override
                     public void run() {
-                        info.setText(barcode.displayValue);
-
-
-
-                        }
+                        info.setText(barcode.displayValue);//TODO: waarde uit QR-code halen en id opzoeken in database
+                    }
 
 
                 });

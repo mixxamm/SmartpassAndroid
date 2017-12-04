@@ -37,7 +37,7 @@ public class ScanActivity extends AppCompatActivity {
             this.finish();
         }
         cameraSource = new CameraSource.Builder(this, barcode).setFacing(CameraSource.CAMERA_FACING_BACK)
-                .setRequestedFps(24).setAutoFocusEnabled(true).setRequestedPreviewSize(1920,1024)
+                .setRequestedFps(60).setAutoFocusEnabled(true).setRequestedPreviewSize(1920,1080)
                 .build();
         cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override

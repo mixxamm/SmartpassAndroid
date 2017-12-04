@@ -12,6 +12,7 @@
         android:orientation="vertical">
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="match_parent"
+            android:id="@+id/profielFoto"
             android:layout_height="wrap_content"
             android:src="@drawable/demopf128"
             android:layout_margin="16dp"/>

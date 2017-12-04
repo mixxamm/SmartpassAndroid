@@ -17,9 +17,12 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class LeerlingenKaartActivity extends AppCompatActivity {
 
     ImageView imageView;
+    CircleImageView profielFoto;//Variabele profielFoto maken
     Thread thread;
     public final static int QRcodeWidth = 500;
     Bitmap bitmap;
@@ -31,7 +34,9 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_leerlingen_kaart);
 
         imageView = (ImageView)findViewById(R.id.imageView);
-        id = "De leerling Maxim Janssens uit 6NI mag naar buiten";
+        profielFoto = (CircleImageView)findViewById(R.id.profielFoto);//Object profielFoto maken TODO:verbinden met database
+
+        id = "De leerling Maxim Janssens uit 6NI mag naar buiten";//TODO:ID uit database halen
         QRCodeWriter writer = new QRCodeWriter();
         try {
             BitMatrix bitMatrix = writer.encode(String.valueOf(id), BarcodeFormat.QR_CODE, 512, 512);
