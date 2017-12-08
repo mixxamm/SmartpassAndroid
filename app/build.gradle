@@ -33,4 +33,5 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'//Afbeelding in cirkelvorm
     compile 'com.google.zxing:core:3.2.1'//QR-code generator
     compile 'com.google.android.gms:play-services-vision:11.6.0'//QR-code lezer
+    compile 'com.android.volley:volley:1.1.0'//Data versturen over netwerk
 }
