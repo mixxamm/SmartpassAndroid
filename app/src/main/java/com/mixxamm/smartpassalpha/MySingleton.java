@@ -11,6 +11,7 @@ import com.android.volley.toolbox.Volley;
 
 /**
  * Created by maxim on 8/12/2017.
+ * *******vergeten waarom ik dit heb aangemaakt :) ********* TODO: nakijken of deze klasse nodig is
  */
 
 public class MySingleton {

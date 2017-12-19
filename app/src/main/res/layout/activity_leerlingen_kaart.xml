@@ -20,9 +20,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/leerlingNaam"
+            android:text=""
             android:gravity="center_horizontal"
             android:textSize="32sp"
+            android:id="@+id/leerlingNaam"
             />
         <TextView
             android:layout_width="match_parent"

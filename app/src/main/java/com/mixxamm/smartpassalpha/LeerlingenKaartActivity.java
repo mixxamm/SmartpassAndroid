@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -22,11 +24,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class LeerlingenKaartActivity extends AppCompatActivity {
 
     ImageView imageView;
+    TextView naamLeerling;
     CircleImageView profielFoto;//Variabele profielFoto maken
     Thread thread;
     public final static int QRcodeWidth = 500;
     Bitmap bitmap;
-    String id;
+    public static String id;
+    public static String naam;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +39,11 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_leerlingen_kaart);
 
         imageView = (ImageView)findViewById(R.id.imageView);
+        naamLeerling = (TextView)findViewById(R.id.leerlingNaam);
+        naamLeerling.setText(naam);
         profielFoto = (CircleImageView)findViewById(R.id.profielFoto);//Object profielFoto maken TODO:verbinden met database
 
-        id = "De leerling Maxim Janssens uit 6NI mag naar buiten";//TODO:ID uit database halen
+        //TODO:ID uit database halen
         QRCodeWriter writer = new QRCodeWriter();
         try {
             BitMatrix bitMatrix = writer.encode(String.valueOf(id), BarcodeFormat.QR_CODE, 512, 512);
@@ -54,4 +61,7 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
         e.printStackTrace();
         }
     }
+
+
+
 }

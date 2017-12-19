@@ -2,7 +2,11 @@ package com.mixxamm.smartpassalpha;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -30,7 +34,7 @@ public class Login extends AsyncTask<String, Void, String> {
         context = context1;
     }
     @Override
-    protected String doInBackground(String... params) {
+    public String doInBackground(String... params) {
         String type = params[0];
         String login_url = "https://smartpass.000webhostapp.com/connect/login.php";
         if(type.equals("login")){
@@ -57,15 +61,26 @@ public class Login extends AsyncTask<String, Void, String> {
                 while((line = bufferedReader.readLine()) != null){
                     result+= line;
                 }
+                JSONObject jsonobj = new JSONObject(result);
+                String leerlingID = jsonobj.getString("leerlingID");
+                String naam = jsonobj.getString("naam");
+                String gegevens[] = new String[2];
+                gegevens[0] = leerlingID;
+                gegevens[1] = naam;
+
+
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
-                return result;
+                return naam;//TODO: zowel id als naam uit database halen
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+
         }
         return null;
     }
@@ -78,10 +93,14 @@ public class Login extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
-        alertDialog.setMessage(result);
-        alertDialog.show();
+    public void onPostExecute(String naam) {
+        LeerlingenKaartActivity.id = naam;
+        LeerlingenKaartActivity.naam = naam;
+        Intent leerlingenkaart = new Intent(context, LeerlingenKaartActivity.class);
+        context.startActivity(leerlingenkaart);
+
     }
+
 
     @Override
     protected void onProgressUpdate(Void... values) {
