@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView smartschoolLogin = (ImageView) findViewById(smartschool_login);
         smartschoolLogin.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                Intent login = new Intent(view.getContext(), LoginActivity.class);
+                Intent login = new Intent(view.getContext(), LoginTest.class);
                 startActivity(login);
             }
         });
