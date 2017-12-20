@@ -65,7 +65,7 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
 
         naamLeerling = (TextView)findViewById(R.id.leerlingNaam);
         naamLeerling.setText(naam);
-        profielFoto = (CircleImageView)findViewById(R.id.profielFoto);//Object profielFoto maken TODO:verbinden met database
+        profielFoto = (CircleImageView)findViewById(R.id.profielFoto);
         Picasso.with(this).load(fotoURL).into(profielFoto);
 
 

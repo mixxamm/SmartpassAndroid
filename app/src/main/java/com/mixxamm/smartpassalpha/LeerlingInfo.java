@@ -81,5 +81,10 @@ public class LeerlingInfo extends AsyncTask<String, Void, String>{
         LeerkrachtenActivity.fotoURL = "https://smartpass.000webhostapp.com/foto/"+id+".png";
         LeerkrachtenActivity.buiten = naarBuiten;
     }
+    @Override
+    protected void onProgressUpdate(Void... values) {
+        super.onProgressUpdate(values);
+    }
+
 }
 
