@@ -28,6 +28,7 @@ import java.net.URLEncoder;
  */
 
 public class Login extends AsyncTask<String, Void, String> {
+    static String leerlingID, leerlingNaam;
     Context context;
     AlertDialog alertDialog;
     Login(Context context1){
@@ -61,18 +62,16 @@ public class Login extends AsyncTask<String, Void, String> {
                 while((line = bufferedReader.readLine()) != null){
                     result+= line;
                 }
-                JSONObject jsonobj = new JSONObject(result);
-                String leerlingID = jsonobj.getString("leerlingID");
-                String naam = jsonobj.getString("naam");
-                String gegevens[] = new String[2];
-                gegevens[0] = leerlingID;
-                gegevens[1] = naam;
 
+
+                JSONObject jsonobj = new JSONObject(result);
+                leerlingID = jsonobj.getString("leerlingID");
+                leerlingNaam = jsonobj.getString("naam");
 
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
-                return naam;//TODO: zowel id als naam uit database halen
+                //TODO: zowel id als naam uit database halen
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -85,6 +84,15 @@ public class Login extends AsyncTask<String, Void, String> {
         return null;
     }
 
+    public static String[] getGegevens() {
+        String[] gegevens = new String[2];
+        gegevens[0] = leerlingID;
+        gegevens[1] = leerlingNaam;
+
+        return gegevens;
+    }
+
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -94,8 +102,8 @@ public class Login extends AsyncTask<String, Void, String> {
 
     @Override
     public void onPostExecute(String naam) {
-        LeerlingenKaartActivity.id = naam;
-        LeerlingenKaartActivity.naam = naam;
+        LeerlingenKaartActivity.id = leerlingID;
+        LeerlingenKaartActivity.naam = leerlingNaam;
         Intent leerlingenkaart = new Intent(context, LeerlingenKaartActivity.class);
         context.startActivity(leerlingenkaart);
 
