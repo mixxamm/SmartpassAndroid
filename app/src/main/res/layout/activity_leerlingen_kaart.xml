@@ -13,9 +13,9 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="match_parent"
             android:id="@+id/profielFoto"
-            android:layout_height="wrap_content"
-            android:src="@drawable/demopf128"
-            android:layout_margin="16dp"/>
+            android:layout_height="150dp"
+            android:layout_margin="16dp"
+            />
 
         <TextView
             android:layout_width="match_parent"
@@ -28,14 +28,15 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/geldigTot"
+            android:text=""
             android:textSize="20sp"
             android:gravity="center_horizontal"
             android:textColor="#455A64"/>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="155dp"
-            android:src="@drawable/sync_alert"/>
+            android:id="@+id/imageViewBuiten"
+            />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

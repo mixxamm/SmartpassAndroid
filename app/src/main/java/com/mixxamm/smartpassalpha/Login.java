@@ -1,9 +1,12 @@
 package com.mixxamm.smartpassalpha;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +31,7 @@ import java.net.URLEncoder;
  */
 
 public class Login extends AsyncTask<String, Void, String> {
-    static String leerlingID, leerlingNaam;
+    static String leerlingID, leerlingNaam, naarBuiten;
     Context context;
     AlertDialog alertDialog;
     Login(Context context1){
@@ -67,11 +70,11 @@ public class Login extends AsyncTask<String, Void, String> {
                 JSONObject jsonobj = new JSONObject(result);
                 leerlingID = jsonobj.getString("leerlingID");
                 leerlingNaam = jsonobj.getString("naam");
+                naarBuiten = jsonobj.getString("buiten");
 
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
-                //TODO: zowel id als naam uit database halen
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -88,6 +91,7 @@ public class Login extends AsyncTask<String, Void, String> {
         String[] gegevens = new String[2];
         gegevens[0] = leerlingID;
         gegevens[1] = leerlingNaam;
+        gegevens[2] = naarBuiten;
 
         return gegevens;
     }
@@ -104,9 +108,11 @@ public class Login extends AsyncTask<String, Void, String> {
     public void onPostExecute(String naam) {
         LeerlingenKaartActivity.id = leerlingID;
         LeerlingenKaartActivity.naam = leerlingNaam;
+        LeerlingenKaartActivity.fotoURL = "https://smartpass.000webhostapp.com/foto/"+leerlingID+".png";
+        LeerlingenKaartActivity.buiten = naarBuiten;
         Intent leerlingenkaart = new Intent(context, LeerlingenKaartActivity.class);
         context.startActivity(leerlingenkaart);
-
+        ((Activity)context).finish();
     }
 
 
