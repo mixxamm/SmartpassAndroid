@@ -25,7 +25,7 @@ public class LoginTest extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         String gebruikersnaam = Gebruikersnaam.getText().toString();
         String wachtwoord = Wachtwoord.getText().toString();
-        String type = "login";
+        String type = "login";//Zorgt ervoor dat de klasse login weet dat we willen inloggen. (In de toekomst kunnen we nog andere functies toevoegen)
         Login login = new Login(this);
         login.execute(type, gebruikersnaam, wachtwoord);
     }

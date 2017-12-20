@@ -87,14 +87,6 @@ public class Login extends AsyncTask<String, Void, String> {
         return null;
     }
 
-    public static String[] getGegevens() {
-        String[] gegevens = new String[2];
-        gegevens[0] = leerlingID;
-        gegevens[1] = leerlingNaam;
-        gegevens[2] = naarBuiten;
-
-        return gegevens;
-    }
 
 
     @Override

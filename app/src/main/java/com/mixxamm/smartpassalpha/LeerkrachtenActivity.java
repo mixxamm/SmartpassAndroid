@@ -15,6 +15,7 @@ import com.google.android.gms.vision.barcode.Barcode;
 
 public class LeerkrachtenActivity extends AppCompatActivity {
 
+    public static String naam, fotoURL, buiten;
     Button scanButton;//Knop object aanmaken
     TextView info;//TextView met informatie aanmaken
     public static final int REQUEST_CODE = 100;
@@ -37,21 +38,36 @@ public class LeerkrachtenActivity extends AppCompatActivity {
         });
     }
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK){
-            if(data != null){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
                 final Barcode barcode = data.getParcelableExtra("barcode");
                 info.post(new Runnable() {
                     @Override
                     public void run() {
-                        info.setText(barcode.displayValue);//TODO: waarde uit QR-code halen en id opzoeken in database
+
+                        String id = barcode.rawValue;
+                        String type = "infoOphalen";
+                        LeerlingInfo infoLeerling = new LeerlingInfo(LeerkrachtenActivity.this);
+                        infoLeerling.execute(type, id);
+                        //TODO: naam en foto uit database halen alles is klaar, wordt al naar deze klasse doorgestuurd. Moet enkel nog ingesteld worden
                     }
 
 
                 });
 
             }
+
         }
+
+
     }
 
+/*    public void instellen()
+    {
+        info.setText("test");
+    }*/
+// all the listener stuff below
 }
+
+
