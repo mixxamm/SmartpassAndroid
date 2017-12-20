@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SmartpassAlpha.iml" filepath="$PROJECT_DIR$/SmartpassAlpha.iml" />
-      <module fileurl="file://C:\Users\janssensm\AndroidStudioProjects\SmartpassAlphaAndroid\SmartpassAlpha.iml" filepath="C:\Users\janssensm\AndroidStudioProjects\SmartpassAlphaAndroid\SmartpassAlpha.iml" />
-      <module fileurl="file://C:\Users\maxim\AndroidStudioProjects\SmartpassAlpha\SmartpassAlphaAndroid.iml" filepath="C:\Users\maxim\AndroidStudioProjects\SmartpassAlpha\SmartpassAlphaAndroid.iml" />
-      <module fileurl="file://C:\Users\maxim\AndroidStudioProjects\SmartpassAlpha\.idea\SmartpassAlphaAndroid.iml" filepath="C:\Users\maxim\AndroidStudioProjects\SmartpassAlpha\.idea\SmartpassAlphaAndroid.iml" />
+      <module fileurl="file://C:\Users\maxim\AndroidStudioProjects\SmartpassAlpha\.idea\SmartpassAndroid.iml" filepath="C:\Users\maxim\AndroidStudioProjects\SmartpassAlpha\.idea\SmartpassAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

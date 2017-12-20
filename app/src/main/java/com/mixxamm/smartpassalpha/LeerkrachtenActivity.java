@@ -3,8 +3,11 @@ package com.mixxamm.smartpassalpha;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,9 +15,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.barcode.Barcode;
+import com.squareup.picasso.Picasso;
 
-public class LeerkrachtenActivity extends AppCompatActivity {
+import de.hdodenhof.circleimageview.CircleImageView;
 
+public class LeerkrachtenActivity extends AppCompatActivity{
+
+    CircleImageView profielFotoScan;
+    public static String naam, fotoURL, buiten;
     Button scanButton;//Knop object aanmaken
     TextView info;//TextView met informatie aanmaken
     public static final int REQUEST_CODE = 100;
@@ -37,21 +45,39 @@ public class LeerkrachtenActivity extends AppCompatActivity {
         });
     }
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK){
-            if(data != null){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
                 final Barcode barcode = data.getParcelableExtra("barcode");
                 info.post(new Runnable() {
                     @Override
                     public void run() {
-                        info.setText(barcode.displayValue);//TODO: waarde uit QR-code halen en id opzoeken in database
+
+                        String id = barcode.rawValue;
+                        String type = "infoOphalen";
+                        LeerlingInfo infoLeerling = new LeerlingInfo(LeerkrachtenActivity.this);
+                        infoLeerling.execute(type, id);
+                        profielFotoScan = (CircleImageView) findViewById(R.id.profielFotoScan);
+                        Picasso.with(LeerkrachtenActivity.this).load(fotoURL).into(profielFotoScan);
+                        //TODO: naam en foto uit database halen alles is klaar, wordt al naar deze klasse doorgestuurd. Moet enkel nog ingesteld worden
                     }
 
 
                 });
 
             }
+
         }
+
+
     }
 
+
+/*    public void instellen()
+    {
+        info.setText("test");
+    }*/
+// all the listener stuff below
 }
+
+
