@@ -88,6 +88,9 @@ public class LeerlingInfo extends AsyncTask<String, Void, String>{
 
 
 
+
+
+
         Toast.makeText(context, "Test", Toast.LENGTH_SHORT).show();
         /*Intent leerkrachtenActivity = new Intent(context, LeerkrachtenActivity.class);
         context.startActivity(leerkrachtenActivity);*/
@@ -95,6 +98,7 @@ public class LeerlingInfo extends AsyncTask<String, Void, String>{
     @Override
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
+
     }
 
 }

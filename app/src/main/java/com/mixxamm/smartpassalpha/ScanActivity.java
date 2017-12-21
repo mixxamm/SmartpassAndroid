@@ -62,7 +62,8 @@ public class ScanActivity extends AppCompatActivity {
 
             @Override
             public void surfaceDestroyed(SurfaceHolder holder) {
-                cameraSource.stop();//Stopt de camera nadat de scanactiviteit is gesloten (bespaart enorm veel batterij)
+                cameraSource.stop();
+                //Stopt de camera nadat de scanactiviteit is gesloten (bespaart enorm veel batterij)
             }
         });
         barcode.setProcessor(new Detector.Processor<Barcode>() {

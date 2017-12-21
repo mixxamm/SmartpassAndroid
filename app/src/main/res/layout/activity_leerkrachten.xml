@@ -27,7 +27,15 @@
         android:layout_marginTop="8dp"
         android:textSize="25sp"
         android:padding="8dp"
+        android:layout_below="@id/profielFotoScan"
+        android:textAlignment="center"
         />
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/info"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/magBuiten"/>
 </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
