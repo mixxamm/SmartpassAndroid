@@ -1,6 +1,7 @@
 package com.mixxamm.smartpassalpha;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -12,7 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.barcode.Barcode;
 import com.squareup.picasso.Picasso;
@@ -59,6 +62,10 @@ public class LeerkrachtenActivity extends AppCompatActivity{
                         infoLeerling.execute(type, id);
                         profielFotoScan = (CircleImageView) findViewById(R.id.profielFotoScan);
                         Picasso.with(LeerkrachtenActivity.this).load(fotoURL).into(profielFotoScan);
+                        info.setText(naam);
+
+
+
                         //TODO: naam en foto uit database halen alles is klaar, wordt al naar deze klasse doorgestuurd. Moet enkel nog ingesteld worden
                     }
 

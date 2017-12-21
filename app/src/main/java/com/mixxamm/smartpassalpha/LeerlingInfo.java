@@ -1,7 +1,11 @@
 package com.mixxamm.smartpassalpha;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.widget.Toast;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -80,6 +84,13 @@ public class LeerlingInfo extends AsyncTask<String, Void, String>{
         LeerkrachtenActivity.naam = leerlingNaam;
         LeerkrachtenActivity.fotoURL = "https://smartpass.000webhostapp.com/foto/"+id+".png";
         LeerkrachtenActivity.buiten = naarBuiten;
+
+
+
+
+        Toast.makeText(context, "Test", Toast.LENGTH_SHORT).show();
+        /*Intent leerkrachtenActivity = new Intent(context, LeerkrachtenActivity.class);
+        context.startActivity(leerkrachtenActivity);*/
     }
     @Override
     protected void onProgressUpdate(Void... values) {

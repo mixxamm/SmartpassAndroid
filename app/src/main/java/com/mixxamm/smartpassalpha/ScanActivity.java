@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
@@ -77,7 +79,6 @@ public class ScanActivity extends AppCompatActivity {
                     intent.putExtra("barcode", barcodes.valueAt(0));
                     setResult(RESULT_OK, intent);
                     finish();
-
                 }
 
             }
