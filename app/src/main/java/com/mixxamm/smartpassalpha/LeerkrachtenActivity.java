@@ -65,10 +65,13 @@ public class LeerkrachtenActivity extends AppCompatActivity{
                         LeerlingInfo infoLeerling = new LeerlingInfo(LeerkrachtenActivity.this);
                         infoLeerling.execute(type, id);
 
-                        profielFotoScan = (CircleImageView) findViewById(R.id.profielFotoScan);
+                        Intent toonLeerlingInfo = new Intent(LeerkrachtenActivity.this, ToonLeerlingInfo.class);
+                        LeerkrachtenActivity.this.startActivity(toonLeerlingInfo);
+
+                        /*profielFotoScan = (CircleImageView) findViewById(R.id.profielFotoScan);
                         Picasso.with(LeerkrachtenActivity.this).load(fotoURL).into(profielFotoScan);
                         info = (TextView) findViewById(R.id.info);
-                        info.setText(naam);
+                        info.setText(naam);*/
 
                         //TODO: kijken waarom onderstaande code crashed wanneer de app geen gegevens heeft
                         /*ImageView magBuiten = (ImageView) findViewById(R.id.magBuiten);
