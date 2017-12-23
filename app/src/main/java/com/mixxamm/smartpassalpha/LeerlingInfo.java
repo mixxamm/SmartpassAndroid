@@ -81,17 +81,14 @@ public class LeerlingInfo extends AsyncTask<String, Void, String>{
 
     @Override
     public void onPostExecute(String naam){
-        LeerkrachtenActivity.naam = leerlingNaam;
-        LeerkrachtenActivity.fotoURL = "https://smartpass.000webhostapp.com/foto/"+id+".png";
-        LeerkrachtenActivity.buiten = naarBuiten;
+        ToonLeerlingInfo.naam = leerlingNaam;
+        ToonLeerlingInfo.fotoURL = "https://smartpass.000webhostapp.com/foto/"+id+".png";
+        ToonLeerlingInfo.buiten = naarBuiten;
+
+        Intent toonLeerlingInfo = new Intent(context, ToonLeerlingInfo.class);
+        context.startActivity(toonLeerlingInfo);
 
 
-
-
-
-
-
-        Toast.makeText(context, "Test", Toast.LENGTH_SHORT).show();
         /*Intent leerkrachtenActivity = new Intent(context, LeerkrachtenActivity.class);
         context.startActivity(leerkrachtenActivity);*/
     }
