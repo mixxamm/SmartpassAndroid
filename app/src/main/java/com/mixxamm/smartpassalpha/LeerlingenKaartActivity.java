@@ -56,7 +56,7 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
         if(buiten.equals("1")){
             imageViewBuiten.setImageResource(R.drawable.ic_check_circle_black_48dp);
         }
-        else if(buiten.equals("2")){
+        else if(buiten.equals("0")){
             imageViewBuiten.setImageResource(R.drawable.ic_cancel_black_48dp);
         }
         else if(buiten.equals("3")){
