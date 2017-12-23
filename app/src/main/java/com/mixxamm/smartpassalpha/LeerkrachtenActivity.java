@@ -26,7 +26,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class LeerkrachtenActivity extends AppCompatActivity{
 
-    CircleImageView profielFotoScan;
+    public static ProgressBar progressBar;
+    //CircleImageView profielFotoScan;
     public static String naam, fotoURL, buiten;
     Button scanButton;//Knop object aanmaken
     TextView info;//TextView met informatie aanmaken
@@ -65,8 +66,10 @@ public class LeerkrachtenActivity extends AppCompatActivity{
                         LeerlingInfo infoLeerling = new LeerlingInfo(LeerkrachtenActivity.this);
                         infoLeerling.execute(type, id);
 
-                        Intent toonLeerlingInfo = new Intent(LeerkrachtenActivity.this, ToonLeerlingInfo.class);
-                        LeerkrachtenActivity.this.startActivity(toonLeerlingInfo);
+                        progressBar = (ProgressBar) findViewById(R.id.infoLaden);
+                        progressBar.setVisibility(View.VISIBLE);
+
+
 
                         /*profielFotoScan = (CircleImageView) findViewById(R.id.profielFotoScan);
                         Picasso.with(LeerkrachtenActivity.this).load(fotoURL).into(profielFotoScan);
@@ -98,10 +101,8 @@ public class LeerkrachtenActivity extends AppCompatActivity{
                 });
 
             }
-            else{
 
-            }
-            Toast.makeText(this, "Test1", Toast.LENGTH_SHORT).show();
+
         }
 
 
