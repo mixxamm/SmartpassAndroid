@@ -1,7 +1,11 @@
 package com.mixxamm.smartpassalpha;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.widget.Toast;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -77,13 +81,21 @@ public class LeerlingInfo extends AsyncTask<String, Void, String>{
 
     @Override
     public void onPostExecute(String naam){
-        LeerkrachtenActivity.naam = leerlingNaam;
-        LeerkrachtenActivity.fotoURL = "https://smartpass.000webhostapp.com/foto/"+id+".png";
-        LeerkrachtenActivity.buiten = naarBuiten;
+        ToonLeerlingInfo.naam = leerlingNaam;
+        ToonLeerlingInfo.fotoURL = "https://smartpass.000webhostapp.com/foto/"+id+".png";
+        ToonLeerlingInfo.buiten = naarBuiten;
+
+        Intent toonLeerlingInfo = new Intent(context, ToonLeerlingInfo.class);
+        context.startActivity(toonLeerlingInfo);
+
+
+        /*Intent leerkrachtenActivity = new Intent(context, LeerkrachtenActivity.class);
+        context.startActivity(leerkrachtenActivity);*/
     }
     @Override
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
+
     }
 
 }

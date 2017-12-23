@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
@@ -60,7 +62,8 @@ public class ScanActivity extends AppCompatActivity {
 
             @Override
             public void surfaceDestroyed(SurfaceHolder holder) {
-                cameraSource.stop();//Stopt de camera nadat de scanactiviteit is gesloten (bespaart enorm veel batterij)
+                cameraSource.stop();
+                //Stopt de camera nadat de scanactiviteit is gesloten (bespaart enorm veel batterij)
             }
         });
         barcode.setProcessor(new Detector.Processor<Barcode>() {
@@ -77,7 +80,6 @@ public class ScanActivity extends AppCompatActivity {
                     intent.putExtra("barcode", barcodes.valueAt(0));
                     setResult(RESULT_OK, intent);
                     finish();
-
                 }
 
             }

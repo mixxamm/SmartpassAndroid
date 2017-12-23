@@ -14,20 +14,26 @@
         android:id="@+id/scanButton"
         android:text="Scan"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        />
+        android:layout_alignParentBottom="true"/>
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:id="@+id/profielFotoScan"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/info"
-        android:layout_marginTop="8dp"
-        android:textSize="25sp"
-        android:padding="8dp"
-        />
+           android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:id="@+id/profielFotoScan"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/info"
+           android:textSize="25sp"
+            android:padding="8dp"
+            />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:id="@+id/infoLaden"/>
+
 </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
