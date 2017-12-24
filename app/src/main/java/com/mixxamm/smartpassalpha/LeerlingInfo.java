@@ -35,7 +35,7 @@ public class LeerlingInfo extends AsyncTask<String, Void, String>{
     @Override
     protected String doInBackground(String... params) {
         String type = params[0];
-        String scan_url = "https://smartpass.000webhostapp.com/connect/scan.php";
+        String scan_url = "http://smartpass.one/connect/scan.php";
         if(type.equals("infoOphalen")){
             try{
                 id = params[1];
@@ -82,7 +82,7 @@ public class LeerlingInfo extends AsyncTask<String, Void, String>{
     @Override
     public void onPostExecute(String naam){
         ToonLeerlingInfo.naam = leerlingNaam;
-        ToonLeerlingInfo.fotoURL = "https://smartpass.000webhostapp.com/foto/"+id+".png";
+        ToonLeerlingInfo.fotoURL = "http://smartpass.one/foto/"+id+".png";
         ToonLeerlingInfo.buiten = naarBuiten;
 
         Intent toonLeerlingInfo = new Intent(context, ToonLeerlingInfo.class);
