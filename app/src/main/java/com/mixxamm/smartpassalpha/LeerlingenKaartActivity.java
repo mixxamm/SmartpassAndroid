@@ -40,11 +40,7 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
     Thread thread;
     public final static int QRcodeWidth = 500;
     Bitmap bitmap;
-    public static String id;
-    public static String naam;
-    public static String fotoURL;
-    public static String buiten;
-
+    public static String id, naam, fotoURL, buiten;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

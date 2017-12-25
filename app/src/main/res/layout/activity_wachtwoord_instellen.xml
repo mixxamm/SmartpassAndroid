@@ -4,43 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mixxamm.smartpassalpha.LoginTest">
+    tools:context="com.mixxamm.smartpassalpha.WachtwoordInstellen">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Gebruikersnaam"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="16dp"
-                android:id="@+id/gebruikersnaamtest"
-                />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Gebruikersnaam"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:id="@+id/gebruikersnaamwachtwoordinstellen"
+            />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Wachtwoord"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:id="@+id/wachtwoordtest"
+            android:id="@+id/etwachtwoordinstellen"
+            android:inputType="textPassword"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Herhaal wachtwoord"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:id="@+id/etherhaalwachtwoordinstellen"
             android:inputType="textPassword"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="Login"
-            android:id="@+id/loginButton" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Eerste keer hier? Klik hier om je wachtwoord in te stellen."
-            android:textColor="@color/linkBlauw"
-            android:id="@+id/wachtwoordInstellen"
-            />
+            android:text="Stel wachtwoord in"
+            android:id="@+id/btnwachtwoordinstellen" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -54,5 +56,4 @@
 
 
     </LinearLayout>
-
 </android.support.constraint.ConstraintLayout>

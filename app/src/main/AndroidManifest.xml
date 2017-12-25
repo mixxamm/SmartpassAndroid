@@ -35,7 +35,8 @@
         <activity android:name=".ScanActivity" />
         <activity android:name=".LoginTest" />
         <activity android:name=".Laden" />
-        <activity android:name=".ToonLeerlingInfo"></activity>
+        <activity android:name=".ToonLeerlingInfo" />
+        <activity android:name=".WachtwoordInstellen"></activity>
     </application>
 
 </manifest>
