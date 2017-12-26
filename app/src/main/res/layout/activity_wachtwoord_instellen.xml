@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="Stel wachtwoord in"
+            android:text="Werkt nog niet, zelfs niet proberen"
             android:id="@+id/btnwachtwoordinstellen" />
 
         <RelativeLayout

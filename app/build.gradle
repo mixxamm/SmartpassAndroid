@@ -35,4 +35,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-vision:11.6.0'//QR-code lezer
     compile 'com.android.volley:volley:1.1.0'//Data versturen over netwerk
     compile 'com.squareup.picasso:picasso:2.5.2'//Makkelijk foto's uit database halen
+    compile 'com.github.florent37:materialtextfield:1.0.7'//Material design textveld
 }

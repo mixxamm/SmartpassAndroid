@@ -42,7 +42,7 @@ public class Login extends AsyncTask<String, Void, String> {
     @Override
     public String doInBackground(String... params) {
         String type = params[0];
-        String login_url = "https://smartpass.one/connect/loginalpha.php";
+        String login_url = "https://smartpass.one/connect/login.php";
         if(type.equals("login")){
             try {
                 String gebruikersnaam = params[1];
@@ -94,8 +94,7 @@ public class Login extends AsyncTask<String, Void, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        /*alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setTitle("Login Status");*/
+
     }
 
     @Override

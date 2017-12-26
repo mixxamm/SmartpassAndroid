@@ -10,23 +10,48 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+<com.github.florent37.materialtextfield.MaterialTextField
+    android:layout_marginTop="16dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    app:mtf_labelColor="@color/colorAccent"
+    app:mtf_backgroundColor="@color/lichtGrijs"
+    app:mtf_openKeyboardOnFocus="true"
+    app:mtf_hasFocus="true"
+    app:mtf_image="@drawable/account">
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Gebruikersnaam"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="16dp"
+                android:textSize="15sp"
                 android:id="@+id/gebruikersnaamtest"
                 />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Wachtwoord"
+</com.github.florent37.materialtextfield.MaterialTextField>
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:layout_marginTop="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:id="@+id/wachtwoordtest"
-            android:inputType="textPassword"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:mtf_backgroundColor="@color/lichtGrijs"
+            app:mtf_labelColor="@color/colorAccent"
+            app:mtf_image="@drawable/key">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Wachtwoord"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:id="@+id/wachtwoordtest"
+                android:inputType="textPassword"/>
+        </com.github.florent37.materialtextfield.MaterialTextField>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

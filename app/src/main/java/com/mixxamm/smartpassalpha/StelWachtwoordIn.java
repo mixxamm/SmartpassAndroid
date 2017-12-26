@@ -68,7 +68,10 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
     }
     @Override
     public void onPreExecute(){
-        alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setTitle("Wachtwoord instellen status");
+
+    }
+    @Override
+    public void onPostExecute(String test){
+
     }
 }

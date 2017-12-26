@@ -10,10 +10,13 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+
+
 public class LoginTest extends AppCompatActivity {
 
     ProgressBar progressBar;
     EditText Gebruikersnaam, Wachtwoord;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +34,7 @@ public class LoginTest extends AppCompatActivity {
                 String gebruikersnaam = Gebruikersnaam.getText().toString();
                 String wachtwoord = Wachtwoord.getText().toString();
                 String type = "login";//Zorgt ervoor dat de klasse login weet dat we willen inloggen. (In de toekomst kunnen we nog andere functies toevoegen)
+
                 Login login = new Login(LoginTest.this);
                 login.execute(type, gebruikersnaam, wachtwoord);
             }

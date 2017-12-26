@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.mixxamm.smartpassalpha">
 
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Geen flauw idee of dit nog nodig is, maar zolang het geen errors geeft is het goed zeker :) -->
@@ -10,6 +11,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
+        tools:replace="android:label"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Smartpass"
@@ -18,7 +20,8 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
-            android:value="barcode" />
+            android:value="barcode"
+            />
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -34,7 +37,6 @@
         <activity android:name=".LeerkrachtenActivity" />
         <activity android:name=".ScanActivity" />
         <activity android:name=".LoginTest" />
-        <activity android:name=".Laden" />
         <activity android:name=".ToonLeerlingInfo" />
         <activity android:name=".WachtwoordInstellen"></activity>
     </application>
