@@ -11,17 +11,16 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        tools:replace="android:label"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Smartpass"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:label">
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
-            android:value="barcode"
-            />
+            android:value="barcode" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -38,7 +37,19 @@
         <activity android:name=".ScanActivity" />
         <activity android:name=".LoginTest" />
         <activity android:name=".ToonLeerlingInfo" />
-        <activity android:name=".WachtwoordInstellen"></activity>
+        <activity android:name=".WachtwoordInstellen" />
+        <activity
+            android:name=".Introductie"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_introductie"
+            android:theme="@style/FullscreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                
+            </intent-filter>
+        </activity>
+        <activity android:name=".WoWoAlphaAnimationActivity"></activity>
     </application>
 
 </manifest>
