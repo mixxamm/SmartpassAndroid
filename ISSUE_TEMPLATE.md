@@ -1,9 +1,9 @@
-### Expected behavior
+### Verwacht gedrag
 
-### Actual behavior
+### Daadwerkelijk gedrag
 
-### Steps to reproduce the behavior
+### Stappen om te reproduceren
 
-### Phone model
+### Smartphone model
 
-### Android-version
+### Android-versie
