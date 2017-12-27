@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
         Uri path = Uri.parse("android.recourse://" + getPackageName() + "/" + R.raw.video);
         videoView.setVideoURI(path);
         videoView.start();*/
+        Intent Introductie = new Intent(MainActivity.this, com.mixxamm.smartpassalpha.Introductie.class);
+        startActivity(Introductie);
         ImageView smartschoolLogin = (ImageView) findViewById(smartschool_login);
         smartschoolLogin.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
