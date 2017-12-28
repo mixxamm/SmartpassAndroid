@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -116,3 +117,5 @@ public class Login extends AsyncTask<String, Void, String> {
         super.onProgressUpdate(values);
     }
 }
+
+

@@ -56,8 +56,12 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leerlingen_kaart);
 
+        if(naam.equals("Leerling niet gevonden")){
+            resetLeerlingNaam();
+        }
         imageView = (ImageView) findViewById(R.id.imageView);
         ImageView imageViewBuiten = (ImageView) findViewById(R.id.imageViewBuiten);
+        CircleImageView profielFotoView = (CircleImageView) findViewById(R.id.profielFoto);
         if (buiten.equals("1")) {
             setActivityBackgroundColor(Color.parseColor("#8BC34A"), Color.parseColor("#689F38"));//parseColor gebruiken aangezien kleuren van colors.xml pakken niet werkt om een vage reden
         } else if (buiten.equals("0")) {
@@ -65,6 +69,7 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
         } else if (buiten.equals("3")) {
             imageViewBuiten.setImageResource(R.drawable.alert_circle);
             imageViewBuiten.setVisibility(View.VISIBLE);
+            profielFotoView.setVisibility(View.INVISIBLE);
         }
 
         Button logUitKnop = (Button) findViewById(R.id.logUitKnop);
@@ -117,5 +122,11 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
         }
     }
 
-
+    public void resetLeerlingNaam(){
+        SharedPreferences naamGebruiker = getSharedPreferences("NaamGebruiker", 0);
+        SharedPreferences.Editor editor = naamGebruiker.edit();
+        editor.putString("naamGebruiker", "");
+        editor.commit();
+    }
 }
+
