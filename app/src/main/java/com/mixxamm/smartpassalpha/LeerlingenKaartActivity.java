@@ -6,10 +6,13 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -50,13 +53,14 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
         imageView = (ImageView)findViewById(R.id.imageView);
         ImageView imageViewBuiten = (ImageView) findViewById(R.id.imageViewBuiten);
         if(buiten.equals("1")){
-            imageViewBuiten.setImageResource(R.drawable.ic_check_circle_black_48dp);
+            setActivityBackgroundColor(Color.parseColor("#8BC34A"), Color.parseColor("#689F38"));//parseColor gebruiken aangezien kleuren van colors.xml pakken niet werkt om een vage reden
         }
         else if(buiten.equals("0")){
-            imageViewBuiten.setImageResource(R.drawable.ic_cancel_black_48dp);
+            setActivityBackgroundColor(Color.parseColor("#F44336"), Color.parseColor("#D32F2F"));
         }
         else if(buiten.equals("3")){
             imageViewBuiten.setImageResource(R.drawable.alert_circle);
+            imageViewBuiten.setVisibility(View.VISIBLE);
         }
 
         naamLeerling = (TextView)findViewById(R.id.leerlingNaam);
@@ -80,6 +84,16 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
 
         } catch(WriterException e) {
         e.printStackTrace();
+        }
+    }
+    public void setActivityBackgroundColor(int color, int color2) {
+        View layout = new View(getBaseContext());
+        layout = (View)findViewById(R.id.leerlingenKaartLayout);
+        layout.setBackgroundColor(color);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(color2);
         }
     }
 

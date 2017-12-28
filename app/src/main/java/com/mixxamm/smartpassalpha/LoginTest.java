@@ -22,7 +22,18 @@ public class LoginTest extends AppCompatActivity {
 
     //Voorkeuren
     private static final String PREFS= "preferences";
-    private static final String PREF_GEBRUIKERSNAAM = "gebruikersnaam";
+    private static final String PREF_GEBRUIKERSNAAM = "Gebruikersnaam";
+    private static final String PREF_WACHTWOORD = "Wachtwoord";
+    private final String DefaultGebruikersnaamValue = "";
+    private String GebruikersnaamValue;
+
+    private final String DefaultWachtwoordValue = "";
+    private String WachtwoordValue;
+    @Override
+    public void onPause(){
+        super.onPause();
+        savePreferences();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +60,7 @@ public class LoginTest extends AppCompatActivity {
             }
         });
 
+
         wachtwoordInstellen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +68,9 @@ public class LoginTest extends AppCompatActivity {
                 startActivity(wachtwoordInstellen);
             }
         });
+    }
+    private void savePreferences(){
+
     }
 
 
