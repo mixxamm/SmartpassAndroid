@@ -25,13 +25,15 @@
             android:textSize="32sp"
             android:id="@+id/leerlingNaam"
             />
-        <TextView
+        <TextClock
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="20sp"
-            android:gravity="center_horizontal"
-            android:textColor="#455A64"/>
+            android:format24Hour="HH:mm:ss"
+            android:textSize="80sp"
+            android:textAlignment="center"
+            android:textColor="#455A64"
+            />
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="155dp"

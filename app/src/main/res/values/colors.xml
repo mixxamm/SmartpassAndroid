@@ -20,6 +20,7 @@
     <color name="gray">#6E6E6F</color>
     <color name="black_background">#2C2D2E</color>
     <color name="rocket_fire">#EFC75E</color>
+    <color name="lichtBlauw">#03A9F4</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>
