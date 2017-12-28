@@ -10,6 +10,7 @@ import android.widget.TextView;
 public class WachtwoordInstellen extends AppCompatActivity {
 
     EditText Gebruikersnaam, Wachtwoord, HerhaalWachtwoord;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

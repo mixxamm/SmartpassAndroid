@@ -24,14 +24,18 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
     Context context;
-    StelWachtwoordIn(Context context1){ context = context1;}
     AlertDialog alertDialog;
+
+    StelWachtwoordIn(Context context1) {
+        context = context1;
+    }
+
     @Override
-    public String doInBackground(String...params){
+    public String doInBackground(String... params) {
         String type = params[0];
         String stelWachtwoordIn_url = "https://smartpass.one/connect/stelwachtwoordin.php";
-        if(type.equals("stelWachtwoordIn")){
-            try{
+        if (type.equals("stelWachtwoordIn")) {
+            try {
                 String gebruikersnaam = params[1];
                 String wachtwoord = params[2];
                 URL url = new URL(stelWachtwoordIn_url);
@@ -41,18 +45,18 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
                 httpsURLConnection.setDoInput(true);
                 OutputStream outputStream = httpsURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("gebruikersnaam", "UTF-8")+"="+URLEncoder.encode(gebruikersnaam, "UTF-8")+"&"
-                        +URLEncoder.encode("wachtwoord","UTF-8")+"="+URLEncoder.encode(wachtwoord, "UTF-8");
+                String post_data = URLEncoder.encode("gebruikersnaam", "UTF-8") + "=" + URLEncoder.encode(gebruikersnaam, "UTF-8") + "&"
+                        + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
                 outputStream.close();
                 InputStream inputStream = httpsURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                String result ="";
-                String line="";
-                while((line = bufferedReader.readLine()) != null){
-                    result+= line;
+                String result = "";
+                String line = "";
+                while ((line = bufferedReader.readLine()) != null) {
+                    result += line;
                 }
 
             } catch (MalformedURLException e) {
@@ -66,12 +70,14 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
         }
         return null;
     }
+
     @Override
-    public void onPreExecute(){
+    public void onPreExecute() {
 
     }
+
     @Override
-    public void onPostExecute(String test){
+    public void onPostExecute(String test) {
 
     }
 }

@@ -26,11 +26,11 @@ import com.nightonke.wowoviewpager.WoWoPathView;
 
 public class Introductie extends WoWoActivity {
 
+    EditText Gebruikersnaam, Wachtwoord;
     private int r;
     private boolean animationAdded = false;
     private ImageView logoSmartpass;
     private View loginLayout;
-    EditText Gebruikersnaam, Wachtwoord;
 
     @Override
     protected int contentViewRes() {
@@ -56,7 +56,7 @@ public class Introductie extends WoWoActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        r = (int)Math.sqrt(screenW * screenW + screenH * screenH) + 10;
+        r = (int) Math.sqrt(screenW * screenW + screenH * screenH) + 10;
 
         ImageView earth = (ImageView) findViewById(R.id.earth);
         logoSmartpass = (ImageView) findViewById(R.id.smartpass_logo);
@@ -72,8 +72,8 @@ public class Introductie extends WoWoActivity {
         wowo.addTemporarilyInvisibleViews(2, loginLayout, findViewById(R.id.button));
 
 
-        Gebruikersnaam = (EditText)findViewById(R.id.username);
-        Wachtwoord = (EditText)findViewById(R.id.password);
+        Gebruikersnaam = (EditText) findViewById(R.id.username);
+        Wachtwoord = (EditText) findViewById(R.id.password);
         Button loginButton = (Button) findViewById(R.id.button);
 
 

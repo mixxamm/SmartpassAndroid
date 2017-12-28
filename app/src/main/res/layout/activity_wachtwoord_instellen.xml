@@ -12,46 +12,49 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/gebruikersnaamwachtwoordinstellen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Gebruikersnaam"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
-            android:id="@+id/gebruikersnaamwachtwoordinstellen"
-            />
+            android:hint="Gebruikersnaam" />
+
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Wachtwoord"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:id="@+id/etwachtwoordinstellen"
-            android:inputType="textPassword"/>
-        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Herhaal wachtwoord"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
+            android:hint="Wachtwoord"
+            android:inputType="textPassword" />
+
+        <EditText
             android:id="@+id/etherhaalwachtwoordinstellen"
-            android:inputType="textPassword"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="Herhaal wachtwoord"
+            android:inputType="textPassword" />
+
         <Button
+            android:id="@+id/btnwachtwoordinstellen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="Werkt nog niet, zelfs niet proberen"
-            android:id="@+id/btnwachtwoordinstellen" />
+            android:text="Werkt nog niet, zelfs niet proberen" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ProgressBar
+                android:id="@+id/login_laden"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:id="@+id/login_laden"
-                android:visibility="gone"/>
+                android:visibility="gone" />
         </RelativeLayout>
 
 
