@@ -1,5 +1,7 @@
 package com.mixxamm.smartpassalpha;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -16,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.zxing.BarcodeFormat;
@@ -63,6 +66,19 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
             imageViewBuiten.setVisibility(View.VISIBLE);
         }
 
+        Button logUitKnop = (Button) findViewById(R.id.logUitKnop);
+        logUitKnop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences naamGebruiker = getSharedPreferences("NaamGebruiker", 0);
+                SharedPreferences.Editor editor = naamGebruiker.edit();
+                editor.putString("naamGebruiker", "");
+                editor.commit();
+                Intent main = new Intent(LeerlingenKaartActivity.this, MainActivity.class);
+                startActivity(main);
+            }
+        });
+
         naamLeerling = (TextView)findViewById(R.id.leerlingNaam);
         naamLeerling.setText(naam);
         profielFoto = (CircleImageView)findViewById(R.id.profielFoto);
@@ -90,6 +106,8 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
         View layout = new View(getBaseContext());
         layout = (View)findViewById(R.id.leerlingenKaartLayout);
         layout.setBackgroundColor(color);
+        Button logUitKnop = (Button) findViewById(R.id.logUitKnop);
+        logUitKnop.setBackgroundColor(color);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);

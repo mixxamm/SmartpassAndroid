@@ -1,5 +1,6 @@
 package com.mixxamm.smartpassalpha;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -84,6 +85,15 @@ public class Introductie extends WoWoActivity {
                 String gebruikersnaam = Gebruikersnaam.getText().toString();
                 String wachtwoord = Wachtwoord.getText().toString();
                 String type = "login";//Zorgt ervoor dat de klasse login weet dat we willen inloggen. (In de toekomst kunnen we nog andere functies toevoegen)
+
+                SharedPreferences naamGebruiker = getSharedPreferences("NaamGebruiker", 0);
+                SharedPreferences.Editor editor = naamGebruiker.edit();
+                editor.putString("naamGebruiker", gebruikersnaam);
+                editor.commit();
+                SharedPreferences wachtwoordGebruiker = getSharedPreferences("WachtwoordGebruiker", 0);
+                SharedPreferences.Editor editor1 = wachtwoordGebruiker.edit();
+                editor1.putString("wachtwoordGebruiker", wachtwoord);
+                editor1.commit();
 
                 Login login = new Login(Introductie.this);
                 login.execute(type, gebruikersnaam, wachtwoord);

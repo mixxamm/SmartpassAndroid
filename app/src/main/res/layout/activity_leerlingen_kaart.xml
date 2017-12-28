@@ -47,6 +47,14 @@
             android:id="@+id/imageView"
             android:layout_gravity="center_horizontal"
             />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log uit"
+            android:id="@+id/logUitKnop"
+            android:layout_gravity="center"
+            android:layout_margin="16sp"
+            />
 
     </LinearLayout>
 
