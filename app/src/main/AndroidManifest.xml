@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.mixxamm.smartpassalpha">
 
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Geen flauw idee of dit nog nodig is, maar zolang het geen errors geeft is het goed zeker :) -->
@@ -15,7 +16,8 @@
         android:label="Smartpass"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:label">
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
@@ -34,8 +36,20 @@
         <activity android:name=".LeerkrachtenActivity" />
         <activity android:name=".ScanActivity" />
         <activity android:name=".LoginTest" />
-        <activity android:name=".Laden" />
-        <activity android:name=".ToonLeerlingInfo"></activity>
+        <activity android:name=".ToonLeerlingInfo" />
+        <activity android:name=".WachtwoordInstellen" />
+        <activity
+            android:name=".Introductie"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_introductie"
+            android:theme="@style/FullscreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                
+            </intent-filter>
+        </activity>
+        <activity android:name=".WoWoAlphaAnimationActivity"></activity>
     </application>
 
 </manifest>

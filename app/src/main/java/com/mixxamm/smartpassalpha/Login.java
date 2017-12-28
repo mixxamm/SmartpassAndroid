@@ -23,6 +23,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import javax.net.ssl.HttpsURLConnection;
+
 /**
  * Created by maxim on 19/12/2017.
  * Deze klasse zorgt ervoor dat inloggen mogelijk is. Werkt in de achtergrond. De klasse LoginActivity en LoginTest bevatten de lay-out.
@@ -40,17 +42,17 @@ public class Login extends AsyncTask<String, Void, String> {
     @Override
     public String doInBackground(String... params) {
         String type = params[0];
-        String login_url = "https://smartpass.000webhostapp.com/connect/login.php";
+        String login_url = "https://smartpass.one/connect/login.php";
         if(type.equals("login")){
             try {
                 String gebruikersnaam = params[1];
                 String wachtwoord = params[2];
                 URL url = new URL(login_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
-                OutputStream outputStream = httpURLConnection.getOutputStream();
+                HttpsURLConnection httpsURLConnection = (HttpsURLConnection)url.openConnection();
+                httpsURLConnection.setRequestMethod("POST");
+                httpsURLConnection.setDoOutput(true);
+                httpsURLConnection.setDoInput(true);
+                OutputStream outputStream = httpsURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String post_data = URLEncoder.encode("gebruikersnaam", "UTF-8")+"="+URLEncoder.encode(gebruikersnaam, "UTF-8")+"&"
                         +URLEncoder.encode("wachtwoord", "UTF-8")+"="+URLEncoder.encode(wachtwoord, "UTF-8");
@@ -58,7 +60,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 bufferedWriter.flush();
                 bufferedWriter.close();
                 outputStream.close();
-                InputStream inputStream = httpURLConnection.getInputStream();
+                InputStream inputStream = httpsURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
                 String result="";
                 String line="";
@@ -74,7 +76,7 @@ public class Login extends AsyncTask<String, Void, String> {
 
                 bufferedReader.close();
                 inputStream.close();
-                httpURLConnection.disconnect();
+                httpsURLConnection.disconnect();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -92,15 +94,14 @@ public class Login extends AsyncTask<String, Void, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        /*alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setTitle("Login Status");*/
+
     }
 
     @Override
     public void onPostExecute(String naam) {
         LeerlingenKaartActivity.id = leerlingID;
         LeerlingenKaartActivity.naam = leerlingNaam;
-        LeerlingenKaartActivity.fotoURL = "https://smartpass.000webhostapp.com/foto/"+leerlingID+".png";
+        LeerlingenKaartActivity.fotoURL = "https://smartpass.one/foto/"+leerlingID+".png";
         LeerlingenKaartActivity.buiten = naarBuiten;
         Intent leerlingenkaart = new Intent(context, LeerlingenKaartActivity.class);
         context.startActivity(leerlingenkaart);

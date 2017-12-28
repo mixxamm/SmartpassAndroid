@@ -20,4 +20,8 @@
     <string name="mijnSchool">mijn-school</string>
     <string name="smartschool">.smartschool.be</string>
     <string name="Account">Account</string>
+
+    <string name="title_activity_introductie">Introductie</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

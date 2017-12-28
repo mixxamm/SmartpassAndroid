@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.mixxamm.smartpassalpha.LeerlingenKaartActivity"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    android:id="@+id/leerlingenKaartLayout">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,23 +26,34 @@
             android:textSize="32sp"
             android:id="@+id/leerlingNaam"
             />
-        <TextView
+        <TextClock
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="20sp"
-            android:gravity="center_horizontal"
-            android:textColor="#455A64"/>
+            android:format24Hour="HH:mm:ss"
+            android:textSize="80sp"
+            android:textAlignment="center"
+            android:textColor="#455A64"
+            />
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="155dp"
             android:id="@+id/imageViewBuiten"
+            android:visibility="gone"
             />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageView"
             android:layout_gravity="center_horizontal"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log uit"
+            android:id="@+id/logUitKnop"
+            android:layout_gravity="center"
+            android:layout_margin="16sp"
             />
 
     </LinearLayout>

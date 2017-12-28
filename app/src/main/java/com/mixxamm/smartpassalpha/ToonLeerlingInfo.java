@@ -43,6 +43,6 @@ public class ToonLeerlingInfo extends AppCompatActivity {
     public void onDestroy(){
         super.onDestroy();
 
-        LeerkrachtenActivity.progressBar.setVisibility(View.INVISIBLE);
+        LeerkrachtenActivity.progressBar.setVisibility(View.INVISIBLE);//TODO: BUG: op sommige smartphones gaat de progressbar niet weg
     }
 }
