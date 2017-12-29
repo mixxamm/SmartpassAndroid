@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -32,40 +33,43 @@ import javax.net.ssl.HttpsURLConnection;
  * die ook gaat worden gebruikt wanneer we werken aan het uiterlijk van de app, wat op dit moment de laagste prioriteit is.
  */
 
+
 public class Login extends AsyncTask<String, Void, String> {
     static String leerlingID, leerlingNaam, naarBuiten;
     Context context;
     AlertDialog alertDialog;
-    Login(Context context1){
+
+    Login(Context context1) {
         context = context1;
     }
+
     @Override
     public String doInBackground(String... params) {
         String type = params[0];
         String login_url = "https://smartpass.one/connect/login.php";
-        if(type.equals("login")){
+        if (type.equals("login")) {
             try {
                 String gebruikersnaam = params[1];
                 String wachtwoord = params[2];
                 URL url = new URL(login_url);
-                HttpsURLConnection httpsURLConnection = (HttpsURLConnection)url.openConnection();
+                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
                 httpsURLConnection.setRequestMethod("POST");
                 httpsURLConnection.setDoOutput(true);
                 httpsURLConnection.setDoInput(true);
                 OutputStream outputStream = httpsURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("gebruikersnaam", "UTF-8")+"="+URLEncoder.encode(gebruikersnaam, "UTF-8")+"&"
-                        +URLEncoder.encode("wachtwoord", "UTF-8")+"="+URLEncoder.encode(wachtwoord, "UTF-8");
+                String post_data = URLEncoder.encode("gebruikersnaam", "UTF-8") + "=" + URLEncoder.encode(gebruikersnaam, "UTF-8") + "&"
+                        + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
                 outputStream.close();
                 InputStream inputStream = httpsURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                String result="";
-                String line="";
-                while((line = bufferedReader.readLine()) != null){
-                    result+= line;
+                String result = "";
+                String line = "";
+                while ((line = bufferedReader.readLine()) != null) {
+                    result += line;
                 }
 
 
@@ -90,7 +94,6 @@ public class Login extends AsyncTask<String, Void, String> {
     }
 
 
-
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -101,11 +104,11 @@ public class Login extends AsyncTask<String, Void, String> {
     public void onPostExecute(String naam) {
         LeerlingenKaartActivity.id = leerlingID;
         LeerlingenKaartActivity.naam = leerlingNaam;
-        LeerlingenKaartActivity.fotoURL = "https://smartpass.one/foto/"+leerlingID+".png";
+        LeerlingenKaartActivity.fotoURL = "https://smartpass.one/foto/" + leerlingID + ".png";
         LeerlingenKaartActivity.buiten = naarBuiten;
         Intent leerlingenkaart = new Intent(context, LeerlingenKaartActivity.class);
         context.startActivity(leerlingenkaart);
-        ((Activity)context).finish();
+        ((Activity) context).finish();
     }
 
 
@@ -114,3 +117,5 @@ public class Login extends AsyncTask<String, Void, String> {
         super.onProgressUpdate(values);
     }
 }
+
+

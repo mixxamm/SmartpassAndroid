@@ -5,80 +5,83 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.mixxamm.smartpassalpha.LoginTest">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-<com.github.florent37.materialtextfield.MaterialTextField
-    android:layout_marginTop="16dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    app:mtf_labelColor="@color/colorAccent"
-    app:mtf_backgroundColor="@color/lichtGrijs"
-    app:mtf_openKeyboardOnFocus="true"
-    app:mtf_hasFocus="true"
-    app:mtf_image="@drawable/account">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Gebruikersnaam"
-                android:textSize="15sp"
-                android:id="@+id/gebruikersnaamtest"
-                />
-</com.github.florent37.materialtextfield.MaterialTextField>
         <com.github.florent37.materialtextfield.MaterialTextField
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
             app:mtf_backgroundColor="@color/lichtGrijs"
+            app:mtf_hasFocus="true"
+            app:mtf_image="@drawable/account"
             app:mtf_labelColor="@color/colorAccent"
-            app:mtf_image="@drawable/key">
+            app:mtf_openKeyboardOnFocus="true">
 
             <EditText
+                android:id="@+id/gebruikersnaamtest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Wachtwoord"
+                android:hint="Gebruikersnaam"
+                android:textSize="15sp" />
+        </com.github.florent37.materialtextfield.MaterialTextField>
+
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            app:mtf_backgroundColor="@color/lichtGrijs"
+            app:mtf_image="@drawable/key"
+            app:mtf_labelColor="@color/colorAccent">
+
+            <EditText
+                android:id="@+id/wachtwoordtest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:id="@+id/wachtwoordtest"
-                android:inputType="textPassword"/>
+                android:hint="Wachtwoord"
+                android:inputType="textPassword" />
         </com.github.florent37.materialtextfield.MaterialTextField>
 
         <Button
+            android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
-            android:text="Login"
-            android:id="@+id/loginButton" />
+            android:layout_marginTop="16dp"
+            android:text="Login" />
+
         <TextView
+            android:id="@+id/wachtwoordInstellen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Eerste keer hier? Klik hier om je wachtwoord in te stellen."
-            android:textColor="@color/linkBlauw"
-            android:id="@+id/wachtwoordInstellen"
-            android:paddingTop="16dp"
             android:paddingBottom="16dp"
-            />
+            android:paddingTop="16dp"
+            android:text="Eerste keer hier? Klik hier om je wachtwoord in te stellen."
+            android:textAlignment="center"
+            android:textColor="@color/linkBlauw" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ProgressBar
+                android:id="@+id/login_laden"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:id="@+id/login_laden"
-                android:visibility="gone"/>
+                android:visibility="gone" />
         </RelativeLayout>
 
 

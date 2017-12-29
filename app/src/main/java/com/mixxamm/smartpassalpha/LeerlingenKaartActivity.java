@@ -1,5 +1,6 @@
 package com.mixxamm.smartpassalpha;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -31,6 +32,8 @@ import com.squareup.picasso.Picasso;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -40,30 +43,36 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class LeerlingenKaartActivity extends AppCompatActivity {
 
+    public final static int QRcodeWidth = 500;
+    int color1;//Wordt momenteel enkel gebruikt om achtergrondkleur QR-code te veranderen. TODO: alle kleuren die tegelijk hiermee moeten veranderen hieraan koppelen zodat er minder code is, en dat het makkelijker aan te passen is als de kleuren ooit veranderen
+    public static String id, naam, fotoURL, buiten;
     ImageView imageView;
     TextView naamLeerling;
     CircleImageView profielFoto;//Variabele profielFoto maken
     Thread thread;
-    public final static int QRcodeWidth = 500;
     Bitmap bitmap;
-    public static String id, naam, fotoURL, buiten;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leerlingen_kaart);
 
-        imageView = (ImageView)findViewById(R.id.imageView);
+        if(naam.equals("Leerling niet gevonden")){
+            resetLeerlingNaam();
+        }
+        imageView = (ImageView) findViewById(R.id.imageView);
         ImageView imageViewBuiten = (ImageView) findViewById(R.id.imageViewBuiten);
-        if(buiten.equals("1")){
+        CircleImageView profielFotoView = (CircleImageView) findViewById(R.id.profielFoto);
+        if (buiten.equals("1")) {
             setActivityBackgroundColor(Color.parseColor("#8BC34A"), Color.parseColor("#689F38"));//parseColor gebruiken aangezien kleuren van colors.xml pakken niet werkt om een vage reden
-        }
-        else if(buiten.equals("0")){
+            color1 = Color.parseColor("#8BC34A");
+        } else if (buiten.equals("0")) {
             setActivityBackgroundColor(Color.parseColor("#F44336"), Color.parseColor("#D32F2F"));
-        }
-        else if(buiten.equals("3")){
+            color1 = Color.parseColor("#F44336");
+        } else if (buiten.equals("3")) {
             imageViewBuiten.setImageResource(R.drawable.alert_circle);
             imageViewBuiten.setVisibility(View.VISIBLE);
+            profielFotoView.setVisibility(View.INVISIBLE);
         }
 
         Button logUitKnop = (Button) findViewById(R.id.logUitKnop);
@@ -79,9 +88,9 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
             }
         });
 
-        naamLeerling = (TextView)findViewById(R.id.leerlingNaam);
+        naamLeerling = (TextView) findViewById(R.id.leerlingNaam);
         naamLeerling.setText(naam);
-        profielFoto = (CircleImageView)findViewById(R.id.profielFoto);
+        profielFoto = (CircleImageView) findViewById(R.id.profielFoto);
         Picasso.with(this).load(fotoURL).into(profielFoto);
 
 
@@ -91,20 +100,21 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
             int width = bitMatrix.getWidth();
             int height = bitMatrix.getHeight();
             Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-            for(int x = 0; x<width;x++){
-                for(int y = 0;y < height; y++){
-                    bitmap.setPixel(x, y, bitMatrix.get(x,y) ? Color.BLACK : Color.WHITE);
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    bitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : color1);
                 }
             }
             ((ImageView) findViewById(R.id.imageView)).setImageBitmap(bitmap);
 
-        } catch(WriterException e) {
-        e.printStackTrace();
+        } catch (WriterException e) {
+            e.printStackTrace();
         }
     }
+
     public void setActivityBackgroundColor(int color, int color2) {
         View layout = new View(getBaseContext());
-        layout = (View)findViewById(R.id.leerlingenKaartLayout);
+        layout = (View) findViewById(R.id.leerlingenKaartLayout);
         layout.setBackgroundColor(color);
         Button logUitKnop = (Button) findViewById(R.id.logUitKnop);
         logUitKnop.setBackgroundColor(color);
@@ -115,6 +125,11 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
         }
     }
 
-
-
+    public void resetLeerlingNaam(){
+        SharedPreferences naamGebruiker = getSharedPreferences("NaamGebruiker", 0);
+        SharedPreferences.Editor editor = naamGebruiker.edit();
+        editor.putString("naamGebruiker", "");
+        editor.commit();
+    }
 }
+

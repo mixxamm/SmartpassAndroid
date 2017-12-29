@@ -5,46 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.mixxamm.smartpassalpha.LeerkrachtenActivity">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <Button
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/scanButton"
-        android:text="Scan"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"/>
-    <de.hdodenhof.circleimageview.CircleImageView
-           android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:id="@+id/profielFotoScan"/>
-        <TextView
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/scanButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="Scan" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profielFotoScan"
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+
+        <TextView
             android:id="@+id/info"
-           android:textSize="25sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:padding="8dp"
-            />
-    <TextClock
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:format24Hour="HH:mm:ss"
-        android:textSize="80sp"
-        android:textAlignment="center"
-        android:textColor="#455A64"
-        android:layout_centerInParent="true"
-        android:id="@+id/tijd"
-        />
+            android:textSize="25sp" />
+
+        <TextClock
+            android:id="@+id/tijd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:format24Hour="HH:mm:ss"
+            android:textAlignment="center"
+            android:textColor="#455A64"
+            android:textSize="80sp" />
 
         <ProgressBar
+            android:id="@+id/infoLaden"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tijd"
-            android:visibility="gone"
             android:layout_centerHorizontal="true"
-            android:id="@+id/infoLaden"/>
+            android:visibility="gone" />
 
-</RelativeLayout>
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

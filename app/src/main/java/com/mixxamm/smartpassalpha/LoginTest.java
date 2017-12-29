@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,20 +20,18 @@ import static com.mixxamm.smartpassalpha.R.*;
 
 public class LoginTest extends AppCompatActivity {
 
+    //Voorkeuren
+    public static final String PREFS_NAME = "NaamGebruiker";
+    public static final String PREFS_WACHTWOORD = "WachtwoordGebruiker";
     ProgressBar progressBar;
     EditText Gebruikersnaam, Wachtwoord;
-
-    //Voorkeuren
-    public static final String PREFS_NAME  = "NaamGebruiker";
-    public static final String PREFS_WACHTWOORD = "WachtwoordGebruiker";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_login_test);
-        Gebruikersnaam = (EditText)findViewById(id.gebruikersnaamtest);
-        Wachtwoord = (EditText)findViewById(id.wachtwoordtest);
+        Gebruikersnaam = (EditText) findViewById(id.gebruikersnaamtest);
+        Wachtwoord = (EditText) findViewById(id.wachtwoordtest);
         Button loginButton = (Button) findViewById(id.loginButton);
         TextView wachtwoordInstellen = (TextView) findViewById(id.wachtwoordInstellen);
 
@@ -77,13 +77,22 @@ public class LoginTest extends AppCompatActivity {
         });
     }
 
-    public void checkAccount(String naam, String wachtwoord){
-        if(naam != ""){
+    public void checkAccount(String naam, String wachtwoord) {
+        if (isNetworkAvailable() == false) {
+
+        } else if (naam != "") {
             ProgressBar progressBar = (ProgressBar) findViewById(id.login_laden);
             progressBar.setVisibility(View.VISIBLE);
             Login login = new Login(LoginTest.this);
             login.execute("login", naam, wachtwoord);
         }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 }

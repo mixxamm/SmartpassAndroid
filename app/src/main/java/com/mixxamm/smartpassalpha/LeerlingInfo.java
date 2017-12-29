@@ -27,10 +27,11 @@ import javax.net.ssl.HttpsURLConnection;
  * Created by maxim on 20/12/2017.
  */
 
-public class LeerlingInfo extends AsyncTask<String, Void, String>{
+public class LeerlingInfo extends AsyncTask<String, Void, String> {
     static String leerlingNaam, naarBuiten, id;
     Context context;
-    LeerlingInfo(Context context1){
+
+    LeerlingInfo(Context context1) {
         context = context1;
     }
 
@@ -38,26 +39,26 @@ public class LeerlingInfo extends AsyncTask<String, Void, String>{
     protected String doInBackground(String... params) {
         String type = params[0];
         String scan_url = "https://smartpass.one/connect/scan.php";
-        if(type.equals("infoOphalen")){
-            try{
+        if (type.equals("infoOphalen")) {
+            try {
                 id = params[1];
                 URL url = new URL(scan_url);
-                HttpsURLConnection httpsURLConnection = (HttpsURLConnection)url.openConnection();
+                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
                 httpsURLConnection.setRequestMethod("POST");
                 httpsURLConnection.setDoOutput(true);
                 httpsURLConnection.setDoInput(true);
                 OutputStream outputStream = httpsURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("id", "UTF-8")+"="+URLEncoder.encode(id, "UTF-8");
+                String post_data = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
                 outputStream.close();
                 InputStream inputStream = httpsURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                String result="";
-                String line="";
-                while((line = bufferedReader.readLine()) != null){
+                String result = "";
+                String line = "";
+                while ((line = bufferedReader.readLine()) != null) {
                     result += line;
                 }
 
@@ -77,14 +78,14 @@ public class LeerlingInfo extends AsyncTask<String, Void, String>{
     }
 
     @Override
-    protected void onPreExecute(){
+    protected void onPreExecute() {
         super.onPreExecute();
     }
 
     @Override
-    public void onPostExecute(String naam){
+    public void onPostExecute(String naam) {
         ToonLeerlingInfo.naam = leerlingNaam;
-        ToonLeerlingInfo.fotoURL = "https://smartpass.one/foto/"+id+".png";
+        ToonLeerlingInfo.fotoURL = "https://smartpass.one/foto/" + id + ".png";
         ToonLeerlingInfo.buiten = naarBuiten;
 
         Intent toonLeerlingInfo = new Intent(context, ToonLeerlingInfo.class);
@@ -94,6 +95,7 @@ public class LeerlingInfo extends AsyncTask<String, Void, String>{
         /*Intent leerkrachtenActivity = new Intent(context, LeerkrachtenActivity.class);
         context.startActivity(leerkrachtenActivity);*/
     }
+
     @Override
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);

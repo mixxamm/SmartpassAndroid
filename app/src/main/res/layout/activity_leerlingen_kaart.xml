@@ -2,59 +2,59 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/leerlingenKaartLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mixxamm.smartpassalpha.LeerlingenKaartActivity"
     android:background="#FFFFFF"
-    android:id="@+id/leerlingenKaartLayout">
+    tools:context="com.mixxamm.smartpassalpha.LeerlingenKaartActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="match_parent"
             android:id="@+id/profielFoto"
+            android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="16dp"
             />
 
         <TextView
+            android:id="@+id/leerlingNaam"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
             android:gravity="center_horizontal"
-            android:textSize="32sp"
-            android:id="@+id/leerlingNaam"
-            />
+            android:text=""
+            android:textSize="32sp" />
+
         <TextClock
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:format24Hour="HH:mm:ss"
-            android:textSize="80sp"
             android:textAlignment="center"
             android:textColor="#455A64"
-            />
+            android:textSize="80sp" />
 
         <ImageView
+            android:id="@+id/imageViewBuiten"
             android:layout_width="match_parent"
             android:layout_height="155dp"
-            android:id="@+id/imageViewBuiten"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
+
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/imageView"
-            android:layout_gravity="center_horizontal"
-            />
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Log uit"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
             android:id="@+id/logUitKnop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="16sp"
-            />
+            android:text="Log uit" />
 
     </LinearLayout>
 

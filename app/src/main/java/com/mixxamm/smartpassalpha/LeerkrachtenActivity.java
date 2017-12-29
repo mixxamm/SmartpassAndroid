@@ -24,27 +24,28 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class LeerkrachtenActivity extends AppCompatActivity{
+public class LeerkrachtenActivity extends AppCompatActivity {
 
+    public static final int REQUEST_CODE = 100;
+    public static final int PERMISSION_REQUEST = 200;
     public static ProgressBar progressBar;
     //CircleImageView profielFotoScan;
     public static String naam, fotoURL, buiten;
     Button scanButton;//Knop object aanmaken
     TextView info;//TextView met informatie aanmaken
-    public static final int REQUEST_CODE = 100;
-    public static final int PERMISSION_REQUEST = 200;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leerkrachten);
         scanButton = (Button) findViewById(R.id.scanButton);
         info = (TextView) findViewById(R.id.info);
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST);
         }
-        scanButton.setOnClickListener(new View.OnClickListener(){
+        scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Intent intent = new Intent(LeerkrachtenActivity.this, ScanActivity.class);
                 startActivityForResult(intent, REQUEST_CODE);
             }
@@ -52,6 +53,7 @@ public class LeerkrachtenActivity extends AppCompatActivity{
 
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
@@ -91,7 +93,6 @@ public class LeerkrachtenActivity extends AppCompatActivity{
                             magBuiten.setImageResource(R.drawable.sync_alert);
                         }
 */
-
 
 
                         //TODO: naam en foto uit database halen alles is klaar, wordt al naar deze klasse doorgestuurd. Moet enkel nog ingesteld worden

@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences introductie = getSharedPreferences(PREFS_INTRODUCTIE, 0);
         boolean booleanIntroductie = introductie.getBoolean("introductie", false);
 
-        if(!booleanIntroductie){
+        if (!booleanIntroductie) {
             SharedPreferences introductie1 = getSharedPreferences(PREFS_INTRODUCTIE, 0);
             SharedPreferences.Editor editor = introductie1.edit();
             editor.putBoolean("introductie", true);//Zo weet de app dat de gebruiker de introductie al heeft gezien
@@ -42,18 +42,20 @@ public class MainActivity extends AppCompatActivity {
 
 
         ImageView smartschoolLogin = (ImageView) findViewById(smartschool_login);
-        smartschoolLogin.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
+        smartschoolLogin.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
                 Intent login = new Intent(view.getContext(), LoginTest.class);
                 startActivity(login);
             }
         });
         Button leerkrachtLogin = (Button) findViewById(R.id.leerkrachtLogin);
-        leerkrachtLogin.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
-            Intent leerkrachtenActivity = new Intent(view.getContext(), LeerkrachtenActivity.class);
-            startActivity(leerkrachtenActivity);
-        };
-    });
+        leerkrachtLogin.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent leerkrachtenActivity = new Intent(view.getContext(), LeerkrachtenActivity.class);
+                startActivity(leerkrachtenActivity);
+            }
+
+            ;
+        });
     }
 }
