@@ -44,6 +44,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class LeerlingenKaartActivity extends AppCompatActivity {
 
     public final static int QRcodeWidth = 500;
+    int color1;//Wordt momenteel enkel gebruikt om achtergrondkleur QR-code te veranderen. TODO: alle kleuren die tegelijk hiermee moeten veranderen hieraan koppelen zodat er minder code is, en dat het makkelijker aan te passen is als de kleuren ooit veranderen
     public static String id, naam, fotoURL, buiten;
     ImageView imageView;
     TextView naamLeerling;
@@ -64,8 +65,10 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
         CircleImageView profielFotoView = (CircleImageView) findViewById(R.id.profielFoto);
         if (buiten.equals("1")) {
             setActivityBackgroundColor(Color.parseColor("#8BC34A"), Color.parseColor("#689F38"));//parseColor gebruiken aangezien kleuren van colors.xml pakken niet werkt om een vage reden
+            color1 = Color.parseColor("#8BC34A");
         } else if (buiten.equals("0")) {
             setActivityBackgroundColor(Color.parseColor("#F44336"), Color.parseColor("#D32F2F"));
+            color1 = Color.parseColor("#F44336");
         } else if (buiten.equals("3")) {
             imageViewBuiten.setImageResource(R.drawable.alert_circle);
             imageViewBuiten.setVisibility(View.VISIBLE);
@@ -99,7 +102,7 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
             Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
-                    bitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
+                    bitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : color1);
                 }
             }
             ((ImageView) findViewById(R.id.imageView)).setImageBitmap(bitmap);
