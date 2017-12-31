@@ -4,40 +4,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.net.Uri;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.squareup.picasso.Picasso;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.InetAddress;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -51,15 +38,26 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
     CircleImageView profielFoto;//Variabele profielFoto maken
     Thread thread;
     Bitmap bitmap;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leerlingen_kaart);
 
-        if(naam.equals("Leerling niet gevonden")){
+
+        if (!isNetworkAvailable()) {
+            SharedPreferences id1 = getSharedPreferences("id", 0);
+            id = id1.getString("id", "");
+            SharedPreferences naamGebruiker = getSharedPreferences("NaamGebruiker", 0);
+            naam = naamGebruiker.getString("naamGebruiker", "");
+            buiten = "3";
+        }
+
+        if(naam.equals("Leerling niet gevonden")){//log automatisch uit als account niet bestaat
             resetLeerlingNaam();
         }
+
         imageView = (ImageView) findViewById(R.id.imageView);
         ImageView imageViewBuiten = (ImageView) findViewById(R.id.imageViewBuiten);
         CircleImageView profielFotoView = (CircleImageView) findViewById(R.id.profielFoto);
@@ -73,18 +71,16 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
             imageViewBuiten.setImageResource(R.drawable.alert_circle);
             imageViewBuiten.setVisibility(View.VISIBLE);
             profielFotoView.setVisibility(View.INVISIBLE);
+            color1 = Color.WHITE;
         }
 
         Button logUitKnop = (Button) findViewById(R.id.logUitKnop);
         logUitKnop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences naamGebruiker = getSharedPreferences("NaamGebruiker", 0);
-                SharedPreferences.Editor editor = naamGebruiker.edit();
-                editor.putString("naamGebruiker", "");
-                editor.commit();
+                resetLeerlingNaam();
                 Intent main = new Intent(LeerlingenKaartActivity.this, MainActivity.class);
-                startActivity(main);
+                startActivity(main);//Teruggaan naar hoofdactiviteit
             }
         });
 
@@ -96,7 +92,7 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
 
         QRCodeWriter writer = new QRCodeWriter();
         try {
-            BitMatrix bitMatrix = writer.encode(String.valueOf(id), BarcodeFormat.QR_CODE, 512, 512);
+            BitMatrix bitMatrix = writer.encode(id, BarcodeFormat.QR_CODE, 512, 512);
             int width = bitMatrix.getWidth();
             int height = bitMatrix.getHeight();
             Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
@@ -128,8 +124,17 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
     public void resetLeerlingNaam(){
         SharedPreferences naamGebruiker = getSharedPreferences("NaamGebruiker", 0);
         SharedPreferences.Editor editor = naamGebruiker.edit();
-        editor.putString("naamGebruiker", "");
-        editor.commit();
+        editor.putString("naamGebruiker", "");//Aangezien bij het inloggen enkel op de naam wordt gecontroleerd, hoeven we het wachtwoord niet te resetten
+        editor.commit();//Dit voert de wijzigingen door
     }
-}
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    }
+
 

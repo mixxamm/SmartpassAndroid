@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,7 +17,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -106,6 +103,7 @@ public class Login extends AsyncTask<String, Void, String> {
         LeerlingenKaartActivity.naam = leerlingNaam;
         LeerlingenKaartActivity.fotoURL = "https://smartpass.one/foto/" + leerlingID + ".png";
         LeerlingenKaartActivity.buiten = naarBuiten;
+
         Intent leerlingenkaart = new Intent(context, LeerlingenKaartActivity.class);
         context.startActivity(leerlingenkaart);
         ((Activity) context).finish();
@@ -115,6 +113,13 @@ public class Login extends AsyncTask<String, Void, String> {
     @Override
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
+    }
+
+    public void stelLeerlingIdIn(Context c){
+        SharedPreferences id2 = c.getSharedPreferences("id", 0);
+        SharedPreferences.Editor editor = id2.edit();
+        editor.putString("id", leerlingID);
+        editor.commit();
     }
 }
 
