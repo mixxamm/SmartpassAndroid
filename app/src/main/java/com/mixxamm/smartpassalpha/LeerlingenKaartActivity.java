@@ -51,7 +51,7 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
             id = id1.getString("id", "");
             SharedPreferences naamGebruiker = getSharedPreferences("NaamGebruiker", 0);
             naam = naamGebruiker.getString("naamGebruiker", "");
-            buiten = "3";
+            buiten = "4";
         }
 
         if(naam.equals("Leerling niet gevonden")){//log automatisch uit als account niet bestaat
@@ -72,6 +72,11 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
             imageViewBuiten.setVisibility(View.VISIBLE);
             profielFotoView.setVisibility(View.INVISIBLE);
             color1 = Color.WHITE;
+        } else if(buiten.equals("4")){
+            imageViewBuiten.setImageResource(R.drawable.sync_alert);
+            imageViewBuiten.setVisibility(View.VISIBLE);
+            profielFotoView.setVisibility(View.INVISIBLE);
+            color1 = Color.WHITE;
         }
 
         Button logUitKnop = (Button) findViewById(R.id.logUitKnop);
@@ -81,6 +86,7 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
                 resetLeerlingNaam();
                 Intent main = new Intent(LeerlingenKaartActivity.this, MainActivity.class);
                 startActivity(main);//Teruggaan naar hoofdactiviteit
+                finish();
             }
         });
 

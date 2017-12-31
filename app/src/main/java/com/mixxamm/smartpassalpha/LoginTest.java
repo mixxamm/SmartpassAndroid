@@ -11,8 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.github.florent37.materialtextfield.MaterialTextField;
 
 import static com.mixxamm.smartpassalpha.R.id;
 import static com.mixxamm.smartpassalpha.R.layout;
@@ -83,8 +86,7 @@ public class LoginTest extends AppCompatActivity {
             startActivity(leerlingenKaart);
             ((Activity) LoginTest.this).finish();
         } else if (naam != "") {
-            ProgressBar progressBar = (ProgressBar) findViewById(id.login_laden);
-            progressBar.setVisibility(View.VISIBLE);
+            laden();//Geeft een progressbar weer en laat alle andere velden verdwijnen
             Login login = new Login(LoginTest.this);
             login.execute("login", naam, wachtwoord);
         }
@@ -97,4 +99,20 @@ public class LoginTest extends AppCompatActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    private void laden(){
+        ProgressBar progressBar = (ProgressBar) findViewById(id.login_laden);
+        progressBar.setVisibility(View.VISIBLE);
+        TextView textViewGebruikersnaam = (TextView) findViewById(id.gebruikersnaamtest);
+        textViewGebruikersnaam.setVisibility(View.INVISIBLE);
+        TextView textViewWachtwoord = (TextView) findViewById(id.wachtwoordtest);
+        textViewWachtwoord.setVisibility(View.INVISIBLE);
+        Button inlogKnop = (Button) findViewById(id.loginButton);
+        inlogKnop.setVisibility(View.INVISIBLE);
+        TextView textViewWachtwoordInstellen = (TextView) findViewById(id.wachtwoordInstellen);
+        textViewWachtwoordInstellen.setVisibility(View.INVISIBLE);
+        MaterialTextField materialTextFieldGebruikersnaam = (MaterialTextField) findViewById(id.materialtextfieldgebruikersnaam);
+        materialTextFieldGebruikersnaam.setVisibility(View.INVISIBLE);
+        MaterialTextField materialTextFieldWachtwoord = (MaterialTextField) findViewById(id.materialtextfieldwachtwoord);
+        materialTextFieldWachtwoord.setVisibility(View.INVISIBLE);
+    }
 }

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import static com.mixxamm.smartpassalpha.R.id.smartschool_login;
 
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences introductie = getSharedPreferences(PREFS_INTRODUCTIE, 0);
         boolean booleanIntroductie = introductie.getBoolean("introductie", false);
 
-        if (!booleanIntroductie) {
+        if (!booleanIntroductie) {//Kijkt na of introductie al bekeken is
             SharedPreferences introductie1 = getSharedPreferences(PREFS_INTRODUCTIE, 0);
             SharedPreferences.Editor editor = introductie1.edit();
             editor.putBoolean("introductie", true);//Zo weet de app dat de gebruiker de introductie al heeft gezien
@@ -39,8 +40,15 @@ public class MainActivity extends AppCompatActivity {
         ImageView smartschoolLogin = (ImageView) findViewById(smartschool_login);
         smartschoolLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                ProgressBar progressBar = (ProgressBar) findViewById(R.id.ProgressBarMainActivity);
+                progressBar.setVisibility(View.VISIBLE);
+                ImageView smartschoolLogin = (ImageView) findViewById(R.id.smartschool_login);
+                smartschoolLogin.setVisibility(View.INVISIBLE);
+                Button leerkrachtLogin = (Button) findViewById(R.id.leerkrachtLogin);
+                leerkrachtLogin.setVisibility(View.INVISIBLE);
                 Intent login = new Intent(view.getContext(), LoginTest.class);
                 startActivity(login);
+                finish();
             }
         });
         Button leerkrachtLogin = (Button) findViewById(R.id.leerkrachtLogin);

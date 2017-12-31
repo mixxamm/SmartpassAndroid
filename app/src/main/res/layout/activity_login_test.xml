@@ -22,7 +22,8 @@
             app:mtf_hasFocus="true"
             app:mtf_image="@drawable/account"
             app:mtf_labelColor="@color/colorAccent"
-            app:mtf_openKeyboardOnFocus="true">
+            app:mtf_openKeyboardOnFocus="true"
+            android:id="@+id/materialtextfieldgebruikersnaam">
 
             <EditText
                 android:id="@+id/gebruikersnaamtest"
@@ -41,7 +42,8 @@
             android:layout_marginTop="16dp"
             app:mtf_backgroundColor="@color/lichtGrijs"
             app:mtf_image="@drawable/key"
-            app:mtf_labelColor="@color/colorAccent">
+            app:mtf_labelColor="@color/colorAccent"
+            android:id="@+id/materialtextfieldwachtwoord">
 
             <EditText
                 android:id="@+id/wachtwoordtest"
