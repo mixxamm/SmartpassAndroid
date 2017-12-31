@@ -1,28 +1,18 @@
 package com.mixxamm.smartpassalpha;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.media.Image;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.Loader;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.vision.barcode.Barcode;
-import com.squareup.picasso.Picasso;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class LeerkrachtenActivity extends AppCompatActivity {
 

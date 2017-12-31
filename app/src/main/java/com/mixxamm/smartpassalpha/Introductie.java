@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.nightonke.wowoviewpager.Animation.WoWoAlphaAnimation;
 import com.nightonke.wowoviewpager.Animation.WoWoElevationAnimation;
