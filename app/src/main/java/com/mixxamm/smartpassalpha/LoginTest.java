@@ -1,21 +1,21 @@
 package com.mixxamm.smartpassalpha;
 
-import android.app.ProgressDialog;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import static com.mixxamm.smartpassalpha.R.*;
+import static com.mixxamm.smartpassalpha.R.id;
+import static com.mixxamm.smartpassalpha.R.layout;
 
 
 public class LoginTest extends AppCompatActivity {
@@ -78,8 +78,10 @@ public class LoginTest extends AppCompatActivity {
     }
 
     public void checkAccount(String naam, String wachtwoord) {
-        if (isNetworkAvailable() == false) {
-
+        if (isNetworkAvailable() == false && naam != "") {
+            Intent leerlingenKaart = new Intent(LoginTest.this, LeerlingenKaartActivity.class);
+            startActivity(leerlingenKaart);
+            ((Activity) LoginTest.this).finish();
         } else if (naam != "") {
             ProgressBar progressBar = (ProgressBar) findViewById(id.login_laden);
             progressBar.setVisibility(View.VISIBLE);
