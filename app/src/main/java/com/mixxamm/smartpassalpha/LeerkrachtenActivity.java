@@ -22,7 +22,7 @@ public class LeerkrachtenActivity extends AppCompatActivity {
     //CircleImageView profielFotoScan;
     public static String naam, fotoURL, buiten;
     Button scanButton;//Knop object aanmaken
-    TextView info;//TextView met informatie aanmaken
+    TextView info;//TextView met informatie aanmaken TODO: weghalen, is niet meer nodig
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
