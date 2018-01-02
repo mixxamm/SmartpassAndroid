@@ -103,6 +103,7 @@ public class Login extends AsyncTask<String, Void, String> {
         LeerlingenKaartActivity.naam = leerlingNaam;
         LeerlingenKaartActivity.fotoURL = "https://smartpass.one/foto/" + leerlingID + ".png";
         LeerlingenKaartActivity.buiten = naarBuiten;
+        stelLeerlingIdIn(context);
 
         Intent leerlingenkaart = new Intent(context, LeerlingenKaartActivity.class);
         context.startActivity(leerlingenkaart);
