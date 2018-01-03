@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -40,15 +41,22 @@ public class MainActivity extends AppCompatActivity {
         ImageView smartschoolLogin = (ImageView) findViewById(smartschool_login);
         smartschoolLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                ProgressBar progressBar = (ProgressBar) findViewById(R.id.ProgressBarMainActivity);
-                progressBar.setVisibility(View.VISIBLE);
-                ImageView smartschoolLogin = (ImageView) findViewById(R.id.smartschool_login);
-                smartschoolLogin.setVisibility(View.INVISIBLE);
-                Button leerkrachtLogin = (Button) findViewById(R.id.leerkrachtLogin);
-                leerkrachtLogin.setVisibility(View.INVISIBLE);
-                Intent login = new Intent(view.getContext(), LoginTest.class);
-                startActivity(login);
-                finish();
+                SharedPreferences account = getSharedPreferences("NaamGebruiker", 0);
+                String naamGebruiker = account.getString("naamGebruiker", "");
+                SharedPreferences wachtwoordGebruiker = getSharedPreferences("WachtwoordGebruiker", 0);
+                String wachtwoordGebruiker1 = wachtwoordGebruiker.getString("wachtwoordGebruiker", "");
+                if(naamGebruiker != ""){
+                    laden();
+                    Login login = new Login(MainActivity.this);
+                    login.execute("login", naamGebruiker, wachtwoordGebruiker1);
+                }
+                else{
+                    laden();
+                    Intent login = new Intent(view.getContext(), LoginTest.class);
+                    startActivity(login);
+                    finish();
+                }
+
             }
         });
         Button leerkrachtLogin = (Button) findViewById(R.id.leerkrachtLogin);
@@ -60,5 +68,13 @@ public class MainActivity extends AppCompatActivity {
 
             ;
         });
+    }
+    private void laden(){
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.ProgressBarMainActivity);
+        progressBar.setVisibility(View.VISIBLE);
+        ImageView smartschoolLogin = (ImageView) findViewById(R.id.smartschool_login);
+        smartschoolLogin.setVisibility(View.INVISIBLE);
+        Button leerkrachtLogin = (Button) findViewById(R.id.leerkrachtLogin);
+        leerkrachtLogin.setVisibility(View.INVISIBLE);
     }
 }
