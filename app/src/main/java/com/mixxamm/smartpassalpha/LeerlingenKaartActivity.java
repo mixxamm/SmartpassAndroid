@@ -60,7 +60,6 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
         }
 
         imageView = (ImageView) findViewById(R.id.imageView);
-        ImageView imageViewBuiten = (ImageView) findViewById(R.id.imageViewBuiten);
         CircleImageView profielFotoView = (CircleImageView) findViewById(R.id.profielFoto);
         if (buiten.equals("1")) {
             setActivityBackgroundColor(Color.parseColor("#8BC34A"), Color.parseColor("#689F38"));//parseColor gebruiken aangezien kleuren van colors.xml pakken niet werkt om een vage reden
@@ -69,14 +68,13 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
             setActivityBackgroundColor(Color.parseColor("#F44336"), Color.parseColor("#D32F2F"));
             color1 = Color.parseColor("#F44336");
         } else if (buiten.equals("3")) {
-            imageViewBuiten.setImageResource(R.drawable.alert_circle);
-            imageViewBuiten.setVisibility(View.VISIBLE);
+            profielFotoView.setImageResource(R.drawable.alert_circle);
+            profielFotoView.setVisibility(View.VISIBLE);
             profielFotoView.setVisibility(View.INVISIBLE);
             color1 = Color.WHITE;
         } else if(buiten.equals("4")){
-            imageViewBuiten.setImageResource(R.drawable.sync_alert);
-            imageViewBuiten.setVisibility(View.VISIBLE);
-            profielFotoView.setVisibility(View.INVISIBLE);
+            profielFotoView.setImageResource(R.drawable.sync_alert);
+            profielFotoView.setVisibility(View.VISIBLE);
             color1 = Color.WHITE;
         }
 
@@ -93,8 +91,10 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
 
         naamLeerling = (TextView) findViewById(R.id.leerlingNaam);
         naamLeerling.setText(naam);
-        profielFoto = (CircleImageView) findViewById(R.id.profielFoto);
-        Picasso.with(this).load(fotoURL).into(profielFoto);
+        if(buiten.equals("1") || buiten.equals("0")){
+            Picasso.with(this).load(fotoURL).into(profielFotoView);
+        }
+
 
 
         QRCodeWriter writer = new QRCodeWriter();

@@ -36,11 +36,11 @@
             android:textColor="#455A64"
             android:textSize="80sp" />
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/imageViewBuiten"
             android:layout_width="match_parent"
             android:layout_height="155dp"
-            android:visibility="gone" />
+            android:visibility="gone" />-->
 
         <ImageView
             android:id="@+id/imageView"
