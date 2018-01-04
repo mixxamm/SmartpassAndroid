@@ -45,7 +45,7 @@ public class LoginTest extends AppCompatActivity {
         SharedPreferences wachtwoordGebruiker = getSharedPreferences(PREFS_WACHTWOORD, 0);
         String wachtwoordGebruiker1 = wachtwoordGebruiker.getString("wachtwoordGebruiker", "");
 
-        checkAccount(naam, wachtwoordGebruiker1);
+        /*checkAccount(naam, wachtwoordGebruiker1);*/
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,24 +80,15 @@ public class LoginTest extends AppCompatActivity {
         });
     }
 
-    public void checkAccount(String naam, String wachtwoord) {
-        if (isNetworkAvailable() == false && naam != "") {
-            Intent leerlingenKaart = new Intent(LoginTest.this, LeerlingenKaartActivity.class);
-            startActivity(leerlingenKaart);
-            ((Activity) LoginTest.this).finish();
-        } else if (naam != "") {
+    /*public void checkAccount(String naam, String wachtwoord) {
+         else if (naam != "") {
             laden();//Geeft een progressbar weer en laat alle andere velden verdwijnen
             Login login = new Login(LoginTest.this);
             login.execute("login", naam, wachtwoord);
         }
-    }
+    }*/
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
+
 
     private void laden(){
         ProgressBar progressBar = (ProgressBar) findViewById(id.login_laden);

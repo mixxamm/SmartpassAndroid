@@ -3,7 +3,9 @@ package com.mixxamm.smartpassalpha;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -19,9 +21,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.squareup.picasso.Picasso;
 
 import java.net.InetAddress;
@@ -45,10 +49,7 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leerlingen_kaart);
 
-
         if (!isNetworkAvailable()) {
-            SharedPreferences id1 = getSharedPreferences("id", 0);
-            id = id1.getString("id", "");
             SharedPreferences naamGebruiker = getSharedPreferences("NaamGebruiker", 0);
             naam = naamGebruiker.getString("naamGebruiker", "");
             buiten = "4";
@@ -112,6 +113,20 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
         } catch (WriterException e) {
             e.printStackTrace();
         }
+        //TODO:de versie hieronder werkt een pak sneller, zorgen dat achtergrondkleur in orde geraakt
+        /*try {
+            MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+            BitMatrix bitMatrix = multiFormatWriter.encode(id, BarcodeFormat.QR_CODE,600,600);
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+
+
+
+            ((ImageView) findViewById(R.id.imageView)).setImageBitmap(bitmap);
+
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }*/
     }
 
     public void setActivityBackgroundColor(int color, int color2) {

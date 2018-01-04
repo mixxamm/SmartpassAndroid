@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -74,6 +75,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 leerlingID = jsonobj.getString("leerlingID");
                 leerlingNaam = jsonobj.getString("naam");
                 naarBuiten = jsonobj.getString("buiten");
+                stelLeerlingIdIn(context);
 
                 bufferedReader.close();
                 inputStream.close();
@@ -99,11 +101,11 @@ public class Login extends AsyncTask<String, Void, String> {
 
     @Override
     public void onPostExecute(String naam) {
+
         LeerlingenKaartActivity.id = leerlingID;
         LeerlingenKaartActivity.naam = leerlingNaam;
         LeerlingenKaartActivity.fotoURL = "https://smartpass.one/foto/" + leerlingID + ".png";
         LeerlingenKaartActivity.buiten = naarBuiten;
-        stelLeerlingIdIn(context);
 
         Intent leerlingenkaart = new Intent(context, LeerlingenKaartActivity.class);
         context.startActivity(leerlingenkaart);

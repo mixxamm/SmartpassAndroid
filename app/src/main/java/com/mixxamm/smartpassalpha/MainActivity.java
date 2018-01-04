@@ -1,7 +1,11 @@
 package com.mixxamm.smartpassalpha;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -9,17 +13,36 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import static com.mixxamm.smartpassalpha.R.id.smartschool_login;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String PREFS_INTRODUCTIE = "Introductie";
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SharedPreferences account = getSharedPreferences("NaamGebruiker", 0);
+        String naamGebruiker = account.getString("naamGebruiker", "");
+        SharedPreferences wachtwoordGebruiker = getSharedPreferences("WachtwoordGebruiker", 0);
+        String wachtwoordGebruiker1 = wachtwoordGebruiker.getString("wachtwoordGebruiker", "");
+        if(isNetworkAvailable() && naamGebruiker != ""){
+            laden();
+            Login login = new Login(MainActivity.this);
+            login.execute("login", naamGebruiker, wachtwoordGebruiker1);
+        }
+        else if (!isNetworkAvailable() && naamGebruiker != "") {
+            laden();
+            Intent leerlingenKaart = new Intent(MainActivity.this, LeerlingenKaartActivity.class);
+            SharedPreferences id3 = getSharedPreferences("id", 0);
+            id = id3.getString("id", "");
+            LeerlingenKaartActivity.id = id;
+            startActivity(leerlingenKaart);
+        }
         /*VideoView videoView = (VideoView) findViewById(R.id.videoView1);
         Uri path = Uri.parse("android.recourse://" + getPackageName() + "/" + R.raw.video);
         videoView.setVideoURI(path);
@@ -41,23 +64,10 @@ public class MainActivity extends AppCompatActivity {
         ImageView smartschoolLogin = (ImageView) findViewById(smartschool_login);
         smartschoolLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                SharedPreferences account = getSharedPreferences("NaamGebruiker", 0);
-                String naamGebruiker = account.getString("naamGebruiker", "");
-                SharedPreferences wachtwoordGebruiker = getSharedPreferences("WachtwoordGebruiker", 0);
-                String wachtwoordGebruiker1 = wachtwoordGebruiker.getString("wachtwoordGebruiker", "");
-                if(naamGebruiker != ""){
-                    laden();
-                    Login login = new Login(MainActivity.this);
-                    login.execute("login", naamGebruiker, wachtwoordGebruiker1);
-                }
-                else{
                     laden();
                     Intent login = new Intent(view.getContext(), LoginTest.class);
                     startActivity(login);
-                    finish();
-                }
-
-            }
+                    finish();}
         });
         Button leerkrachtLogin = (Button) findViewById(R.id.leerkrachtLogin);
         leerkrachtLogin.setOnClickListener(new View.OnClickListener() {
@@ -76,5 +86,11 @@ public class MainActivity extends AppCompatActivity {
         smartschoolLogin.setVisibility(View.INVISIBLE);
         Button leerkrachtLogin = (Button) findViewById(R.id.leerkrachtLogin);
         leerkrachtLogin.setVisibility(View.INVISIBLE);
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
