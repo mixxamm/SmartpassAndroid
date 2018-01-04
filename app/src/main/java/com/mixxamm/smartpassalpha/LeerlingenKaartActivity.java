@@ -56,6 +56,8 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
         }
 
         if(naam.equals("Leerling niet gevonden")){//log automatisch uit als account niet bestaat
+            Button loguitKnop = (Button) findViewById(R.id.logUitKnop);
+            loguitKnop.setVisibility(View.INVISIBLE);
             resetLeerlingNaam();
         }
 
