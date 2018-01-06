@@ -47,6 +47,7 @@ public class Login extends AsyncTask<String, Void, String> {
         String login_url = "https://smartpass.one/connect/login.php";
         if (type.equals("login")) {
             try {
+                String tabel = "tblleerlingen";
                 String gebruikersnaam = params[1];
                 String wachtwoord = params[2];
                 URL url = new URL(login_url);
@@ -56,7 +57,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 httpsURLConnection.setDoInput(true);
                 OutputStream outputStream = httpsURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("gebruikersnaam", "UTF-8") + "=" + URLEncoder.encode(gebruikersnaam, "UTF-8") + "&"
+                String post_data = URLEncoder.encode("tabel", "UTF-8") + "=" + URLEncoder.encode(tabel, "UTF-8") + "&" + URLEncoder.encode("gebruikersnaam", "UTF-8") + "=" + URLEncoder.encode(gebruikersnaam, "UTF-8") + "&"
                         + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
