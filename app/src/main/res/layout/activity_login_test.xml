@@ -72,7 +72,8 @@
             android:paddingTop="16dp"
             android:text="Eerste keer hier? Klik hier om je wachtwoord in te stellen."
             android:textAlignment="center"
-            android:textColor="@color/linkBlauw" />
+            android:textColor="@color/linkBlauw"
+            android:visibility="gone"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
