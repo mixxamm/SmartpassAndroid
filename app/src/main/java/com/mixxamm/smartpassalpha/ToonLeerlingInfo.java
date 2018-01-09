@@ -3,6 +3,7 @@ package com.mixxamm.smartpassalpha;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,10 +13,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ToonLeerlingInfo extends AppCompatActivity {
 
-    public static String fotoURL, naam, buiten;
+    public static String fotoURL, naam, buiten, id;
     CircleImageView leerlingFoto;
     TextView leerlingNaam;
     ImageView naarBuiten;
+    Button teLaat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,16 @@ public class ToonLeerlingInfo extends AppCompatActivity {
         leerlingNaam = (TextView) findViewById(R.id.info);
         leerlingNaam.setText(naam);
         ImageView magBuiten = (ImageView) findViewById(R.id.magBuiten);
+        teLaat = (Button) findViewById(R.id.telaatknop);
+        teLaat.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                String type = "zetTeLaat";
+
+                Login login = new Login(ToonLeerlingInfo.this);
+                login.execute(type, id);
+            }
+        });
         if (buiten.equals("1")) {
             magBuiten.setImageResource(R.drawable.ic_check_circle_black_48dp);
         } else if (buiten.equals("0")) {

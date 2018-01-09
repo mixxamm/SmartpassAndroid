@@ -11,8 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.github.florent37.materialtextfield.MaterialTextField;
 
 import static com.mixxamm.smartpassalpha.R.id;
 import static com.mixxamm.smartpassalpha.R.layout;
@@ -42,7 +45,7 @@ public class LoginTest extends AppCompatActivity {
         SharedPreferences wachtwoordGebruiker = getSharedPreferences(PREFS_WACHTWOORD, 0);
         String wachtwoordGebruiker1 = wachtwoordGebruiker.getString("wachtwoordGebruiker", "");
 
-        checkAccount(naam, wachtwoordGebruiker1);
+        /*checkAccount(naam, wachtwoordGebruiker1);*/
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,24 +80,30 @@ public class LoginTest extends AppCompatActivity {
         });
     }
 
-    public void checkAccount(String naam, String wachtwoord) {
-        if (isNetworkAvailable() == false && naam != "") {
-            Intent leerlingenKaart = new Intent(LoginTest.this, LeerlingenKaartActivity.class);
-            startActivity(leerlingenKaart);
-            ((Activity) LoginTest.this).finish();
-        } else if (naam != "") {
-            ProgressBar progressBar = (ProgressBar) findViewById(id.login_laden);
-            progressBar.setVisibility(View.VISIBLE);
+    /*public void checkAccount(String naam, String wachtwoord) {
+         else if (naam != "") {
+            laden();//Geeft een progressbar weer en laat alle andere velden verdwijnen
             Login login = new Login(LoginTest.this);
             login.execute("login", naam, wachtwoord);
         }
-    }
+    }*/
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
 
+
+    private void laden(){
+        ProgressBar progressBar = (ProgressBar) findViewById(id.login_laden);
+        progressBar.setVisibility(View.VISIBLE);
+        TextView textViewGebruikersnaam = (TextView) findViewById(id.gebruikersnaamtest);
+        textViewGebruikersnaam.setVisibility(View.INVISIBLE);
+        TextView textViewWachtwoord = (TextView) findViewById(id.wachtwoordtest);
+        textViewWachtwoord.setVisibility(View.INVISIBLE);
+        Button inlogKnop = (Button) findViewById(id.loginButton);
+        inlogKnop.setVisibility(View.INVISIBLE);
+        TextView textViewWachtwoordInstellen = (TextView) findViewById(id.wachtwoordInstellen);
+        textViewWachtwoordInstellen.setVisibility(View.INVISIBLE);
+        MaterialTextField materialTextFieldGebruikersnaam = (MaterialTextField) findViewById(id.materialtextfieldgebruikersnaam);
+        materialTextFieldGebruikersnaam.setVisibility(View.INVISIBLE);
+        MaterialTextField materialTextFieldWachtwoord = (MaterialTextField) findViewById(id.materialtextfieldwachtwoord);
+        materialTextFieldWachtwoord.setVisibility(View.INVISIBLE);
+    }
 }
