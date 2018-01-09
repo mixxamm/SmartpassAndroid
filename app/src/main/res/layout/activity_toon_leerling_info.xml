@@ -33,5 +33,15 @@
             android:layout_height="150dp"
             android:layout_below="@id/info"
             android:layout_gravity="center" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Zet te laat"
+            android:id="@+id/telaatknop"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stuur bericht naar beheerder"
+            android:visibility="gone"/>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

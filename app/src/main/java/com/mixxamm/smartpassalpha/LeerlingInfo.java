@@ -59,7 +59,6 @@ public class LeerlingInfo extends AsyncTask<String, Void, String> {
                     result += line;
                 }
 
-                String leerlingID = id;
                 JSONObject jsonObject = new JSONObject(result);
                 leerlingNaam = jsonObject.getString("naam");
                 naarBuiten = jsonObject.getString("buiten");
@@ -84,6 +83,7 @@ public class LeerlingInfo extends AsyncTask<String, Void, String> {
         ToonLeerlingInfo.naam = leerlingNaam;
         ToonLeerlingInfo.fotoURL = "https://smartpass.one/foto/" + id + ".png";
         ToonLeerlingInfo.buiten = naarBuiten;
+        ToonLeerlingInfo.id = id;
 
         Intent toonLeerlingInfo = new Intent(context, ToonLeerlingInfo.class);
         context.startActivity(toonLeerlingInfo);
