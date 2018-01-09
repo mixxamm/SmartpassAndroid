@@ -161,6 +161,7 @@ public class Login extends AsyncTask<String, Void, String> {
         }
         else if(type1.equals("zetTeLaat")){
             Toast.makeText(context, tekst, Toast.LENGTH_SHORT).show();
+            ToonLeerlingInfo.magBuiten.setImageResource(R.drawable.ic_cancel_black_48dp);
         }
 
     }

@@ -16,7 +16,7 @@ public class ToonLeerlingInfo extends AppCompatActivity {
     public static String fotoURL, naam, buiten, id;
     CircleImageView leerlingFoto;
     TextView leerlingNaam;
-    ImageView naarBuiten;
+    public static ImageView magBuiten;
     Button teLaat;
 
     @Override
@@ -27,8 +27,8 @@ public class ToonLeerlingInfo extends AppCompatActivity {
         Picasso.with(ToonLeerlingInfo.this).load(fotoURL).into(leerlingFoto);
         leerlingNaam = (TextView) findViewById(R.id.info);
         leerlingNaam.setText(naam);
-        ImageView magBuiten = (ImageView) findViewById(R.id.magBuiten);
         teLaat = (Button) findViewById(R.id.telaatknop);
+        magBuiten = (ImageView) findViewById(R.id.magBuiten);
         teLaat.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
