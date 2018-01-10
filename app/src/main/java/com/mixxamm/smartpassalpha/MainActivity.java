@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         smartschoolLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                     laden();
+                    LoginTest.type = "login";//Zorgt ervoor dat de klasse login weet dat we willen inloggen. (In de toekomst kunnen we nog andere functies toevoegen)
                     Intent login = new Intent(view.getContext(), LoginTest.class);
                     startActivity(login);
                     finish();}
@@ -72,8 +73,10 @@ public class MainActivity extends AppCompatActivity {
         Button leerkrachtLogin = (Button) findViewById(R.id.leerkrachtLogin);
         leerkrachtLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent leerkrachtenActivity = new Intent(view.getContext(), LeerkrachtenActivity.class);
-                startActivity(leerkrachtenActivity);
+                LoginTest.type = "loginLeerkracht";
+                Intent login = new Intent(view.getContext(), LoginTest.class);
+                startActivity(login);
+                finish();
             }
 
             ;

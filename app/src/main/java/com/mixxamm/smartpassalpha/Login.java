@@ -35,7 +35,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 
 public class Login extends AsyncTask<String, Void, String> {
-    static String leerlingID, leerlingNaam, naarBuiten, tekst, type1;
+    static String leerlingID, leerlingNaam, naarBuiten, tekst, type1, leerkrachtNaam, login;
     Context context;
     AlertDialog alertDialog;
 
@@ -61,7 +61,8 @@ public class Login extends AsyncTask<String, Void, String> {
                 httpsURLConnection.setDoInput(true);
                 OutputStream outputStream = httpsURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("tabel", "UTF-8") + "=" + URLEncoder.encode(tabel, "UTF-8") + "&" + URLEncoder.encode("gebruikersnaam", "UTF-8") + "=" + URLEncoder.encode(gebruikersnaam, "UTF-8") + "&"
+                String post_data = URLEncoder.encode("tabel", "UTF-8") + "=" + URLEncoder.encode(tabel, "UTF-8") + "&"
+                        + URLEncoder.encode("gebruikersnaam", "UTF-8") + "=" + URLEncoder.encode(gebruikersnaam, "UTF-8") + "&"
                         + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
@@ -93,15 +94,53 @@ public class Login extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             }
 
-        }
-        else if(type.equals("leerkrachtLogin")){
+        } else if (type.equals("loginLeerkracht")) {
+            try {
+                login_url = "https://smartpass.one/connect/login.php";
+                String tabel = "tblleerkrachten";
+                String gebruikersnaam = params[1];
+                String wachtwoord = params[2];
+                URL url = new URL(login_url);
+                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+                httpsURLConnection.setRequestMethod("POST");
+                httpsURLConnection.setDoOutput(true);
+                httpsURLConnection.setDoInput(true);
+                OutputStream outputStream = httpsURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("tabel", "UTF-8") + "=" + URLEncoder.encode(tabel, "UTF-8") + "&"
+                        + URLEncoder.encode("gebruikersnaam", "UTF-8") + "=" + URLEncoder.encode(gebruikersnaam, "UTF-8") + "&"
+                        + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpsURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                String line = "";
+                while((line = bufferedReader.readLine()) !=null){
+                    result += line;
+                }
+                JSONObject jsonObject = new JSONObject(result);
+                leerkrachtNaam = jsonObject.getString("naam");
+                login = jsonObject.getString("login");
 
-        }
-        else if(type.equals("zetTeLaat")){
+                bufferedReader.close();
+                inputStream.close();
+                httpsURLConnection.disconnect();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        } else if (type.equals("zetTeLaat")) {
             String id = params[1];
             type1 = type;
             login_url = "https://smartpass.one/connect/telaat.php";
-            try{
+            try {
                 URL url = new URL(login_url);
                 HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
                 httpsURLConnection.setRequestMethod("POST");
@@ -149,7 +188,7 @@ public class Login extends AsyncTask<String, Void, String> {
 
     @Override
     public void onPostExecute(String naam) {
-        if(type1.equals("login")){
+        if (type1.equals("login")) {
             LeerlingenKaartActivity.id = leerlingID;
             LeerlingenKaartActivity.naam = leerlingNaam;
             LeerlingenKaartActivity.fotoURL = "https://smartpass.one/foto/" + leerlingID + ".png";
@@ -158,10 +197,21 @@ public class Login extends AsyncTask<String, Void, String> {
             Intent leerlingenkaart = new Intent(context, LeerlingenKaartActivity.class);
             context.startActivity(leerlingenkaart);
             ((Activity) context).finish();
-        }
-        else if(type1.equals("zetTeLaat")){
+        } else if (type1.equals("zetTeLaat")) {
             Toast.makeText(context, tekst, Toast.LENGTH_SHORT).show();
             ToonLeerlingInfo.magBuiten.setImageResource(R.drawable.ic_cancel_black_48dp);
+        }
+        else if(type1.equals("loginLeerkracht")){
+            try{
+                if(login.equals("1")){
+                    Intent leerkrachtenActivity = new Intent(context, LeerkrachtenActivity.class);
+                    context.startActivity(leerkrachtenActivity);
+                }
+                else{
+                    Toast.makeText(context, "Inloggen als leerkracht mislukt, kijk gegevens na", Toast.LENGTH_SHORT).show();
+                }
+            }catch (Exception e)( e.get)
+
         }
 
     }
@@ -172,7 +222,7 @@ public class Login extends AsyncTask<String, Void, String> {
         super.onProgressUpdate(values);
     }
 
-    public void stelLeerlingIdIn(Context c){
+    public void stelLeerlingIdIn(Context c) {
         SharedPreferences id2 = c.getSharedPreferences("id", 0);
         SharedPreferences.Editor editor = id2.edit();
         editor.putString("id", leerlingID);

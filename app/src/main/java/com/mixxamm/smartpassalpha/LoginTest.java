@@ -25,7 +25,9 @@ public class LoginTest extends AppCompatActivity {
 
     //Voorkeuren
     public static final String PREFS_NAME = "NaamGebruiker";
+    public static final String PREFS_NAAMLEERKRACHT = "NaamLeerkracht";
     public static final String PREFS_WACHTWOORD = "WachtwoordGebruiker";
+    public static String type;
     ProgressBar progressBar;
     EditText Gebruikersnaam, Wachtwoord;
 
@@ -39,7 +41,7 @@ public class LoginTest extends AppCompatActivity {
         TextView wachtwoordInstellen = (TextView) findViewById(id.wachtwoordInstellen);
 
 
-        //Zorgt ervoor dat de gebruiker automatisch inlogt
+        //Zorgt ervoor dat de gebruiker automatisch inlogt TODO: volgens mij heb ik dit verplaatst naar ergens anders, nakijken of dit nog nodig is
         SharedPreferences naamGebruiker = getSharedPreferences(PREFS_NAME, 0);
         String naam = naamGebruiker.getString("naamGebruiker", "");
         SharedPreferences wachtwoordGebruiker = getSharedPreferences(PREFS_WACHTWOORD, 0);
@@ -50,23 +52,43 @@ public class LoginTest extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProgressBar progressBar = (ProgressBar) findViewById(id.login_laden);
-                progressBar.setVisibility(View.VISIBLE);
-                String gebruikersnaam = Gebruikersnaam.getText().toString();
-                String wachtwoord = Wachtwoord.getText().toString();
-                String type = "login";//Zorgt ervoor dat de klasse login weet dat we willen inloggen. (In de toekomst kunnen we nog andere functies toevoegen)
+                if(type.equals("login")){
+                    ProgressBar progressBar = (ProgressBar) findViewById(id.login_laden);
+                    progressBar.setVisibility(View.VISIBLE);
+                    String gebruikersnaam = Gebruikersnaam.getText().toString();
+                    String wachtwoord = Wachtwoord.getText().toString();
 
-                SharedPreferences naamGebruiker = getSharedPreferences(PREFS_NAME, 0);
-                SharedPreferences.Editor editor = naamGebruiker.edit();
-                editor.putString("naamGebruiker", gebruikersnaam);
-                editor.commit();
-                SharedPreferences wachtwoordGebruiker = getSharedPreferences(PREFS_WACHTWOORD, 0);
-                SharedPreferences.Editor editor1 = wachtwoordGebruiker.edit();
-                editor1.putString("wachtwoordGebruiker", wachtwoord);
-                editor1.commit();
 
-                Login login = new Login(LoginTest.this);
-                login.execute(type, gebruikersnaam, wachtwoord);
+                    SharedPreferences naamGebruiker = getSharedPreferences(PREFS_NAME, 0);
+                    SharedPreferences.Editor editor = naamGebruiker.edit();
+                    editor.putString("naamGebruiker", gebruikersnaam);
+                    editor.commit();
+                    SharedPreferences wachtwoordGebruiker = getSharedPreferences(PREFS_WACHTWOORD, 0);
+                    SharedPreferences.Editor editor1 = wachtwoordGebruiker.edit();
+                    editor1.putString("wachtwoordGebruiker", wachtwoord);
+                    editor1.commit();
+
+                    Login login = new Login(LoginTest.this);
+                    login.execute(type, gebruikersnaam, wachtwoord);
+                }
+                else if(type.equals("loginLeerkracht")){
+                    ProgressBar progressBar = (ProgressBar) findViewById(id.login_laden);
+                    progressBar.setVisibility(View.VISIBLE);
+                    String leerkrachtnaam = Gebruikersnaam.getText().toString();
+                    String wachtwoord = Wachtwoord.getText().toString();
+                    SharedPreferences naamLeerkracht = getSharedPreferences(PREFS_NAAMLEERKRACHT, 0);
+                    SharedPreferences.Editor editor = naamLeerkracht.edit();
+                    editor.putString("naamLeerkracht", leerkrachtnaam);
+                    editor.commit();
+                    SharedPreferences wachtwoordGebruiker = getSharedPreferences(PREFS_WACHTWOORD, 0);
+                    SharedPreferences.Editor editor1 = wachtwoordGebruiker.edit();
+                    editor1.putString("wachtwoordGebruiker", wachtwoord);
+                    editor1.commit();
+
+                    Login login = new Login(LoginTest.this);
+                    login.execute(type, leerkrachtnaam, wachtwoord);
+                }
+
             }
         });
 
