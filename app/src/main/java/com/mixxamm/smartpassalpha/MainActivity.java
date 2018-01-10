@@ -30,10 +30,20 @@ public class MainActivity extends AppCompatActivity {
         String naamGebruiker = account.getString("naamGebruiker", "");
         SharedPreferences wachtwoordGebruiker = getSharedPreferences("WachtwoordGebruiker", 0);
         String wachtwoordGebruiker1 = wachtwoordGebruiker.getString("wachtwoordGebruiker", "");
+        SharedPreferences accountLeerkracht = getSharedPreferences("NaamLeerkracht", 0);
+        String naamLeerkracht = accountLeerkracht.getString("naamLeerkracht", "");
         if(isNetworkAvailable() && naamGebruiker != ""){
             laden();
             Login login = new Login(MainActivity.this);
             login.execute("login", naamGebruiker, wachtwoordGebruiker1);
+        }
+        else if(isNetworkAvailable() && naamLeerkracht != ""){
+            laden();
+            Login login = new Login(MainActivity.this);
+            login.execute("loginLeerkracht", naamLeerkracht, wachtwoordGebruiker1);
+        }
+        else if(!isNetworkAvailable() && naamLeerkracht != ""){
+            Toast.makeText(this, "Maak verbinding met internet om automatisch in te loggen.", Toast.LENGTH_SHORT).show();
         }
         else if (!isNetworkAvailable() && naamGebruiker != "") {
             laden();

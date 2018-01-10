@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -97,7 +98,7 @@ public class Login extends AsyncTask<String, Void, String> {
         } else if (type.equals("loginLeerkracht")) {
             try {
                 login_url = "https://smartpass.one/connect/login.php";
-                String tabel = "tblleerkrachten";
+                String tabel1 = "tblleerkrachten";
                 String gebruikersnaam = params[1];
                 String wachtwoord = params[2];
                 URL url = new URL(login_url);
@@ -107,7 +108,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 httpsURLConnection.setDoInput(true);
                 OutputStream outputStream = httpsURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("tabel", "UTF-8") + "=" + URLEncoder.encode(tabel, "UTF-8") + "&"
+                String post_data = URLEncoder.encode("tabel", "UTF-8") + "=" + URLEncoder.encode(tabel1, "UTF-8") + "&"
                         + URLEncoder.encode("gebruikersnaam", "UTF-8") + "=" + URLEncoder.encode(gebruikersnaam, "UTF-8") + "&"
                         + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8");
                 bufferedWriter.write(post_data);
@@ -122,7 +123,7 @@ public class Login extends AsyncTask<String, Void, String> {
                     result += line;
                 }
                 JSONObject jsonObject = new JSONObject(result);
-                leerkrachtNaam = jsonObject.getString("naam");
+                leerkrachtNaam = jsonObject.getString("naamLeerkracht");
                 login = jsonObject.getString("login");
 
                 bufferedReader.close();
@@ -138,7 +139,8 @@ public class Login extends AsyncTask<String, Void, String> {
 
         } else if (type.equals("zetTeLaat")) {
             String id = params[1];
-            type1 = type;
+            String wachtwoord = params[2];
+            String leerkrachtNaam = params[3];
             login_url = "https://smartpass.one/connect/telaat.php";
             try {
                 URL url = new URL(login_url);
@@ -148,7 +150,9 @@ public class Login extends AsyncTask<String, Void, String> {
                 httpsURLConnection.setDoInput(true);
                 OutputStream outputStream = httpsURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8");
+                String post_data = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8")
+                        + "&" + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8")
+                        + "&" + URLEncoder.encode("naam", "UTF-8") + "=" + URLEncoder.encode(leerkrachtNaam, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -198,19 +202,25 @@ public class Login extends AsyncTask<String, Void, String> {
             context.startActivity(leerlingenkaart);
             ((Activity) context).finish();
         } else if (type1.equals("zetTeLaat")) {
-            Toast.makeText(context, tekst, Toast.LENGTH_SHORT).show();
-            ToonLeerlingInfo.magBuiten.setImageResource(R.drawable.ic_cancel_black_48dp);
+            if(tekst.equals("Leerling niet te laat gezet, het is woensdag") || tekst.equals("Er is iets fout gegaan")){
+                Toast.makeText(context, tekst, Toast.LENGTH_SHORT).show();
+            }
+            else{
+                ToonLeerlingInfo.magBuiten.setImageResource(R.drawable.ic_cancel_black_48dp);
+            }
+
         }
         else if(type1.equals("loginLeerkracht")){
-            try{
                 if(login.equals("1")){
                     Intent leerkrachtenActivity = new Intent(context, LeerkrachtenActivity.class);
                     context.startActivity(leerkrachtenActivity);
+                    ((Activity) context).finish();
                 }
                 else{
                     Toast.makeText(context, "Inloggen als leerkracht mislukt, kijk gegevens na", Toast.LENGTH_SHORT).show();
+                    /*LoginTest loginTest = new LoginTest();
+                    loginTest.progressOnzichtbaar();*/
                 }
-            }catch (Exception e)( e.get)
 
         }
 

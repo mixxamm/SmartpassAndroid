@@ -128,4 +128,8 @@ public class LoginTest extends AppCompatActivity {
         MaterialTextField materialTextFieldWachtwoord = (MaterialTextField) findViewById(id.materialtextfieldwachtwoord);
         materialTextFieldWachtwoord.setVisibility(View.INVISIBLE);
     }
+    /*public void progressOnzichtbaar(){
+        ProgressBar progressBar = (ProgressBar) findViewById(id.login_laden);
+        progressBar.setVisibility(View.INVISIBLE);
+    }*/
 }
