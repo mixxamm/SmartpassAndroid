@@ -1,5 +1,6 @@
 package com.mixxamm.smartpassalpha;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,7 +17,7 @@ public class ToonLeerlingInfo extends AppCompatActivity {
     public static String fotoURL, naam, buiten, id;
     CircleImageView leerlingFoto;
     TextView leerlingNaam;
-    ImageView naarBuiten;
+    public static ImageView magBuiten;
     Button teLaat;
 
     @Override
@@ -27,15 +28,21 @@ public class ToonLeerlingInfo extends AppCompatActivity {
         Picasso.with(ToonLeerlingInfo.this).load(fotoURL).into(leerlingFoto);
         leerlingNaam = (TextView) findViewById(R.id.info);
         leerlingNaam.setText(naam);
-        ImageView magBuiten = (ImageView) findViewById(R.id.magBuiten);
         teLaat = (Button) findViewById(R.id.telaatknop);
+        magBuiten = (ImageView) findViewById(R.id.magBuiten);
+
+        SharedPreferences wachtwoordGebruiker = getSharedPreferences("WachtwoordGebruiker", 0);
+        final String wachtwoordGebruiker1 = wachtwoordGebruiker.getString("wachtwoordGebruiker", "");
+        SharedPreferences accountLeerkracht = getSharedPreferences("NaamLeerkracht", 0);
+        final String naamLeerkracht = accountLeerkracht.getString("naamLeerkracht", "");
+
         teLaat.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 String type = "zetTeLaat";
 
                 Login login = new Login(ToonLeerlingInfo.this);
-                login.execute(type, id);
+                login.execute(type, id, wachtwoordGebruiker1, naamLeerkracht);
             }
         });
         if (buiten.equals("1")) {
