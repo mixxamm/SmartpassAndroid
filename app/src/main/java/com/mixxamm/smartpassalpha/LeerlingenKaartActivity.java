@@ -66,9 +66,15 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
         if (buiten.equals("1")) {
             setActivityBackgroundColor(Color.parseColor("#8BC34A"), Color.parseColor("#689F38"));//parseColor gebruiken aangezien kleuren van colors.xml pakken niet werkt om een vage reden
             color1 = Color.parseColor("#8BC34A");
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setNavigationBarColor(Color.parseColor("#689F38"));
+            }
         } else if (buiten.equals("0")) {
             setActivityBackgroundColor(Color.parseColor("#F44336"), Color.parseColor("#D32F2F"));
             color1 = Color.parseColor("#F44336");
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setNavigationBarColor(Color.parseColor("#D32F2F"));
+            }
         } else if (buiten.equals("3")) {
             profielFotoView.setImageResource(R.drawable.alert_circle);
             profielFotoView.setVisibility(View.VISIBLE);
