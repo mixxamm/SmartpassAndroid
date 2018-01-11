@@ -138,8 +138,8 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
     }
 
     public void setActivityBackgroundColor(int color, int color2) {
-        View layout = new View(getBaseContext());
-        layout = (View) findViewById(R.id.leerlingenKaartLayout);
+        View layout;
+        layout = findViewById(R.id.leerlingenKaartLayout);
         layout.setBackgroundColor(color);
         Button logUitKnop = (Button) findViewById(R.id.logUitKnop);
         logUitKnop.setBackgroundColor(color);

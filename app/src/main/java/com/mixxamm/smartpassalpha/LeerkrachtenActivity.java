@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class LeerkrachtenActivity extends AppCompatActivity {
     //CircleImageView profielFotoScan;
     public static String naam, fotoURL, buiten;
     Button scanButton;//Knop object aanmaken
+    CheckBox houdCameraOpen;
     TextView info;//TextView met informatie aanmaken TODO: weghalen, is niet meer nodig
 
     @Override
@@ -29,6 +31,7 @@ public class LeerkrachtenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leerkrachten);
         scanButton = (Button) findViewById(R.id.scanButton);
+        houdCameraOpen = (CheckBox) findViewById(R.id.houdCameraOpen);
         info = (TextView) findViewById(R.id.info);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST);
@@ -36,8 +39,14 @@ public class LeerkrachtenActivity extends AppCompatActivity {
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LeerkrachtenActivity.this, ScanActivity.class);
-                startActivityForResult(intent, REQUEST_CODE);
+                if(houdCameraOpen.isChecked()){
+                    Intent intent = new Intent(LeerkrachtenActivity.this, ScanActivity2.class);
+                    startActivityForResult(intent, REQUEST_CODE);
+                }
+                else {
+                    Intent intent = new Intent(LeerkrachtenActivity.this, ScanActivity.class);
+                    startActivityForResult(intent, REQUEST_CODE);
+                }
             }
         });
 
@@ -52,40 +61,25 @@ public class LeerkrachtenActivity extends AppCompatActivity {
                 info.post(new Runnable() {
                     @Override
                     public void run() {
+                        if(houdCameraOpen.isChecked()){
+                            String id = barcode.rawValue;
+                            String type = "infoOphalen2";
+                            LeerlingInfo infoLeerling = new LeerlingInfo(LeerkrachtenActivity.this);
+                            infoLeerling.execute(type, id);
 
-                        String id = barcode.rawValue;
-                        String type = "infoOphalen";
-                        LeerlingInfo infoLeerling = new LeerlingInfo(LeerkrachtenActivity.this);
-                        infoLeerling.execute(type, id);
-
-                        progressBar = (ProgressBar) findViewById(R.id.infoLaden);
-                        progressBar.setVisibility(View.VISIBLE);
-
-
-
-                        /*profielFotoScan = (CircleImageView) findViewById(R.id.profielFotoScan);
-                        Picasso.with(LeerkrachtenActivity.this).load(fotoURL).into(profielFotoScan);
-                        info = (TextView) findViewById(R.id.info);
-                        info.setText(naam);*/
-
-                        //TODO: kijken waarom onderstaande code crashed wanneer de app geen gegevens heeft
-                        /*ImageView magBuiten = (ImageView) findViewById(R.id.magBuiten);
-                        if(buiten.equals("1")){
-                            magBuiten.setImageResource(R.drawable.ic_check_circle_black_48dp);
+                            progressBar = (ProgressBar) findViewById(R.id.infoLaden);
+                            progressBar.setVisibility(View.VISIBLE);
                         }
-                        else if(buiten.equals("2")){
-                            magBuiten.setImageResource(R.drawable.ic_cancel_black_48dp);
-                        }
-                        else if(buiten.equals("3")){
-                            magBuiten.setImageResource(R.drawable.alert_circle);
-                        }
-                        else {
-                            magBuiten.setImageResource(R.drawable.sync_alert);
-                        }
-*/
+                        else{
+                            String id = barcode.rawValue;
+                            String type = "infoOphalen";
+                            LeerlingInfo infoLeerling = new LeerlingInfo(LeerkrachtenActivity.this);
+                            infoLeerling.execute(type, id);
 
+                            progressBar = (ProgressBar) findViewById(R.id.infoLaden);
+                            progressBar.setVisibility(View.VISIBLE);
+                        }
 
-                        //TODO: naam en foto uit database halen alles is klaar, wordt al naar deze klasse doorgestuurd. Moet enkel nog ingesteld worden
                     }
 
 
@@ -98,13 +92,6 @@ public class LeerkrachtenActivity extends AppCompatActivity {
 
 
     }
-
-
-/*    public void instellen()
-    {
-        info.setText("test");
-    }*/
-// all the listener stuff below
 }
 
 
