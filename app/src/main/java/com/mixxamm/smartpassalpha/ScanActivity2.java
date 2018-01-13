@@ -1,11 +1,15 @@
 package com.mixxamm.smartpassalpha;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.design.internal.SnackbarContentLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +41,7 @@ public class ScanActivity2 extends AppCompatActivity {
     BarcodeDetector barcode;
     CameraSource cameraSource;
     SurfaceHolder holder;
-    public static String fotoURL, naam, buiten, id;
+    public static String fotoURL, naam, buiten = "2", id;
     CircleImageView leerlingFoto;
     TextView leerlingNaam;
     public static ImageView magBuiten;
@@ -47,7 +52,14 @@ public class ScanActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan2);
 
+
+
+        if(buiten.equals("1")){
             setActivityBackgroundColor(Color.parseColor("#8BC34A"), Color.parseColor("#689F38"));
+        }
+        else if(buiten.equals("0")){
+            setActivityBackgroundColor(Color.parseColor("#F44336"), Color.parseColor("#D32F2F"));
+        }
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -99,14 +111,20 @@ public class ScanActivity2 extends AppCompatActivity {
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 if (barcodes.size() > 0) {
-                    Intent intent = new Intent();
-                    intent.putExtra("barcode", barcodes.valueAt(0));
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    ProgressBar progressBar = (ProgressBar) findViewById(R.id.ProgressBarScan2);
+                    progressBar.setVisibility(ProgressBar.VISIBLE);
+                    Barcode thisCode = barcodes.valueAt(0);
+                    String id = thisCode.rawValue;
+                    String type = "infoOphalen2";
+                    LeerlingInfo infoLeerling = new LeerlingInfo(ScanActivity2.this);
+                    infoLeerling.execute(type, id);
                 }
 
             }
         });
+
+
+
 
 
         leerlingFoto = (CircleImageView) findViewById(R.id.profielFotoScan);
@@ -126,8 +144,15 @@ public class ScanActivity2 extends AppCompatActivity {
             public void onClick(View v){
                 String type = "zetTeLaat";
 
-                Login login = new Login(ScanActivity2.this);
-                login.execute(type, id, wachtwoordGebruiker1, naamLeerkracht);
+                if(id != null){//Voorkomt crash indien er geen leerling is gescant
+                    Login login = new Login(ScanActivity2.this);
+                    login.execute(type, id, wachtwoordGebruiker1, naamLeerkracht, "sa");
+                }
+                else{
+                    Toast.makeText(ScanActivity2.this, "Scan de QR-code van een leerling om deze te laat te zetten.", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
         /*if (buiten.equals("1")) {
@@ -158,7 +183,7 @@ public class ScanActivity2 extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
 
-        LeerkrachtenActivity.progressBar.setVisibility(View.INVISIBLE);//TODO: BUG: op sommige smartphones gaat de progressbar niet weg
+        /*LeerkrachtenActivity.progressBar.setVisibility(View.INVISIBLE);*///TODO: BUG: crasht
     }
 }
 

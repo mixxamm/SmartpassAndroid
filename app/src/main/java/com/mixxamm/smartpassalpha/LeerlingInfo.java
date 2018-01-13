@@ -2,7 +2,11 @@ package com.mixxamm.smartpassalpha;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -130,9 +134,10 @@ public class LeerlingInfo extends AsyncTask<String, Void, String> {
             ScanActivity2.fotoURL = "https://smartpass.one/foto/" + id + ".png";
             ScanActivity2.buiten = naarBuiten;
             ScanActivity2.id = id;
-
+            ScanActivity2.teLaat.setVisibility(View.VISIBLE);
 
             Intent scanActivity2 = new Intent(context, ScanActivity2.class);
+            scanActivity2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             context.startActivity(scanActivity2);
         }
 

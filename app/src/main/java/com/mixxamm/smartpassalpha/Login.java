@@ -36,7 +36,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 
 public class Login extends AsyncTask<String, Void, String> {
-    static String leerlingID, leerlingNaam, naarBuiten, tekst, type1, leerkrachtNaam, login;
+    static String leerlingID, leerlingNaam, naarBuiten, tekst, type1, leerkrachtNaam, login, type2;
     Context context;
     AlertDialog alertDialog;
 
@@ -141,6 +141,7 @@ public class Login extends AsyncTask<String, Void, String> {
             String id = params[1];
             String wachtwoord = params[2];
             String leerkrachtNaam = params[3];
+            type2 = params[4];
             login_url = "https://smartpass.one/connect/telaat.php";
             try {
                 URL url = new URL(login_url);
@@ -201,14 +202,25 @@ public class Login extends AsyncTask<String, Void, String> {
             Intent leerlingenkaart = new Intent(context, LeerlingenKaartActivity.class);
             context.startActivity(leerlingenkaart);
             ((Activity) context).finish();
-        } else if (type1.equals("zetTeLaat")) {
-            if(tekst.equals("Leerling niet te laat gezet, het is woensdag") || tekst.equals("Er is iets fout gegaan")){
+        } else if (type1.equals("zetTeLaat") && type2.equals("tli")) {
+            if(tekst.contains("Leerling niet te laat gezet") || tekst.equals("Er is iets fout gegaan")){
                 Toast.makeText(context, tekst, Toast.LENGTH_SHORT).show();
             }
             else{
                 ToonLeerlingInfo.magBuiten.setImageResource(R.drawable.ic_cancel_black_48dp);
             }
 
+
+        }
+        else if(type1.equals("zetTeLaat") && type2.equals("sa")){
+            if(tekst.contains("Leerling niet te laat gezet") || tekst.equals("Er is iets fout gegaan")){
+                Toast.makeText(context, tekst, Toast.LENGTH_SHORT).show();
+            }
+            else{
+                ScanActivity2.buiten = "0";
+                Intent scanActivity2 = new Intent(context, ScanActivity2.class);
+                context.startActivity(scanActivity2);
+            }
         }
         else if(type1.equals("loginLeerkracht")){
                 if(login.equals("1")){

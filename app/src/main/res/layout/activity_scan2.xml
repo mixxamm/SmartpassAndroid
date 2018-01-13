@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/scanLayout"
     tools:context="com.mixxamm.smartpassalpha.ScanActivity2">
 <RelativeLayout
     android:layout_width="match_parent"
@@ -19,7 +18,10 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:orientation="vertical"
+        android:id="@+id/scanLayout"
         android:background="@color/colorAccent">
+
+
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profielFotoScan"
@@ -41,6 +43,12 @@
             android:layout_height="wrap_content"
             android:text="Zet te laat"
             android:id="@+id/telaatknop"
+            android:visibility="visible"/>
+        <ProgressBar
+            android:id="@+id/ProgressBarScan2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:visibility="gone"/>
         <Button
             android:layout_width="match_parent"
