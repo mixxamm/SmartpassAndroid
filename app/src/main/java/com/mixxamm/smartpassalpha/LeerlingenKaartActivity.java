@@ -31,8 +31,9 @@ import com.squareup.picasso.Picasso;
 import java.net.InetAddress;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
 
-public class LeerlingenKaartActivity extends AppCompatActivity {
+public class LeerlingenKaartActivity extends AppCompatActivity {//TODO: heel belangrijk: loaders gebruiken, zo blijft data behouden bij draaien scherm
 
     public final static int QRcodeWidth = 500;
     int color1;//Wordt momenteel enkel gebruikt om achtergrondkleur QR-code te veranderen. TODO: alle kleuren die tegelijk hiermee moeten veranderen hieraan koppelen zodat er minder code is, en dat het makkelijker aan te passen is als de kleuren ooit veranderen
@@ -50,8 +51,8 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_leerlingen_kaart);
 
         if (!isNetworkAvailable()) {
-            SharedPreferences naamGebruiker = getSharedPreferences("NaamGebruiker", 0);
-            naam = naamGebruiker.getString("naamGebruiker", "");
+            SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
+            naam = account.getString("naamGebruiker", "");
             buiten = "4";
         }
 
@@ -151,8 +152,8 @@ public class LeerlingenKaartActivity extends AppCompatActivity {
     }
 
     public void resetLeerlingNaam(){
-        SharedPreferences naamGebruiker = getSharedPreferences("NaamGebruiker", 0);
-        SharedPreferences.Editor editor = naamGebruiker.edit();
+        SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
+        SharedPreferences.Editor editor = account.edit();
         editor.putString("naamGebruiker", "");//Aangezien bij het inloggen enkel op de naam wordt gecontroleerd, hoeven we het wachtwoord niet te resetten
         editor.commit();//Dit voert de wijzigingen door
     }

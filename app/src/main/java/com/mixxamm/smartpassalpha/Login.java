@@ -26,7 +26,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
-
+import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
 /**
  * Created by maxim on 19/12/2017.
  * Deze klasse zorgt ervoor dat inloggen mogelijk is. Werkt in de achtergrond. De klasse LoginActivity en LoginTest bevatten de lay-out.
@@ -245,8 +245,8 @@ public class Login extends AsyncTask<String, Void, String> {
     }
 
     public void stelLeerlingIdIn(Context c) {
-        SharedPreferences id2 = c.getSharedPreferences("id", 0);
-        SharedPreferences.Editor editor = id2.edit();
+        SharedPreferences account = c.getSharedPreferences(ACCOUNT, 0);
+        SharedPreferences.Editor editor = account.edit();
         editor.putString("id", leerlingID);
         editor.commit();
     }

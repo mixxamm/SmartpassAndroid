@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
 
 public class ToonLeerlingInfo extends AppCompatActivity {
 
@@ -31,10 +32,9 @@ public class ToonLeerlingInfo extends AppCompatActivity {
         teLaat = (Button) findViewById(R.id.telaatknop);
         magBuiten = (ImageView) findViewById(R.id.magBuiten);
 
-        SharedPreferences wachtwoordGebruiker = getSharedPreferences("WachtwoordGebruiker", 0);
-        final String wachtwoordGebruiker1 = wachtwoordGebruiker.getString("wachtwoordGebruiker", "");
-        SharedPreferences accountLeerkracht = getSharedPreferences("NaamLeerkracht", 0);
-        final String naamLeerkracht = accountLeerkracht.getString("naamLeerkracht", "");
+        SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
+        final String wachtwoordGebruiker1 = account.getString("wachtwoordGebruiker", "");
+        final String naamLeerkracht = account.getString("naamLeerkracht", "");
 
         teLaat.setOnClickListener(new View.OnClickListener(){
             @Override

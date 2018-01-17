@@ -20,18 +20,17 @@ import static com.mixxamm.smartpassalpha.R.id.smartschool_login;
 public class MainActivity extends AppCompatActivity {
 
     public static final String PREFS_INTRODUCTIE = "Introductie";
+    public static final String ACCOUNT = "Account";
     String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SharedPreferences account = getSharedPreferences("NaamGebruiker", 0);
+        SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
         String naamGebruiker = account.getString("naamGebruiker", "");
-        SharedPreferences wachtwoordGebruiker = getSharedPreferences("WachtwoordGebruiker", 0);
-        String wachtwoordGebruiker1 = wachtwoordGebruiker.getString("wachtwoordGebruiker", "");
-        SharedPreferences accountLeerkracht = getSharedPreferences("NaamLeerkracht", 0);
-        String naamLeerkracht = accountLeerkracht.getString("naamLeerkracht", "");
+        String wachtwoordGebruiker1 = account.getString("wachtwoordGebruiker", "");
+        String naamLeerkracht = account.getString("naamLeerkracht", "");
         if(isNetworkAvailable() && naamGebruiker != ""){
             laden();
             Login login = new Login(MainActivity.this);
@@ -48,8 +47,7 @@ public class MainActivity extends AppCompatActivity {
         else if (!isNetworkAvailable() && naamGebruiker != "") {
             laden();
             Intent leerlingenKaart = new Intent(MainActivity.this, LeerlingenKaartActivity.class);
-            SharedPreferences id3 = getSharedPreferences("id", 0);
-            id = id3.getString("id", "");
+            id = account.getString("id", "");
             LeerlingenKaartActivity.id = id;
             startActivity(leerlingenKaart);
         }

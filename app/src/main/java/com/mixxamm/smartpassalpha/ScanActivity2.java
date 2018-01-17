@@ -34,8 +34,8 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-public class ScanActivity2 extends AppCompatActivity {
+import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
+public class ScanActivity2 extends AppCompatActivity {//TODO: ook hier loaders gebruiken, zo moet de activiteit niet herstarten bij elke scan
 
     SurfaceView cameraView;
     BarcodeDetector barcode;
@@ -134,10 +134,9 @@ public class ScanActivity2 extends AppCompatActivity {
         teLaat = (Button) findViewById(R.id.telaatknop);
 //        magBuiten = (ImageView) findViewById(R.id.magBuiten);
 
-        SharedPreferences wachtwoordGebruiker = getSharedPreferences("WachtwoordGebruiker", 0);
-        final String wachtwoordGebruiker1 = wachtwoordGebruiker.getString("wachtwoordGebruiker", "");
-        SharedPreferences accountLeerkracht = getSharedPreferences("NaamLeerkracht", 0);
-        final String naamLeerkracht = accountLeerkracht.getString("naamLeerkracht", "");
+        SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
+        final String wachtwoordGebruiker1 = account.getString("wachtwoordGebruiker", "");
+        final String naamLeerkracht = account.getString("naamLeerkracht", "");
 
         teLaat.setOnClickListener(new View.OnClickListener(){
             @Override

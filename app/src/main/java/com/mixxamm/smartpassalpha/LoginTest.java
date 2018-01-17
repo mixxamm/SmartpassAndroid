@@ -1,17 +1,12 @@
 package com.mixxamm.smartpassalpha;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -19,7 +14,7 @@ import com.github.florent37.materialtextfield.MaterialTextField;
 
 import static com.mixxamm.smartpassalpha.R.id;
 import static com.mixxamm.smartpassalpha.R.layout;
-
+import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
 
 public class LoginTest extends AppCompatActivity {
 
@@ -41,11 +36,10 @@ public class LoginTest extends AppCompatActivity {
         TextView wachtwoordInstellen = (TextView) findViewById(id.wachtwoordInstellen);
 
 
-        //Zorgt ervoor dat de gebruiker automatisch inlogt TODO: volgens mij heb ik dit verplaatst naar ergens anders, nakijken of dit nog nodig is
-        SharedPreferences naamGebruiker = getSharedPreferences(PREFS_NAME, 0);
-        String naam = naamGebruiker.getString("naamGebruiker", "");
-        SharedPreferences wachtwoordGebruiker = getSharedPreferences(PREFS_WACHTWOORD, 0);
-        String wachtwoordGebruiker1 = wachtwoordGebruiker.getString("wachtwoordGebruiker", "");
+        //Zorgt ervoor dat de gebruiker automatisch inlogt
+        SharedPreferences account = getSharedPreferences(PREFS_NAME, 0);
+        String naam = account.getString("naamGebruiker", "");
+        String wachtwoordGebruiker1 = account.getString("wachtwoordGebruiker", "");
 
         /*checkAccount(naam, wachtwoordGebruiker1);*/
 
@@ -59,12 +53,11 @@ public class LoginTest extends AppCompatActivity {
                     String wachtwoord = Wachtwoord.getText().toString();
 
 
-                    SharedPreferences naamGebruiker = getSharedPreferences(PREFS_NAME, 0);
-                    SharedPreferences.Editor editor = naamGebruiker.edit();
+                    SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
+                    SharedPreferences.Editor editor = account.edit();
                     editor.putString("naamGebruiker", gebruikersnaam);
                     editor.commit();
-                    SharedPreferences wachtwoordGebruiker = getSharedPreferences(PREFS_WACHTWOORD, 0);
-                    SharedPreferences.Editor editor1 = wachtwoordGebruiker.edit();
+                    SharedPreferences.Editor editor1 = account.edit();
                     editor1.putString("wachtwoordGebruiker", wachtwoord);
                     editor1.commit();
 
@@ -76,12 +69,11 @@ public class LoginTest extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
                     String leerkrachtnaam = Gebruikersnaam.getText().toString();
                     String wachtwoord = Wachtwoord.getText().toString();
-                    SharedPreferences naamLeerkracht = getSharedPreferences(PREFS_NAAMLEERKRACHT, 0);
-                    SharedPreferences.Editor editor = naamLeerkracht.edit();
+                    SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
+                    SharedPreferences.Editor editor = account.edit();
                     editor.putString("naamLeerkracht", leerkrachtnaam);
                     editor.commit();
-                    SharedPreferences wachtwoordGebruiker = getSharedPreferences(PREFS_WACHTWOORD, 0);
-                    SharedPreferences.Editor editor1 = wachtwoordGebruiker.edit();
+                    SharedPreferences.Editor editor1 = account.edit();
                     editor1.putString("wachtwoordGebruiker", wachtwoord);
                     editor1.commit();
 
