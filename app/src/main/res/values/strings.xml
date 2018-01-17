@@ -10,9 +10,7 @@
     <string name="error_invalid_username">Ongeldige gebruikersnaam</string>
     <string name="error_invalid_password">Dit wachtwoord is te kort</string>
     <string name="error_incorrect_password">Verkeerd wachtwoord</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email         completions.     "</string>
     <string name="wachtwoord">Wachtwoord</string>
     <string name="error_field_required">Dit veld is verplicht</string>
     <string name="leerlingNaam">Maxim Janssens</string>
@@ -23,5 +21,14 @@
 
     <string name="title_activity_introductie">Introductie</string>
     <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="dummy_content">DUMMY CONTENT</string>
+    <string name="of">Of</string>
+    <string name="login_als_leerkracht">Login als leerkracht</string>
+    <string name="inloggen">Inloggen</string>
+
+    <string name="oplossing">Wij hebben een oplossing!</string>
+    <string name="makkelijker">En het is gemakkelijker dan je denkt.</string>
+    <string name="ontdek">Ontdek hoe het werkt</string>
+    <string name="gebruikersnaam">Gebruikersnaam</string>
+    <string name="middagpasjes_beu">Klassieke middagpasjes beu?</string>
 </resources>
