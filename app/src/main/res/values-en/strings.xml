@@ -11,4 +11,19 @@
     <string name="prompt_password">Password</string>
     <string name="title_activity_login">Log in</string>
     <string name="wachtwoord">Password</string>
+    <string name="of">Or</string>
+    <string name="dummy_content">DUMMY CONTENT</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="title_activity_introductie">Introduction</string>
+    <string name="Account">Account</string>
+    <string name="smartschool">.smartschool.be</string>
+    <string name="mijnSchool">my-school</string>
+    <string name="geldigTot">Couldn\'t get information</string>
+    <string name="leerlingNaam">Maxim Janssens</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email         completions.  "</string>
+    <string name="middagpasjes_beu">Klassieke middagpasjes beu?</string>
+    <string name="oplossing">Wij hebben een oplossing!</string>
+    <string name="makkelijker">En het is gemakkelijker dan je denkt.</string>
+    <string name="ontdek">Ontdek hoe het werkt</string>
+    <string name="gebruikersnaam">Gebruikersnaam</string>
 </resources>

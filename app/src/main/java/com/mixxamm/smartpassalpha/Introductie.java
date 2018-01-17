@@ -69,11 +69,13 @@ public class Introductie extends WoWoActivity {
         wowo.addTemporarilyInvisibleViews(0, earth, findViewById(R.id.qr_teal), findViewById(R.id.qr_blue));
         wowo.addTemporarilyInvisibleViews(0, logoSmartpass);
         wowo.addTemporarilyInvisibleViews(2, loginLayout, findViewById(R.id.button));
+        wowo.addTemporarilyInvisibleViews(2, loginLayout, findViewById(R.id.leerkrachtLoginKnop));
 
 
         Gebruikersnaam = (EditText) findViewById(R.id.username);
         Wachtwoord = (EditText) findViewById(R.id.password);
         Button loginButton = (Button) findViewById(R.id.button);
+        Button loginLeerkrachtButton = (Button) findViewById(R.id.leerkrachtLoginKnop);
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +85,7 @@ public class Introductie extends WoWoActivity {
                 progressBar.setVisibility(View.VISIBLE);
                 String gebruikersnaam = Gebruikersnaam.getText().toString();
                 String wachtwoord = Wachtwoord.getText().toString();
-                String type = "login";//Zorgt ervoor dat de klasse login weet dat we willen inloggen. (In de toekomst kunnen we nog andere functies toevoegen)
+                String type = "login";//Zorgt ervoor dat de klasse login weet dat we willen inloggen als leerling
 
                 SharedPreferences naamGebruiker = getSharedPreferences("NaamGebruiker", 0);
                 SharedPreferences.Editor editor = naamGebruiker.edit();
@@ -96,6 +98,30 @@ public class Introductie extends WoWoActivity {
 
                 Login login = new Login(Introductie.this);
                 login.execute(type, gebruikersnaam, wachtwoord);
+            }
+        });
+
+        loginLeerkrachtButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                ProgressBar progressBar = (ProgressBar) findViewById(R.id.introductie_progress);
+                progressBar.setVisibility(View.VISIBLE);
+                String leerkrachtnaam = Gebruikersnaam.getText().toString();
+                String wachtwoord = Wachtwoord.getText().toString();
+                String type = "loginLeerkracht";
+
+                SharedPreferences naamLeerkracht = getSharedPreferences("NaamLeerkracht", 0);
+                SharedPreferences.Editor editor = naamLeerkracht.edit();
+                editor.putString("naamleerkracht", leerkrachtnaam);
+                editor.commit();
+
+                SharedPreferences wachtwoordGebruiker = getSharedPreferences("WachtwoordGebruiker", 0);
+                SharedPreferences.Editor editor1 = wachtwoordGebruiker.edit();
+                editor1.putString("wachtwoordGebruiker", wachtwoord);
+                editor1.commit();
+
+                Login login = new Login(Introductie.this);
+                login.execute(type, leerkrachtnaam, wachtwoord);
             }
         });
     }
@@ -163,10 +189,10 @@ public class Introductie extends WoWoActivity {
         View text = findViewById(R.id.text);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) text.setZ(50);
         String[] texts = new String[]{
-                "Klassieke middagpasjes beu?",
-                "Wij hebben een oplossing!",
-                "En het is gemakkelijker dan je denkt.",
-                "Ontdek hoe het werkt",
+                getString(R.string.middagpasjes_beu),
+                getString(R.string.oplossing),
+                getString(R.string.makkelijker),
+                getString(R.string.ontdek),
         };
         wowo.addAnimation(text)
                 .add(WoWoTextViewTextAnimation.builder().page(0).from(texts[0]).to(texts[1]).build())
@@ -266,7 +292,14 @@ public class Introductie extends WoWoActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) button.setZ(50);
         wowo.addAnimation(button)
                 .add(WoWoAlphaAnimation.builder().page(2).from(0).to(1).build());
+
+        View button1 = findViewById(R.id.leerkrachtLoginKnop);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) button1.setZ(50);
+        wowo.addAnimation(button1)
+                .add(WoWoAlphaAnimation.builder().page(2).from(0).to(1).build());
     }
+
+
 
     private void addEditTextAnimation() {
         wowo.addAnimation(findViewById(R.id.username))
