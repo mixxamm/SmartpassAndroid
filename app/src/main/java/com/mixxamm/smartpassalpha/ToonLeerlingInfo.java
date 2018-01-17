@@ -40,9 +40,9 @@ public class ToonLeerlingInfo extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 String type = "zetTeLaat";
+                    Login login = new Login(ToonLeerlingInfo.this);
+                    login.execute(type, id, wachtwoordGebruiker1, naamLeerkracht, "tli");
 
-                Login login = new Login(ToonLeerlingInfo.this);
-                login.execute(type, id, wachtwoordGebruiker1, naamLeerkracht);
             }
         });
         if (buiten.equals("1")) {
