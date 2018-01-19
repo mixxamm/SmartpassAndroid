@@ -1,16 +1,26 @@
 package com.mixxamm.smartpassalpha;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -31,6 +41,9 @@ import com.squareup.picasso.Picasso;
 import java.net.InetAddress;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.view.WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL;
+import static android.view.WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
 import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
 
 public class LeerlingenKaartActivity extends AppCompatActivity {//TODO: heel belangrijk: loaders gebruiken, zo blijft data behouden bij draaien scherm
@@ -43,12 +56,16 @@ public class LeerlingenKaartActivity extends AppCompatActivity {//TODO: heel bel
     CircleImageView profielFoto;//Variabele profielFoto maken
     Thread thread;
     Bitmap bitmap;
-    
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leerlingen_kaart);
+        setScreenBrightnessTo(BRIGHTNESS_OVERRIDE_FULL);
+
+
 
         if (!isNetworkAvailable()) {
             SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
@@ -67,13 +84,13 @@ public class LeerlingenKaartActivity extends AppCompatActivity {//TODO: heel bel
         if (buiten.equals("1")) {
             setActivityBackgroundColor(Color.parseColor("#8BC34A"), Color.parseColor("#689F38"));//parseColor gebruiken aangezien kleuren van colors.xml pakken niet werkt om een vage reden
             color1 = Color.parseColor("#8BC34A");
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (android.os.Build.VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
                 getWindow().setNavigationBarColor(Color.parseColor("#689F38"));
             }
         } else if (buiten.equals("0")) {
             setActivityBackgroundColor(Color.parseColor("#F44336"), Color.parseColor("#D32F2F"));
             color1 = Color.parseColor("#F44336");
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (android.os.Build.VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
                 getWindow().setNavigationBarColor(Color.parseColor("#D32F2F"));
             }
         } else if (buiten.equals("3")) {
@@ -144,7 +161,7 @@ public class LeerlingenKaartActivity extends AppCompatActivity {//TODO: heel bel
         layout.setBackgroundColor(color);
         Button logUitKnop = (Button) findViewById(R.id.logUitKnop);
         logUitKnop.setBackgroundColor(color);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(color2);
@@ -164,7 +181,28 @@ public class LeerlingenKaartActivity extends AppCompatActivity {//TODO: heel bel
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+    private void setScreenBrightnessTo(float brightness) {
+        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+        if (lp.screenBrightness == brightness) {
+            return;
+        }
+
+        lp.screenBrightness = brightness;
+        getActivity().getWindow().setAttributes(lp);
+    }
+
+
+        protected void onDestroy(){
+        super.onDestroy();
+            setScreenBrightnessTo(BRIGHTNESS_OVERRIDE_NONE);
+
 
     }
+
+    public Activity getActivity() {
+        return LeerlingenKaartActivity.this;
+    }
+}
+
 
 
