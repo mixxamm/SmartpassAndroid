@@ -22,6 +22,7 @@ import com.nightonke.wowoviewpager.Animation.WoWoTextViewTextAnimation;
 import com.nightonke.wowoviewpager.Animation.WoWoTranslationAnimation;
 import com.nightonke.wowoviewpager.Enum.Ease;
 import com.nightonke.wowoviewpager.WoWoPathView;
+import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
 
 public class Introductie extends WoWoActivity {
 
@@ -87,12 +88,11 @@ public class Introductie extends WoWoActivity {
                 String wachtwoord = Wachtwoord.getText().toString();
                 String type = "login";//Zorgt ervoor dat de klasse login weet dat we willen inloggen als leerling
 
-                SharedPreferences naamGebruiker = getSharedPreferences("NaamGebruiker", 0);
-                SharedPreferences.Editor editor = naamGebruiker.edit();
+                SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
+                SharedPreferences.Editor editor = account.edit();
                 editor.putString("naamGebruiker", gebruikersnaam);
                 editor.commit();
-                SharedPreferences wachtwoordGebruiker = getSharedPreferences("WachtwoordGebruiker", 0);
-                SharedPreferences.Editor editor1 = wachtwoordGebruiker.edit();
+                SharedPreferences.Editor editor1 = account.edit();
                 editor1.putString("wachtwoordGebruiker", wachtwoord);
                 editor1.commit();
 
@@ -110,13 +110,11 @@ public class Introductie extends WoWoActivity {
                 String wachtwoord = Wachtwoord.getText().toString();
                 String type = "loginLeerkracht";
 
-                SharedPreferences naamLeerkracht = getSharedPreferences("NaamLeerkracht", 0);
-                SharedPreferences.Editor editor = naamLeerkracht.edit();
+                SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
+                SharedPreferences.Editor editor = account.edit();
                 editor.putString("naamleerkracht", leerkrachtnaam);
                 editor.commit();
-
-                SharedPreferences wachtwoordGebruiker = getSharedPreferences("WachtwoordGebruiker", 0);
-                SharedPreferences.Editor editor1 = wachtwoordGebruiker.edit();
+                SharedPreferences.Editor editor1 = account.edit();
                 editor1.putString("wachtwoordGebruiker", wachtwoord);
                 editor1.commit();
 
