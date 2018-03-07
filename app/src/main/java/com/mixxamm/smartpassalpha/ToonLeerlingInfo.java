@@ -1,5 +1,6 @@
 package com.mixxamm.smartpassalpha;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +20,7 @@ public class ToonLeerlingInfo extends AppCompatActivity {
     CircleImageView leerlingFoto;
     TextView leerlingNaam;
     public static ImageView magBuiten;
-    Button teLaat;
+    Button teLaat, stuurBericht;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class ToonLeerlingInfo extends AppCompatActivity {
         leerlingNaam = (TextView) findViewById(R.id.info);
         leerlingNaam.setText(naam);
         teLaat = (Button) findViewById(R.id.telaatknop);
+        stuurBericht = (Button) findViewById(R.id.stuurBericht);
         magBuiten = (ImageView) findViewById(R.id.magBuiten);
 
         SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
@@ -43,6 +45,14 @@ public class ToonLeerlingInfo extends AppCompatActivity {
                     Login login = new Login(ToonLeerlingInfo.this);
                     login.execute(type, id, wachtwoordGebruiker1, naamLeerkracht, "tli");
 
+            }
+        });
+
+        stuurBericht.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent mail = new Intent(ToonLeerlingInfo.this, Mail.class);
+                startActivity(mail);
             }
         });
         if (buiten.equals("1")) {

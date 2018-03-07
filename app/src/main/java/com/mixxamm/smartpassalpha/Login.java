@@ -31,7 +31,8 @@ import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
  * Created by maxim on 19/12/2017.
  * Deze klasse zorgt ervoor dat inloggen mogelijk is. Werkt in de achtergrond. De klasse LoginActivity en LoginTest bevatten de lay-out.
  * LoginTest heeft een simpelere lay-out, omdat dat makkelijker is om mee te werken. LoginActivity heeft een ingewikkeldere lay-out
- * die ook gaat worden gebruikt wanneer we werken aan het uiterlijk van de app, wat op dit moment de laagste prioriteit is.
+ * die waarschijnlijk niet meer gaat gebruikt worden aangezien LoginTest er ondertussen al beter uitziet, en volledig zelf is gemaakt,
+ * waardoor het makkelijker is om mee te werken.
  */
 
 

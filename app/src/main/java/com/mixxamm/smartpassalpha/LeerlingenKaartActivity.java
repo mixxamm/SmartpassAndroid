@@ -1,44 +1,30 @@
 package com.mixxamm.smartpassalpha;
 
-import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.squareup.picasso.Picasso;
-
-import java.net.InetAddress;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -65,7 +51,39 @@ public class LeerlingenKaartActivity extends AppCompatActivity {//TODO: heel bel
         setContentView(R.layout.activity_leerlingen_kaart);
         setScreenBrightnessTo(BRIGHTNESS_OVERRIDE_FULL);
 
+        AHBottomNavigation bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation_leerlingenkaart);
 
+        // Maak items
+        AHBottomNavigationItem betalen = new AHBottomNavigationItem("Betalen", R.drawable.betalen, R.color.colorAccent);
+        AHBottomNavigationItem leerlingenkaart = new AHBottomNavigationItem("Kaart", R.drawable.account1, R.color.colorAccent);
+        AHBottomNavigationItem instellingen = new AHBottomNavigationItem("Instellingen", R.drawable.instellingen, R.color.colorAccent);
+
+        // Items toevoegen
+        bottomNavigation.addItem(betalen);
+        bottomNavigation.addItem(leerlingenkaart);
+        bottomNavigation.addItem(instellingen);
+
+        bottomNavigation.setCurrentItem(1);
+
+        //Listeners maken
+        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+            @Override
+            public boolean onTabSelected(int position, boolean wasSelected) {
+                switch(position){
+                    case 0:
+                        Intent betalen = new Intent(LeerlingenKaartActivity.this, Betalen.class);
+                        startActivity(betalen);
+                        overridePendingTransition(0, 0);
+                        break;
+                    case 2:
+                        Intent instellingen = new Intent(LeerlingenKaartActivity.this, Instellingen.class);
+                        startActivity(instellingen);
+                        overridePendingTransition(0, 0);
+                        break;
+                }
+                return true;
+            }
+        });
 
         if (!isNetworkAvailable()) {
             SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
@@ -73,17 +91,20 @@ public class LeerlingenKaartActivity extends AppCompatActivity {//TODO: heel bel
             buiten = "4";
         }
 
-        if(naam.equals("Leerling niet gevonden")){//log automatisch uit als account niet bestaat
-            Button loguitKnop = (Button) findViewById(R.id.logUitKnop);
-            loguitKnop.setVisibility(View.INVISIBLE);
+        if(naam.equals("Leerling niet gevonden")){//log automatisch uit als account1 niet bestaat
             resetLeerlingNaam();
         }
 
-        imageView = (ImageView) findViewById(R.id.imageView);
+        imageView = (ImageView) findViewById(R.id.qrcode);
         CircleImageView profielFotoView = (CircleImageView) findViewById(R.id.profielFoto);
         if (buiten.equals("1")) {
             setActivityBackgroundColor(Color.parseColor("#8BC34A"), Color.parseColor("#689F38"));//parseColor gebruiken aangezien kleuren van colors.xml pakken niet werkt om een vage reden
+
             color1 = Color.parseColor("#8BC34A");
+            int color2 = Color.parseColor("#689F38");
+            bottomNavigation.setDefaultBackgroundColor(color1);
+            bottomNavigation.setAccentColor(Color.parseColor("#009688"));
+            bottomNavigation.setInactiveColor(Color.parseColor("#455A64"));
             if (android.os.Build.VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
                 getWindow().setNavigationBarColor(Color.parseColor("#689F38"));
             }
@@ -104,16 +125,6 @@ public class LeerlingenKaartActivity extends AppCompatActivity {//TODO: heel bel
             color1 = Color.WHITE;
         }
 
-        Button logUitKnop = (Button) findViewById(R.id.logUitKnop);
-        logUitKnop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetLeerlingNaam();
-                Intent main = new Intent(LeerlingenKaartActivity.this, MainActivity.class);
-                startActivity(main);//Teruggaan naar hoofdactiviteit
-                finish();
-            }
-        });
 
         naamLeerling = (TextView) findViewById(R.id.leerlingNaam);
         naamLeerling.setText(naam);
@@ -134,7 +145,7 @@ public class LeerlingenKaartActivity extends AppCompatActivity {//TODO: heel bel
                     bitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : color1);
                 }
             }
-            ((ImageView) findViewById(R.id.imageView)).setImageBitmap(bitmap);
+            ((ImageView) findViewById(R.id.qrcode)).setImageBitmap(bitmap);
 
         } catch (WriterException e) {
             e.printStackTrace();
@@ -159,8 +170,6 @@ public class LeerlingenKaartActivity extends AppCompatActivity {//TODO: heel bel
         View layout;
         layout = findViewById(R.id.leerlingenKaartLayout);
         layout.setBackgroundColor(color);
-        Button logUitKnop = (Button) findViewById(R.id.logUitKnop);
-        logUitKnop.setBackgroundColor(color);
         if (Build.VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);

@@ -39,9 +39,9 @@
             android:text="Zet te laat"
             android:id="@+id/telaatknop"/>
         <Button
+            android:id="@+id/stuurBericht"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Stuur bericht naar beheerder"
-            android:visibility="gone"/>
+            android:text="Stuur bericht naar beheerder" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

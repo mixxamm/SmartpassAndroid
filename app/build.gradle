@@ -1,15 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 27
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.mixxamm.smartpassalpha"
-        minSdkVersion 19
-        targetSdkVersion 25
+        minSdkVersion 21
+        targetSdkVersion 27
         versionCode 2
         versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -20,17 +21,20 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:support-v4:25.4.0'
+    implementation 'com.android.support:support-v4:27.1.0'
+    implementation 'com.android.support:support-vector-drawable:27.1.0'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.4.0'
+    compile 'com.android.support:appcompat-v7:27.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:design:25.4.0'
+    compile 'com.android.support:design:27.1.0'
     testCompile 'junit:junit:4.12'
 
     //Libraries
+    compile 'com.aurelhubert:ahbottomnavigation:2.1.0' //Betere bottom navigation
+    compile 'com.android.support:design:27.1.0' //Voor bottom navigation
     compile 'de.hdodenhof:circleimageview:2.1.0'//Afbeelding in cirkelvorm
     compile 'com.google.zxing:core:3.2.1'//QR-code generator
     compile 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
