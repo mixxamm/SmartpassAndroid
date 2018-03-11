@@ -109,6 +109,7 @@ public class Betalen extends AppCompatActivity {
             setActivityBackgroundColor(color, color2);
             textViewNaam.setTextColor(Color.WHITE);
             saldoText.setTextColor(Color.WHITE);
+            saldo.setTextColor(Color.WHITE);
             betaalgeschiedenisText.setTextColor(Color.WHITE);
             betaalgeschiedenis.setTextColor(Color.WHITE);
             overmakenText.setTextColor(Color.WHITE);

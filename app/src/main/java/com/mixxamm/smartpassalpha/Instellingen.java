@@ -3,6 +3,7 @@ package com.mixxamm.smartpassalpha;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +25,8 @@ public class Instellingen extends AppCompatActivity {
     public static final String PREFS_ALGEMEEN = "Algemeen";
 
     Switch donkereModus;
-    ImageView uitloggen, donkereModusImageView;
+    ImageView uitloggen, donkereModusImageView, bugReportImageView;
+    TextView bugReport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,16 @@ public class Instellingen extends AppCompatActivity {
             }
         });
 
+        bugReport = findViewById(R.id.bugReport);
+        bugReport.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                String url = "https://github.com/mixxamm/SmartpassAndroid/issues";
+                Intent link = new Intent(Intent.ACTION_VIEW);
+                link.setData(Uri.parse(url));
+                startActivity(link);
+            }
+        });
+
         TextView uitLogKnop = (TextView) findViewById(R.id.uitLogKnop);
         uitLogKnop.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -81,9 +93,11 @@ public class Instellingen extends AppCompatActivity {
         donkereModus = findViewById(R.id.donkereModus);
         uitloggen = findViewById(R.id.uitloggen);
         donkereModusImageView = findViewById(R.id.donkereModusImageView);
+        bugReportImageView = findViewById(R.id.bugReportImageView);
         //Voorkeuren
         SharedPreferences algemeen = getSharedPreferences(PREFS_ALGEMEEN, 0);
         boolean donker = algemeen.getBoolean("donkereModus", false);
+
 
         if(donker){
             donkereModus.setChecked(true);
@@ -97,6 +111,8 @@ public class Instellingen extends AppCompatActivity {
             uitLogKnop.setTextColor(Color.WHITE);
             uitloggen.setColorFilter(Color.WHITE);
             donkereModusImageView.setColorFilter(Color.WHITE);
+            bugReport.setTextColor(Color.WHITE);
+            bugReportImageView.setColorFilter(Color.WHITE);
         }
         donkereModus.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
