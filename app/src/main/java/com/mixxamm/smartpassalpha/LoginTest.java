@@ -18,10 +18,6 @@ import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
 
 public class LoginTest extends AppCompatActivity {
 
-    //Voorkeuren
-    public static final String PREFS_NAME = "NaamGebruiker";
-    public static final String PREFS_NAAMLEERKRACHT = "NaamLeerkracht";
-    public static final String PREFS_WACHTWOORD = "WachtwoordGebruiker";
     public static String type;
     ProgressBar progressBar;
     EditText Gebruikersnaam, Wachtwoord;
@@ -36,10 +32,7 @@ public class LoginTest extends AppCompatActivity {
         TextView wachtwoordInstellen = (TextView) findViewById(id.wachtwoordInstellen);
 
 
-        //Zorgt ervoor dat de gebruiker automatisch inlogt
-        SharedPreferences account = getSharedPreferences(PREFS_NAME, 0);
-        String naam = account.getString("naamGebruiker", "");
-        String wachtwoordGebruiker1 = account.getString("wachtwoordGebruiker", "");
+
 
         /*checkAccount(naam, wachtwoordGebruiker1);*/
 

@@ -111,6 +111,9 @@ public class LeerlingenKaartActivity extends AppCompatActivity {//TODO: heel bel
         } else if (buiten.equals("0")) {
             setActivityBackgroundColor(Color.parseColor("#F44336"), Color.parseColor("#D32F2F"));
             color1 = Color.parseColor("#F44336");
+            bottomNavigation.setDefaultBackgroundColor(color1);
+            bottomNavigation.setAccentColor(Color.parseColor("#212121"));
+            bottomNavigation.setInactiveColor(Color.parseColor("#424242"));
             if (android.os.Build.VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
                 getWindow().setNavigationBarColor(Color.parseColor("#D32F2F"));
             }
