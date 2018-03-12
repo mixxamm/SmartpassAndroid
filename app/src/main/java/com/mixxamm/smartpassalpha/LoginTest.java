@@ -19,7 +19,7 @@ import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
 public class LoginTest extends AppCompatActivity {
 
     public static String type;
-    ProgressBar progressBar;
+    /*public ProgressBar progressBar = findViewById(id.progressBar);*/
     EditText Gebruikersnaam, Wachtwoord;
 
     @Override

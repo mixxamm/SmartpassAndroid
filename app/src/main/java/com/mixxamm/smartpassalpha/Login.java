@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -200,9 +202,20 @@ public class Login extends AsyncTask<String, Void, String> {
             LeerlingenKaartActivity.fotoURL = "https://smartpass.one/foto/" + leerlingID + ".png";
             LeerlingenKaartActivity.buiten = naarBuiten;
 
-            Intent leerlingenkaart = new Intent(context, LeerlingenKaartActivity.class);
-            context.startActivity(leerlingenkaart);
-            ((Activity) context).finish();
+            if(leerlingNaam.equals("Leerling niet gevonden")){
+                Toast.makeText(context, "Naam of wachtwoord fout", Toast.LENGTH_LONG).show();
+                resetLeerling();
+                Intent loginTest = new Intent(context, LoginTest.class);
+                context.startActivity(loginTest);
+                /*LoginTest loginTest = new LoginTest();
+                LoginTest.progressBar.setVisibility(View.INVISIBLE);*/
+            }
+            else{
+                Intent leerlingenkaart = new Intent(context, LeerlingenKaartActivity.class);
+                context.startActivity(leerlingenkaart);
+                ((Activity) context).finish();
+            }
+
         } else if (type1.equals("zetTeLaat") && type2.equals("tli")) {
             if(tekst.contains("Leerling niet te laat gezet") || tekst.equals("Er is iets fout gegaan")){
                 Toast.makeText(context, tekst, Toast.LENGTH_SHORT).show();
@@ -257,6 +270,13 @@ public class Login extends AsyncTask<String, Void, String> {
         SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
         SharedPreferences.Editor editor = account.edit();
         editor.putString("naamLeerkracht", "");
+        editor.commit();
+    }
+
+    public void resetLeerling(){
+        SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
+        SharedPreferences.Editor editor = account.edit();
+        editor.putString("naamGebruiker", "");
         editor.commit();
     }
 
