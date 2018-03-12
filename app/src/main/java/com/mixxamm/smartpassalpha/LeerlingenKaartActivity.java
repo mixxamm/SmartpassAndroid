@@ -44,6 +44,7 @@ public class LeerlingenKaartActivity extends AppCompatActivity {//TODO: heel bel
     Bitmap bitmap;
 
 
+    AHBottomNavigation bottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,8 @@ public class LeerlingenKaartActivity extends AppCompatActivity {//TODO: heel bel
         setContentView(R.layout.activity_leerlingen_kaart);
         setScreenBrightnessTo(BRIGHTNESS_OVERRIDE_FULL);
 
-        AHBottomNavigation bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation_leerlingenkaart);
+
+        bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation_leerlingenkaart);
 
         // Maak items
         AHBottomNavigationItem betalen = new AHBottomNavigationItem("Betalen", R.drawable.betalen, R.color.colorAccent);
@@ -71,14 +73,17 @@ public class LeerlingenKaartActivity extends AppCompatActivity {//TODO: heel bel
             public boolean onTabSelected(int position, boolean wasSelected) {
                 switch(position){
                     case 0:
+
                         Intent betalen = new Intent(LeerlingenKaartActivity.this, Betalen.class);
                         startActivity(betalen);
                         overridePendingTransition(0, 0);
+                        finish();
                         break;
                     case 2:
                         Intent instellingen = new Intent(LeerlingenKaartActivity.this, Instellingen.class);
                         startActivity(instellingen);
                         overridePendingTransition(0, 0);
+                        finish();
                         break;
                 }
                 return true;

@@ -56,11 +56,13 @@ public class Instellingen extends AppCompatActivity {
                         Intent betalen = new Intent(Instellingen.this, Betalen.class);
                         startActivity(betalen);
                         overridePendingTransition(0, 0);
+                        finish();
                         break;
                     case 1:
                         Intent kaart = new Intent(Instellingen.this, LeerlingenKaartActivity.class);
                         startActivity(kaart);
                         overridePendingTransition(0, 0);
+                        finish();
                     case 2:
                         break;
                 }
@@ -143,6 +145,7 @@ public class Instellingen extends AppCompatActivity {
                 }
                 Intent instellingen = new Intent(Instellingen.this, Instellingen.class);
                 startActivity(instellingen);
+                finish();
             }
         });
 

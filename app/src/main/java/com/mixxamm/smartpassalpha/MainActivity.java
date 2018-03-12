@@ -13,9 +13,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.mixxamm.smartpassalpha.R.id.smartschool_login;
+import static com.mixxamm.smartpassalpha.R.id.leerling_login;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        ImageView smartschoolLogin = (ImageView) findViewById(smartschool_login);
+        TextView smartschoolLogin = findViewById(leerling_login);
         smartschoolLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                     laden();
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     private void laden(){
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.ProgressBarMainActivity);
         progressBar.setVisibility(View.VISIBLE);
-        ImageView smartschoolLogin = (ImageView) findViewById(R.id.smartschool_login);
+        TextView smartschoolLogin = (TextView) findViewById(R.id.leerling_login);
         smartschoolLogin.setVisibility(View.INVISIBLE);
         Button leerkrachtLogin = (Button) findViewById(R.id.leerkrachtLogin);
         leerkrachtLogin.setVisibility(View.INVISIBLE);

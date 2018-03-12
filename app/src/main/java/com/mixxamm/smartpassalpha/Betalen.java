@@ -26,13 +26,15 @@ public class Betalen extends AppCompatActivity {
     String naam;
     TextView textViewNaam, saldo, saldoText, betaalgeschiedenisText, betaalgeschiedenis, geldOvermakenText, overmakenText, betaalverzoekText;
     ImageView overmaken, betaalverzoek;
+    AHBottomNavigation bottomNavigation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_betalen);
 
-        AHBottomNavigation bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation_betalen);
+        bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation_betalen);
 
         // Maak items
         AHBottomNavigationItem betalen = new AHBottomNavigationItem("Betalen", R.drawable.betalen, R.color.colorAccent);
@@ -57,11 +59,13 @@ public class Betalen extends AppCompatActivity {
                         Intent leerlingen = new Intent(Betalen.this, LeerlingenKaartActivity.class);
                         startActivity(leerlingen);
                         overridePendingTransition(0, 0);
+                        finish();
                         break;
                     case 2:
                         Intent instellingen = new Intent(Betalen.this, Instellingen.class);
                         startActivity(instellingen);
                         overridePendingTransition(0, 0);
+                        finish();
                         break;
                 }
                 return true;

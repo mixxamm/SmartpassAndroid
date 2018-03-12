@@ -33,12 +33,13 @@
             android:layout_centerHorizontal="true"
             android:src="@drawable/smartpass" />
 
-        <ImageView
-            android:id="@+id/smartschool_login"
+        <Button
+            android:id="@+id/leerling_login"
+            android:text="Leerling login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@drawable/btn_aanmelden_165x40" />
+            />
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,7 +51,7 @@
             android:id="@+id/leerkrachtLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/smartschool_login"
+            android:layout_below="@id/leerling_login"
             android:layout_centerHorizontal="true"
             android:text="Leerkracht login" />
     </RelativeLayout>

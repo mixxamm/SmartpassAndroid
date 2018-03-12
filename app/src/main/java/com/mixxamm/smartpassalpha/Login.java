@@ -207,6 +207,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 resetLeerling();
                 Intent loginTest = new Intent(context, LoginTest.class);
                 context.startActivity(loginTest);
+                ((Activity) context).finish();
                 /*LoginTest loginTest = new LoginTest();
                 LoginTest.progressBar.setVisibility(View.INVISIBLE);*/
             }
@@ -245,6 +246,9 @@ public class Login extends AsyncTask<String, Void, String> {
                 else{
                     Toast.makeText(context, "Inloggen als leerkracht mislukt, kijk gegevens na", Toast.LENGTH_SHORT).show();
                     resetLeerkracht();
+                    Intent loginTest = new Intent(context, LoginTest.class);
+                    context.startActivity(loginTest);
+                    ((Activity) context).finish();
                     /*LoginTest loginTest = new LoginTest();
                     loginTest.progressOnzichtbaar();*/
                 }
