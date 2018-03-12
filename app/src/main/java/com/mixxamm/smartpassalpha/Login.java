@@ -231,6 +231,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 }
                 else{
                     Toast.makeText(context, "Inloggen als leerkracht mislukt, kijk gegevens na", Toast.LENGTH_SHORT).show();
+                    resetLeerkracht();
                     /*LoginTest loginTest = new LoginTest();
                     loginTest.progressOnzichtbaar();*/
                 }
@@ -251,6 +252,15 @@ public class Login extends AsyncTask<String, Void, String> {
         editor.putString("id", leerlingID);
         editor.commit();
     }
+
+    public void resetLeerkracht(){
+        SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
+        SharedPreferences.Editor editor = account.edit();
+        editor.putString("naamLeerkracht", "");
+        editor.commit();
+    }
+
+
 }
 
 

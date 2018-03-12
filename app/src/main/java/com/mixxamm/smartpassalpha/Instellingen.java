@@ -25,8 +25,8 @@ public class Instellingen extends AppCompatActivity {
     public static final String PREFS_ALGEMEEN = "Algemeen";
 
     Switch donkereModus;
-    ImageView uitloggen, donkereModusImageView, bugReportImageView;
-    TextView bugReport;
+    ImageView uitloggen, donkereModusImageView, bugReportImageView, ondersteuningImageView;
+    TextView bugReport, ondersteuning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +78,14 @@ public class Instellingen extends AppCompatActivity {
             }
         });
 
+        ondersteuning = findViewById(R.id.ondersteuning);
+        ondersteuning.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                composeEmail();
+            }
+        });
+
         TextView uitLogKnop = (TextView) findViewById(R.id.uitLogKnop);
         uitLogKnop.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -94,6 +102,7 @@ public class Instellingen extends AppCompatActivity {
         uitloggen = findViewById(R.id.uitloggen);
         donkereModusImageView = findViewById(R.id.donkereModusImageView);
         bugReportImageView = findViewById(R.id.bugReportImageView);
+        ondersteuningImageView = findViewById(R.id.ondersteuningImageView);
         //Voorkeuren
         SharedPreferences algemeen = getSharedPreferences(PREFS_ALGEMEEN, 0);
         boolean donker = algemeen.getBoolean("donkereModus", false);
@@ -113,6 +122,8 @@ public class Instellingen extends AppCompatActivity {
             donkereModusImageView.setColorFilter(Color.WHITE);
             bugReport.setTextColor(Color.WHITE);
             bugReportImageView.setColorFilter(Color.WHITE);
+            ondersteuning.setTextColor(Color.WHITE);
+            ondersteuningImageView.setColorFilter(Color.WHITE);
         }
         donkereModus.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
@@ -151,6 +162,14 @@ public class Instellingen extends AppCompatActivity {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(color2);
+        }
+    }
+    public void composeEmail(){
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(android.content.Intent.EXTRA_EMAIL,new String[] { "support.android@smartpass.one" });
+        if(intent.resolveActivity(getPackageManager()) != null){
+            startActivity(intent);
         }
     }
 }

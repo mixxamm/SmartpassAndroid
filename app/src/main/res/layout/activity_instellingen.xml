@@ -80,6 +80,23 @@
                 android:textSize="25sp"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/ondersteuningImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/help"
+                android:layout_margin="16dp"/>
+            <TextView
+                android:id="@+id/ondersteuning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ondersteuning"
+                android:layout_marginTop="16dp"
+                android:textSize="25sp"/>
+        </LinearLayout>
 
 
     </LinearLayout>
