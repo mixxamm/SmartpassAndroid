@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             editor.commit();
             Intent Introductie = new Intent(MainActivity.this, com.mixxamm.smartpassalpha.Introductie.class);
             startActivity(Introductie);
+            finish();
         }
 
 
