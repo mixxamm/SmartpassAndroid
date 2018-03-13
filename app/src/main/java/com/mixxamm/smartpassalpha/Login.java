@@ -205,8 +205,10 @@ public class Login extends AsyncTask<String, Void, String> {
             if(leerlingNaam.equals("Leerling niet gevonden")){
                 Toast.makeText(context, "Naam of wachtwoord fout", Toast.LENGTH_LONG).show();
                 resetLeerling();
-                Intent loginTest = new Intent(context, LoginTest.class);
-                context.startActivity(loginTest);
+                LoginTest loginTest = new LoginTest();
+                loginTest.type = "loginLeerkracht";
+                Intent loginTest1 = new Intent(context, LoginTest.class);
+                context.startActivity(loginTest1);
                 ((Activity) context).finish();
                 /*LoginTest loginTest = new LoginTest();
                 LoginTest.progressBar.setVisibility(View.INVISIBLE);*/
@@ -247,8 +249,10 @@ public class Login extends AsyncTask<String, Void, String> {
                 else{
                     Toast.makeText(context, "Inloggen als leerkracht mislukt, kijk gegevens na", Toast.LENGTH_SHORT).show();
                     resetLeerkracht();
-                    Intent loginTest = new Intent(context, LoginTest.class);
-                    context.startActivity(loginTest);
+                    LoginTest loginTest = new LoginTest();
+                    loginTest.type = "loginLeerkracht";
+                    Intent loginTest1 = new Intent(context, LoginTest.class);
+                    context.startActivity(loginTest1);
                     ((Activity) context).finish();
                     /*LoginTest loginTest = new LoginTest();
                     loginTest.progressOnzichtbaar();*/
