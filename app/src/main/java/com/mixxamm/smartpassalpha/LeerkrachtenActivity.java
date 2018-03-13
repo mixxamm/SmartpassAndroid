@@ -2,6 +2,7 @@ package com.mixxamm.smartpassalpha;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -10,10 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.barcode.Barcode;
+
+import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
 
 public class LeerkrachtenActivity extends AppCompatActivity {
 
@@ -25,17 +29,37 @@ public class LeerkrachtenActivity extends AppCompatActivity {
     Button scanButton;//Knop object aanmaken
     CheckBox houdCameraOpen;
     TextView info;//TextView met informatie aanmaken TODO: weghalen, is niet meer nodig
+    ImageView uitloggen;
 
-    @Override
+    String type;
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leerkrachten);
         scanButton = (Button) findViewById(R.id.scanButton);
         houdCameraOpen = (CheckBox) findViewById(R.id.houdCameraOpen);
+        uitloggen = findViewById(R.id.loguitLeerkracht);
         info = (TextView) findViewById(R.id.info);
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            type = extras.getString("type");
+        }
+        else{
+            type = "normal";
+        }
+
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST);
         }
+
+        if(type.equals("scan")){
+            scanLeerling();
+        }
+
+
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,12 +68,20 @@ public class LeerkrachtenActivity extends AppCompatActivity {
                     startActivityForResult(intent, REQUEST_CODE);
                 }
                 else {
-                    Intent intent = new Intent(LeerkrachtenActivity.this, ScanActivity.class);
-                    startActivityForResult(intent, REQUEST_CODE);
+                    scanLeerling();
                 }
             }
         });
 
+        uitloggen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetLeerkracht();
+                Intent mainActivity = new Intent(LeerkrachtenActivity.this, MainActivity.class);
+                startActivity(mainActivity);
+                finish();
+            }
+        });
 
     }
 
@@ -91,6 +123,18 @@ public class LeerkrachtenActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    public void resetLeerkracht(){
+        SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
+        SharedPreferences.Editor editor = account.edit();
+        editor.putString("naamLeerkracht", "");
+        editor.commit();
+    }
+
+    public void scanLeerling(){
+        Intent intent = new Intent(LeerkrachtenActivity.this, ScanActivity.class);
+        startActivityForResult(intent, REQUEST_CODE);
     }
 }
 

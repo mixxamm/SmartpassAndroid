@@ -10,6 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/loguitLeerkracht"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/uitloggen"
+            android:padding="16dp"/>
         <CheckBox
             android:id="@+id/houdCameraOpen"
             android:layout_width="match_parent"

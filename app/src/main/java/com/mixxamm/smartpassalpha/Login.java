@@ -240,6 +240,7 @@ public class Login extends AsyncTask<String, Void, String> {
         else if(type1.equals("loginLeerkracht")){
                 if(login.equals("1")){
                     Intent leerkrachtenActivity = new Intent(context, LeerkrachtenActivity.class);
+                    leerkrachtenActivity.putExtra("type", "normal");
                     context.startActivity(leerkrachtenActivity);
                     ((Activity) context).finish();
                 }
