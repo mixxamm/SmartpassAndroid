@@ -29,7 +29,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginBottom="50dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profielFoto"
