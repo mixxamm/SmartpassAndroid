@@ -124,6 +124,14 @@
         android:visibility="invisible"
         tools:ignore="ContentDescription" />
 
+    <TextView
+        android:id="@+id/sla_over"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:text="Sla introductie over >"
+        android:padding="16dp"/>
+
     <com.nightonke.wowoviewpager.WoWoPathView
         android:id="@+id/path_view"
         android:layout_width="match_parent"
