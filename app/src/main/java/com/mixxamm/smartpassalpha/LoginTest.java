@@ -81,6 +81,7 @@ public class LoginTest extends AppCompatActivity {
         wachtwoordInstellen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                WachtwoordInstellen.type = type;
                 Intent wachtwoordInstellen = new Intent(LoginTest.this, WachtwoordInstellen.class);
                 startActivity(wachtwoordInstellen);
             }

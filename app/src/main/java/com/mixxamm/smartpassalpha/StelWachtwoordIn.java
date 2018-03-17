@@ -3,6 +3,7 @@ package com.mixxamm.smartpassalpha;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -26,18 +27,21 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
     Context context;
     AlertDialog alertDialog;
 
+    static String result, type;
+
     StelWachtwoordIn(Context context1) {
         context = context1;
     }
 
     @Override
     public String doInBackground(String... params) {
-        String type = params[0];
+        type = params[0];
         String stelWachtwoordIn_url = "https://smartpass.one/connect/stelwachtwoordin.php";
-        if (type.equals("stelWachtwoordIn")) {
+        if (type.equals("login")) {
             try {
                 String gebruikersnaam = params[1];
                 String wachtwoord = params[2];
+                String newpass = params[3];
                 URL url = new URL(stelWachtwoordIn_url);
                 HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
                 httpsURLConnection.setRequestMethod("POST");
@@ -46,14 +50,16 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
                 OutputStream outputStream = httpsURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String post_data = URLEncoder.encode("gebruikersnaam", "UTF-8") + "=" + URLEncoder.encode(gebruikersnaam, "UTF-8") + "&"
-                        + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8");
+                        + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8") + "&" +
+                        URLEncoder.encode("newpass", "UTF-8") + "=" + URLEncoder.encode(newpass, "UTF-8") + "&" + URLEncoder.encode("tabel", "UTF-8")
+                        + "=" + URLEncoder.encode("tblleerlingen", "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
                 outputStream.close();
                 InputStream inputStream = httpsURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                String result = "";
+                result = "";
                 String line = "";
                 while ((line = bufferedReader.readLine()) != null) {
                     result += line;
@@ -78,6 +84,10 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
 
     @Override
     public void onPostExecute(String test) {
+        if(type.equals("login")){
+            Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 }
