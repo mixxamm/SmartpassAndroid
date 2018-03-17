@@ -16,6 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import static com.mixxamm.smartpassalpha.R.id.leerling_login;
 
 public class MainActivity extends AppCompatActivity {
@@ -106,4 +108,6 @@ public class MainActivity extends AppCompatActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
+
 }

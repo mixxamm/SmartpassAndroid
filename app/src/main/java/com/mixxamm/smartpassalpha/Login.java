@@ -206,7 +206,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 Toast.makeText(context, "Naam of wachtwoord fout", Toast.LENGTH_LONG).show();
                 resetLeerling();
                 LoginTest loginTest = new LoginTest();
-                loginTest.type = "loginLeerkracht";
+                loginTest.type = "login";
                 Intent loginTest1 = new Intent(context, LoginTest.class);
                 context.startActivity(loginTest1);
                 ((Activity) context).finish();
