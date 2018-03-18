@@ -72,6 +72,41 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        else if(type.equals("loginLeerkracht")){
+            try {
+                String gebruikersnaam = params[1];
+                String wachtwoord = params[2];
+                String newpass = params[3];
+                URL url = new URL(stelWachtwoordIn_url);
+                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+                httpsURLConnection.setRequestMethod("POST");
+                httpsURLConnection.setDoOutput(true);
+                httpsURLConnection.setDoInput(true);
+                OutputStream outputStream = httpsURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("gebruikersnaam", "UTF-8") + "=" + URLEncoder.encode(gebruikersnaam, "UTF-8") + "&"
+                        + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8") + "&" +
+                        URLEncoder.encode("newpass", "UTF-8") + "=" + URLEncoder.encode(newpass, "UTF-8") + "&" + URLEncoder.encode("tabel", "UTF-8")
+                        + "=" + URLEncoder.encode("tblleerkrachten", "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                InputStream inputStream = httpsURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                result = "";
+                String line = "";
+                while ((line = bufferedReader.readLine()) != null) {
+                    result += line;
+                }
+            } catch (MalformedURLException e){
+                e.printStackTrace();
+            } catch (ProtocolException e){
+                e.printStackTrace();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+
 
         }
         return null;
@@ -85,6 +120,9 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
     @Override
     public void onPostExecute(String test) {
         if(type.equals("login")){
+            Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+        }
+        else if(type.equals("loginLeerkracht")){
             Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
         }
 
