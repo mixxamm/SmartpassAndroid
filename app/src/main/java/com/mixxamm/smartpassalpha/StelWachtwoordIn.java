@@ -1,7 +1,10 @@
 package com.mixxamm.smartpassalpha;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -19,6 +22,8 @@ import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
+
 /**
  * Created by maxim on 26/12/2017.
  */
@@ -27,7 +32,7 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
     Context context;
     AlertDialog alertDialog;
 
-    static String result, type;
+    static String result, type, gebruikersnaam, wachtwoord, newpass;
 
     StelWachtwoordIn(Context context1) {
         context = context1;
@@ -39,9 +44,9 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
         String stelWachtwoordIn_url = "https://smartpass.one/connect/stelwachtwoordin.php";
         if (type.equals("login")) {
             try {
-                String gebruikersnaam = params[1];
-                String wachtwoord = params[2];
-                String newpass = params[3];
+                gebruikersnaam = params[1];
+                wachtwoord = params[2];
+                newpass = params[3];
                 URL url = new URL(stelWachtwoordIn_url);
                 HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
                 httpsURLConnection.setRequestMethod("POST");
@@ -75,9 +80,9 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
         }
         else if(type.equals("loginLeerkracht")){
             try {
-                String gebruikersnaam = params[1];
-                String wachtwoord = params[2];
-                String newpass = params[3];
+                gebruikersnaam = params[1];
+                wachtwoord = params[2];
+                newpass = params[3];
                 URL url = new URL(stelWachtwoordIn_url);
                 HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
                 httpsURLConnection.setRequestMethod("POST");
@@ -121,6 +126,20 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
     public void onPostExecute(String test) {
         if(type.equals("login")){
             Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+            if(result.equals("Wachtwoord instellen gelukt.")){
+                Login login = new Login(context);
+                login.execute(type, gebruikersnaam, newpass);
+                Toast.makeText(context, "Automatisch inloggen met nieuwe gegevens.", Toast.LENGTH_SHORT).show();
+
+                SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
+                SharedPreferences.Editor editor = account.edit();
+                editor.putString("naamGebruiker", gebruikersnaam);
+                editor.commit();
+                SharedPreferences.Editor editor1 = account.edit();
+                editor1.putString("wachtwoordGebruiker", newpass);
+                editor1.commit();
+                ((Activity) context).finish();
+            }
         }
         else if(type.equals("loginLeerkracht")){
             Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
