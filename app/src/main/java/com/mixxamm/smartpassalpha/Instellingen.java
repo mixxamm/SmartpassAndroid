@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -23,15 +24,19 @@ public class Instellingen extends AppCompatActivity {
 
     //Voorkeuren
     public static final String PREFS_ALGEMEEN = "Algemeen";
-
+    static String naamGebruiker;
     Switch donkereModus;
     ImageView uitloggen, donkereModusImageView, bugReportImageView, ondersteuningImageView;
     TextView bugReport, ondersteuning;
+    LinearLayout nieuwWachtwoord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instellingen);
+
+        SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
+        naamGebruiker = account.getString("naamGebruiker", "");
 
         AHBottomNavigation bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation_instellingen);
 
@@ -85,6 +90,18 @@ public class Instellingen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 composeEmail();
+            }
+        });
+
+        nieuwWachtwoord = findViewById(R.id.nieuwWachtwoordLinearLayout);
+        nieuwWachtwoord.setOnClickListener(new View.OnClickListener(){
+            public void onClick (View v){
+                WachtwoordInstellen wachtwoordInstellen = new WachtwoordInstellen();
+                wachtwoordInstellen.type = "login";
+                Intent intent = new Intent(Instellingen.this, WachtwoordInstellen.class);
+                intent.putExtra("gebruikersnaam", naamGebruiker);
+                startActivity(intent);
+                finish();
             }
         });
 

@@ -5,13 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class WachtwoordInstellen extends AppCompatActivity {
 
-    static String type;
+    static String type, gebruikersnaam;
+    TextView GebruikersnaamTextView;
     EditText Gebruikersnaam, Wachtwoord, HerhaalWachtwoord, OudWachtwoord;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,12 +21,27 @@ public class WachtwoordInstellen extends AppCompatActivity {
         OudWachtwoord = findViewById(R.id.oudWachtwoord);
         Wachtwoord = findViewById(R.id.etwachtwoordinstellen);
         HerhaalWachtwoord = findViewById(R.id.etherhaalwachtwoordinstellen);
+        GebruikersnaamTextView = findViewById(R.id.gebruikersnaamTextView);
         Button stelWachtwoordIn = findViewById(R.id.btnwachtwoordinstellen);
 
+        gebruikersnaam = "";
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            gebruikersnaam = getIntent().getStringExtra("gebruikersnaam");
+        }
+
+        if(!gebruikersnaam.equals("")){
+            GebruikersnaamTextView.setText(gebruikersnaam);
+            GebruikersnaamTextView.setVisibility(View.VISIBLE);
+            Gebruikersnaam.setVisibility(View.GONE);
+        }
         stelWachtwoordIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String gebruikersnaam = Gebruikersnaam.getText().toString();
+                if(gebruikersnaam.isEmpty()){
+                    gebruikersnaam = Gebruikersnaam.getText().toString();
+                }
+
                 String wachtwoord = Wachtwoord.getText().toString();
                 String herhaalWachtwoord = HerhaalWachtwoord.getText().toString();
                 String oudWachtwoord = OudWachtwoord.getText().toString();
