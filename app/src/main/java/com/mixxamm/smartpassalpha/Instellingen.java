@@ -26,8 +26,8 @@ public class Instellingen extends AppCompatActivity {
     public static final String PREFS_ALGEMEEN = "Algemeen";
     static String naamGebruiker;
     Switch donkereModus;
-    ImageView uitloggen, donkereModusImageView, bugReportImageView, ondersteuningImageView;
-    TextView bugReport, ondersteuning;
+    ImageView uitloggen, donkereModusImageView, bugReportImageView, ondersteuningImageView, nieuwWachtwoordImageView;
+    TextView bugReport, ondersteuning, nieuwWachtwoordTextView;
     LinearLayout nieuwWachtwoord;
 
     @Override
@@ -101,7 +101,6 @@ public class Instellingen extends AppCompatActivity {
                 Intent intent = new Intent(Instellingen.this, WachtwoordInstellen.class);
                 intent.putExtra("gebruikersnaam", naamGebruiker);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -122,6 +121,8 @@ public class Instellingen extends AppCompatActivity {
         donkereModusImageView = findViewById(R.id.donkereModusImageView);
         bugReportImageView = findViewById(R.id.bugReportImageView);
         ondersteuningImageView = findViewById(R.id.ondersteuningImageView);
+        nieuwWachtwoordImageView = findViewById(R.id.nieuwWachtwoordImageView);
+        nieuwWachtwoordTextView = findViewById(R.id.nieuwWachtwoordTextView);
         //Voorkeuren
         SharedPreferences algemeen = getSharedPreferences(PREFS_ALGEMEEN, 0);
         boolean donker = algemeen.getBoolean("donkereModus", false);
@@ -143,6 +144,8 @@ public class Instellingen extends AppCompatActivity {
             bugReportImageView.setColorFilter(Color.WHITE);
             ondersteuning.setTextColor(Color.WHITE);
             ondersteuningImageView.setColorFilter(Color.WHITE);
+            nieuwWachtwoordImageView.setColorFilter(Color.WHITE);
+            nieuwWachtwoordTextView.setTextColor(Color.WHITE);
         }
         donkereModus.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
