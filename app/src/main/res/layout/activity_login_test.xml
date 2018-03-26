@@ -73,7 +73,7 @@
             android:text="Eerste keer hier? Klik hier om je wachtwoord in te stellen."
             android:textAlignment="center"
             android:textColor="@color/linkBlauw"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

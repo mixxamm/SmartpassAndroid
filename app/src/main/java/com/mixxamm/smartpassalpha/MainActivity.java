@@ -13,25 +13,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.mixxamm.smartpassalpha.R.id.smartschool_login;
+import javax.net.ssl.HttpsURLConnection;
+
+import static com.mixxamm.smartpassalpha.R.id.leerling_login;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String PREFS_INTRODUCTIE = "Introductie";
+    public static final String ACCOUNT = "Account";
     String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SharedPreferences account = getSharedPreferences("NaamGebruiker", 0);
+        SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
         String naamGebruiker = account.getString("naamGebruiker", "");
-        SharedPreferences wachtwoordGebruiker = getSharedPreferences("WachtwoordGebruiker", 0);
-        String wachtwoordGebruiker1 = wachtwoordGebruiker.getString("wachtwoordGebruiker", "");
-        SharedPreferences accountLeerkracht = getSharedPreferences("NaamLeerkracht", 0);
-        String naamLeerkracht = accountLeerkracht.getString("naamLeerkracht", "");
+        String wachtwoordGebruiker1 = account.getString("wachtwoordGebruiker", "");
+        String naamLeerkracht = account.getString("naamLeerkracht", "");
         if(isNetworkAvailable() && naamGebruiker != ""){
             laden();
             Login login = new Login(MainActivity.this);
@@ -48,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
         else if (!isNetworkAvailable() && naamGebruiker != "") {
             laden();
             Intent leerlingenKaart = new Intent(MainActivity.this, LeerlingenKaartActivity.class);
-            SharedPreferences id3 = getSharedPreferences("id", 0);
-            id = id3.getString("id", "");
+            id = account.getString("id", "");
             LeerlingenKaartActivity.id = id;
             startActivity(leerlingenKaart);
         }
@@ -68,10 +69,11 @@ public class MainActivity extends AppCompatActivity {
             editor.commit();
             Intent Introductie = new Intent(MainActivity.this, com.mixxamm.smartpassalpha.Introductie.class);
             startActivity(Introductie);
+            finish();
         }
 
 
-        ImageView smartschoolLogin = (ImageView) findViewById(smartschool_login);
+        TextView smartschoolLogin = findViewById(leerling_login);
         smartschoolLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                     laden();
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     private void laden(){
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.ProgressBarMainActivity);
         progressBar.setVisibility(View.VISIBLE);
-        ImageView smartschoolLogin = (ImageView) findViewById(R.id.smartschool_login);
+        TextView smartschoolLogin = (TextView) findViewById(R.id.leerling_login);
         smartschoolLogin.setVisibility(View.INVISIBLE);
         Button leerkrachtLogin = (Button) findViewById(R.id.leerkrachtLogin);
         leerkrachtLogin.setVisibility(View.INVISIBLE);
@@ -106,4 +108,6 @@ public class MainActivity extends AppCompatActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
+
 }

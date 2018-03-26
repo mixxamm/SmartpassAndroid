@@ -34,8 +34,8 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-public class ScanActivity2 extends AppCompatActivity {
+import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
+public class ScanActivity2 extends AppCompatActivity {//TODO: ook hier loaders gebruiken, zo moet de activiteit niet herstarten bij elke scan
 
     SurfaceView cameraView;
     BarcodeDetector barcode;
@@ -125,19 +125,15 @@ public class ScanActivity2 extends AppCompatActivity {
 
 
 
+            laden();
 
 
-        leerlingFoto = (CircleImageView) findViewById(R.id.profielFotoScan);
-        Picasso.with(ScanActivity2.this).load(fotoURL).into(leerlingFoto);
-        leerlingNaam = (TextView) findViewById(R.id.info);
-        leerlingNaam.setText(naam);
-        teLaat = (Button) findViewById(R.id.telaatknop);
-//        magBuiten = (ImageView) findViewById(R.id.magBuiten);
 
-        SharedPreferences wachtwoordGebruiker = getSharedPreferences("WachtwoordGebruiker", 0);
-        final String wachtwoordGebruiker1 = wachtwoordGebruiker.getString("wachtwoordGebruiker", "");
-        SharedPreferences accountLeerkracht = getSharedPreferences("NaamLeerkracht", 0);
-        final String naamLeerkracht = accountLeerkracht.getString("naamLeerkracht", "");
+
+
+        SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
+        final String wachtwoordGebruiker1 = account.getString("wachtwoordGebruiker", "");
+        final String naamLeerkracht = account.getString("naamLeerkracht", "");
 
         teLaat.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -147,6 +143,7 @@ public class ScanActivity2 extends AppCompatActivity {
                 if(id != null){//Voorkomt crash indien er geen leerling is gescant
                     Login login = new Login(ScanActivity2.this);
                     login.execute(type, id, wachtwoordGebruiker1, naamLeerkracht, "sa");
+
                 }
                 else{
                     Toast.makeText(ScanActivity2.this, "Scan de QR-code van een leerling om deze te laat te zetten.", Toast.LENGTH_SHORT).show();
@@ -184,6 +181,14 @@ public class ScanActivity2 extends AppCompatActivity {
         super.onDestroy();
 
         /*LeerkrachtenActivity.progressBar.setVisibility(View.INVISIBLE);*///TODO: BUG: crasht
+    }
+    public void laden(){
+        leerlingFoto = (CircleImageView) findViewById(R.id.profielFotoScan);
+        Picasso.with(ScanActivity2.this).load(fotoURL).into(leerlingFoto);
+        leerlingNaam = (TextView) findViewById(R.id.info);
+        leerlingNaam.setText(naam);
+        teLaat = (Button) findViewById(R.id.telaatknop);
+//        magBuiten = (ImageView) findViewById(R.id.magBuiten);
     }
 }
 

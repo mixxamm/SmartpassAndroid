@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <!-- Om na te kijken of er een internetverbinding beschikbaar is -->
     <application
@@ -50,7 +51,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".WoWoAlphaAnimationActivity" />
-        <activity android:name=".ScanActivity2"></activity>
+        <activity android:name=".ScanActivity2" />
+        <activity android:name=".Mail" />
+        <activity android:name=".Betalen" />
+        <activity android:name=".Instellingen"></activity>
     </application>
 
 </manifest>

@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -26,12 +28,13 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
-
+import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
 /**
  * Created by maxim on 19/12/2017.
  * Deze klasse zorgt ervoor dat inloggen mogelijk is. Werkt in de achtergrond. De klasse LoginActivity en LoginTest bevatten de lay-out.
  * LoginTest heeft een simpelere lay-out, omdat dat makkelijker is om mee te werken. LoginActivity heeft een ingewikkeldere lay-out
- * die ook gaat worden gebruikt wanneer we werken aan het uiterlijk van de app, wat op dit moment de laagste prioriteit is.
+ * die waarschijnlijk niet meer gaat gebruikt worden aangezien LoginTest er ondertussen al beter uitziet, en volledig zelf is gemaakt,
+ * waardoor het makkelijker is om mee te werken.
  */
 
 
@@ -199,9 +202,23 @@ public class Login extends AsyncTask<String, Void, String> {
             LeerlingenKaartActivity.fotoURL = "https://smartpass.one/foto/" + leerlingID + ".png";
             LeerlingenKaartActivity.buiten = naarBuiten;
 
-            Intent leerlingenkaart = new Intent(context, LeerlingenKaartActivity.class);
-            context.startActivity(leerlingenkaart);
-            ((Activity) context).finish();
+            if(leerlingNaam.equals("Leerling niet gevonden")){
+                Toast.makeText(context, "Naam of wachtwoord fout", Toast.LENGTH_LONG).show();
+                resetLeerling();
+                LoginTest loginTest = new LoginTest();
+                loginTest.type = "login";
+                Intent loginTest1 = new Intent(context, LoginTest.class);
+                context.startActivity(loginTest1);
+                ((Activity) context).finish();
+                /*LoginTest loginTest = new LoginTest();
+                LoginTest.progressBar.setVisibility(View.INVISIBLE);*/
+            }
+            else{
+                Intent leerlingenkaart = new Intent(context, LeerlingenKaartActivity.class);
+                context.startActivity(leerlingenkaart);
+                ((Activity) context).finish();
+            }
+
         } else if (type1.equals("zetTeLaat") && type2.equals("tli")) {
             if(tekst.contains("Leerling niet te laat gezet") || tekst.equals("Er is iets fout gegaan")){
                 Toast.makeText(context, tekst, Toast.LENGTH_SHORT).show();
@@ -225,11 +242,18 @@ public class Login extends AsyncTask<String, Void, String> {
         else if(type1.equals("loginLeerkracht")){
                 if(login.equals("1")){
                     Intent leerkrachtenActivity = new Intent(context, LeerkrachtenActivity.class);
+                    leerkrachtenActivity.putExtra("type", "normal");
                     context.startActivity(leerkrachtenActivity);
                     ((Activity) context).finish();
                 }
                 else{
                     Toast.makeText(context, "Inloggen als leerkracht mislukt, kijk gegevens na", Toast.LENGTH_SHORT).show();
+                    resetLeerkracht();
+                    LoginTest loginTest = new LoginTest();
+                    loginTest.type = "loginLeerkracht";
+                    Intent loginTest1 = new Intent(context, LoginTest.class);
+                    context.startActivity(loginTest1);
+                    ((Activity) context).finish();
                     /*LoginTest loginTest = new LoginTest();
                     loginTest.progressOnzichtbaar();*/
                 }
@@ -245,11 +269,27 @@ public class Login extends AsyncTask<String, Void, String> {
     }
 
     public void stelLeerlingIdIn(Context c) {
-        SharedPreferences id2 = c.getSharedPreferences("id", 0);
-        SharedPreferences.Editor editor = id2.edit();
+        SharedPreferences account = c.getSharedPreferences(ACCOUNT, 0);
+        SharedPreferences.Editor editor = account.edit();
         editor.putString("id", leerlingID);
         editor.commit();
     }
+
+    public void resetLeerkracht(){
+        SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
+        SharedPreferences.Editor editor = account.edit();
+        editor.putString("naamLeerkracht", "");
+        editor.commit();
+    }
+
+    public void resetLeerling(){
+        SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
+        SharedPreferences.Editor editor = account.edit();
+        editor.putString("naamGebruiker", "");
+        editor.commit();
+    }
+
+
 }
 
 

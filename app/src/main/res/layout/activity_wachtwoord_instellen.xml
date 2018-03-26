@@ -11,6 +11,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/gebruikersnaamTextView"
+            android:layout_margin="16dp"
+            android:textSize="24sp"
+            android:visibility="gone"/>
         <EditText
             android:id="@+id/gebruikersnaamwachtwoordinstellen"
             android:layout_width="match_parent"
@@ -19,6 +26,15 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
             android:hint="Gebruikersnaam" />
+        <EditText
+            android:id="@+id/oudWachtwoord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Oud wachtwoord"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:inputType="textPassword"
+            />
 
         <EditText
             android:id="@+id/etwachtwoordinstellen"
@@ -26,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:hint="Wachtwoord"
+            android:hint="Nieuw wachtwoord"
             android:inputType="textPassword" />
 
         <EditText
@@ -35,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:hint="Herhaal wachtwoord"
+            android:hint="Herhaal nieuw wachtwoord"
             android:inputType="textPassword" />
 
         <Button
@@ -43,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="Werkt nog niet, zelfs niet proberen" />
+            android:text="Stel wachtwoord in" />
 
         <RelativeLayout
             android:layout_width="match_parent"

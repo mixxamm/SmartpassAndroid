@@ -26,4 +26,7 @@
     <string name="makkelijker">En het is gemakkelijker dan je denkt.</string>
     <string name="ontdek">Ontdek hoe het werkt</string>
     <string name="gebruikersnaam">Gebruikersnaam</string>
+    <string name="login_als_leerkracht">Login as teacher</string>
+    <string name="inloggen">Log in</string>
+    <string name="title_activity_settings">Settings</string>
 </resources>

@@ -8,10 +8,29 @@
     android:background="#FFFFFF"
     tools:context="com.mixxamm.smartpassalpha.LeerlingenKaartActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+    android:id="@+id/bottom_navigation_leerlingenkaart"
+        android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@color/colorAccent"
+        app:itemTextColor="@color/white"
+        app:menu="@menu/bottom_navigation_leerlingen"
+        >
+    </com.aurelhubert.ahbottomnavigation.AHBottomNavigation>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginBottom="50dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profielFoto"
@@ -43,19 +62,12 @@
             android:visibility="gone" />-->
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/qrcode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal" />
-
-        <Button
-            android:id="@+id/logUitKnop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="16sp"
-            android:text="Log uit" />
+        
 
     </LinearLayout>
-
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

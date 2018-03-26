@@ -1,5 +1,6 @@
 package com.mixxamm.smartpassalpha;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,6 +24,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import static java.security.AccessController.getContext;
 
 /**
  * Created by maxim on 20/12/2017.
@@ -127,6 +130,7 @@ public class LeerlingInfo extends AsyncTask<String, Void, String> {
 
             Intent toonLeerlingInfo = new Intent(context, ToonLeerlingInfo.class);
             context.startActivity(toonLeerlingInfo);
+            ((Activity)context).finish();
         }
 
         if(type.equals("infoOphalen2")){
