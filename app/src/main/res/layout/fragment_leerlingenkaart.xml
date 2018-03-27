@@ -1,5 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragmentleerlingenkaart">
 
-</RelativeLayout>
+
+
+
+        <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+            android:id="@+id/bottom_navigation_leerlingenkaart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            >
+        </com.aurelhubert.ahbottomnavigation.AHBottomNavigation>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="50dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profielFoto"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_margin="16dp"
+                />
+
+            <TextView
+                android:id="@+id/leerlingNaam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text=""
+                android:textSize="32sp" />
+
+            <TextClock
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:format24Hour="HH:mm:ss"
+                android:textAlignment="center"
+                android:textColor="#455A64"
+                android:textSize="80sp" />
+
+            <!--<ImageView
+                android:id="@+id/imageViewBuiten"
+                android:layout_width="match_parent"
+                android:layout_height="155dp"
+                android:visibility="gone" />-->
+
+            <ImageView
+                android:id="@+id/qrcode1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" />
+
+
+        </LinearLayout>
+    </RelativeLayout>

@@ -18,15 +18,16 @@ public class LeerlingActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+
             Fragment fragment = null;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-
+                    fragment = new LeerlingenKaartFragment();
                     break;
                 case R.id.navigation_dashboard:
-
+                    fragment = new DashboardFragment();
                     break;
-                case R.id.navigation_notifications:
+                case R.id.navigation_settings:
                     fragment = new InstellingenFragment();
                     break;
             }
@@ -47,7 +48,7 @@ public class LeerlingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leerling);
 
-
+        loadFragment(new LeerlingenKaartFragment());
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
