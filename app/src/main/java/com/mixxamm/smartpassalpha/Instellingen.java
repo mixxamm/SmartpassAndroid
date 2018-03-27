@@ -28,7 +28,7 @@ public class Instellingen extends AppCompatActivity {
     Switch donkereModus;
     ImageView uitloggen, donkereModusImageView, bugReportImageView, ondersteuningImageView, nieuwWachtwoordImageView;
     TextView bugReport, ondersteuning, nieuwWachtwoordTextView;
-    LinearLayout nieuwWachtwoord;
+    LinearLayout nieuwWachtwoord, testVersie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +82,15 @@ public class Instellingen extends AppCompatActivity {
                 Intent link = new Intent(Intent.ACTION_VIEW);
                 link.setData(Uri.parse(url));
                 startActivity(link);
+            }
+        });
+
+        testVersie = findViewById(R.id.testVersie);
+        testVersie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Instellingen.this, LeerlingActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -118,6 +118,26 @@
                 android:textSize="25sp"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/testVersie">
+
+            <ImageView
+                android:layout_margin="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/testVersieImageView"
+                android:src="@drawable/warning"/>
+            <TextView
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Test Versie"
+                android:id="@+id/testVersieTextView"
+                android:textSize="25sp"/>
+        </LinearLayout>
+
 
     </LinearLayout>
 </RelativeLayout>
