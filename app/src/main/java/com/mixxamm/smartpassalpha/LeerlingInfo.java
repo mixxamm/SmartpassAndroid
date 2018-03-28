@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.google.zxing.client.android.Intents;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -134,15 +137,13 @@ public class LeerlingInfo extends AsyncTask<String, Void, String> {
         }
 
         if(type.equals("infoOphalen2")){
-            ScanActivity2.naam = leerlingNaam;
-            ScanActivity2.fotoURL = "https://smartpass.one/foto/" + id + ".png";
-            ScanActivity2.buiten = naarBuiten;
-            ScanActivity2.id = id;
-            ScanActivity2.teLaat.setVisibility(View.VISIBLE);
-
-            Intent scanActivity2 = new Intent(context, ScanActivity2.class);
-            scanActivity2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            context.startActivity(scanActivity2);
+            ScanFragment.naam = leerlingNaam;
+            ScanFragment.fotoURL = "https://smartpass.one/foto/" + id + ".png";
+            ScanFragment.buiten = naarBuiten;
+            ScanFragment.id = id;
+            ScanFragment.teLaat.setVisibility(View.VISIBLE);
+            ScanFragment scanFragment = new ScanFragment();
+            scanFragment.laden();
         }
 
         /*Intent leerkrachtenActivity = new Intent(context, LeerkrachtenActivity.class);
