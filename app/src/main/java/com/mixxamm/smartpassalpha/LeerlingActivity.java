@@ -1,5 +1,6 @@
 package com.mixxamm.smartpassalpha;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -51,6 +52,10 @@ public class LeerlingActivity extends AppCompatActivity {
         loadFragment(new LeerlingenKaartFragment());
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    public void veranderBottomNavigationKleur(int color){
+
     }
 
 }

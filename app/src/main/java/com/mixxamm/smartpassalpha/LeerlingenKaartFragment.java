@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +51,6 @@ public class LeerlingenKaartFragment extends Fragment {
             naam = account.getString("naamGebruiker", "");
             buiten = "4";
         }
-        naam = "Maxim Janssens";
 
         if(naam.equals("Leerling niet gevonden")){//log automatisch uit als account1 niet bestaat
             resetLeerlingNaam();
@@ -60,6 +60,7 @@ public class LeerlingenKaartFragment extends Fragment {
         CircleImageView profielFotoView = (CircleImageView) v.findViewById(R.id.profielFoto);
         if (buiten.equals("1")) {
             setActivityBackgroundColor(Color.parseColor("#8BC34A"), Color.parseColor("#689F38"));//parseColor gebruiken aangezien kleuren van colors.xml pakken niet werkt om een vage reden
+
 
             color1 = Color.parseColor("#8BC34A");
             int color2 = Color.parseColor("#689F38");
@@ -123,6 +124,10 @@ public class LeerlingenKaartFragment extends Fragment {
     public void setActivityBackgroundColor(int color, int color2) {
         RelativeLayout relativeLayout = v.findViewById(R.id.fragmentleerlingenkaart);
         relativeLayout.setBackgroundColor(color);
+
+        BottomNavigationView navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
+        navigation.setBackgroundColor(color);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getActivity().getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
