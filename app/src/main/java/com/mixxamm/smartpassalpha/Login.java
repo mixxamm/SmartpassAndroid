@@ -259,9 +259,9 @@ public class Login extends AsyncTask<String, Void, String> {
                 Toast.makeText(context, tekst, Toast.LENGTH_SHORT).show();
             }
             else{
-                ScanActivity2.buiten = "0";
-                Intent scanActivity2 = new Intent(context, ScanActivity2.class);
-                context.startActivity(scanActivity2);
+                ScanFragment.buiten = "0";
+                ScanFragment scanFragment = new ScanFragment();
+                scanFragment.laden();
             }
         }
         else if(type1.equals("loginLeerkracht")){
