@@ -25,6 +25,7 @@
             android:layout_above="@id/scanButton"
             android:text="Houd camera open (experimenteel, meld bugs)"
             android:visibility="visible"
+            android:checked="true"
             android:enabled="true"/>
         <Button
             android:id="@+id/scanButton"

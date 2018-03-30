@@ -40,6 +40,7 @@ import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
 
 public class Login extends AsyncTask<String, Void, String> {
     static String leerlingID, leerlingNaam, naarBuiten, tekst, type1, leerkrachtNaam, login, type2;
+    static int aantalTotaal, aantalTrimester, aantalTotNablijven;
     Context context;
     AlertDialog alertDialog;
 
@@ -140,7 +141,54 @@ public class Login extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             }
 
-        } else if (type.equals("zetTeLaat")) {
+
+        } else if(type.equals("dashboard")){
+            login_url = "https://smartpass.one/connect/dashboard.php";
+            String id = params[1];
+            try{
+                URL url = new URL(login_url);
+                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+                httpsURLConnection.setRequestMethod("POST");
+                httpsURLConnection.setDoOutput(true);
+                httpsURLConnection.setDoInput(true);
+                OutputStream outputStream = httpsURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpsURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                String line = "";
+                while ((line = bufferedReader.readLine()) != null) {
+                    result += line;
+                }
+                JSONObject jsonobj = new JSONObject(result);
+                aantalTotaal = jsonobj.getInt("totaal");
+                aantalTrimester = jsonobj.getInt("trimester");
+                aantalTotNablijven = jsonobj.getInt("totnablijven");
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            }
+
+
+
+
+
+        else if (type.equals("zetTeLaat")) {
             String id = params[1];
             String wachtwoord = params[2];
             String leerkrachtNaam = params[3];
@@ -283,6 +331,13 @@ public class Login extends AsyncTask<String, Void, String> {
                     loginTest.progressOnzichtbaar();*/
                 }
 
+        }
+        else if(type1.equals("dashboard")){
+            DashboardFragment.aantalTeLaat = aantalTotaal;
+            DashboardFragment.aantalTeLaatTrimester = aantalTrimester;
+            DashboardFragment.intAantalTotNablijven = aantalTotNablijven;
+            DashboardFragment dashboardFragment = new DashboardFragment();
+            dashboardFragment.laden();
         }
 
     }
