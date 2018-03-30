@@ -52,7 +52,7 @@ public class LeerlingenKaartFragment extends Fragment {
             buiten = "4";
         }
 
-        if(naam.equals("Leerling niet gevonden")){//log automatisch uit als account1 niet bestaat
+        if(naam.equals("Leerling niet gevonden")){//log automatisch uit als account niet bestaat
             resetLeerlingNaam();
         }
 

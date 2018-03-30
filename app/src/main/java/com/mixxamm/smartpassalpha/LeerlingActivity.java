@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class LeerlingActivity extends AppCompatActivity {
 
-
+public static int id;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -49,13 +49,13 @@ public class LeerlingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leerling);
 
+        LeerlingenKaartFragment.id = String.valueOf(id);
+
         loadFragment(new LeerlingenKaartFragment());
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-    public void veranderBottomNavigationKleur(int color){
 
-    }
 
 }

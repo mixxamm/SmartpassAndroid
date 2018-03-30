@@ -1,7 +1,10 @@
 package com.mixxamm.smartpassalpha;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -42,12 +45,26 @@ public class DashboardFragment extends Fragment {
     }
 
     public void laden(){
+
         TextView aantalKerenTeLaat = v.findViewById(R.id.aantal_keren_te_laat);
         TextView aantalKerenTeLaatTrimester = v.findViewById(R.id.aantal_keren_te_laat_trimester);
         TextView aantalTotNablijven = v.findViewById(R.id.aantal_tot_nablijven);
-        aantalKerenTeLaat.setText(String.valueOf(aantalTeLaat));
-        aantalKerenTeLaatTrimester.setText(String.valueOf(aantalTeLaatTrimester));
-        aantalTotNablijven.setText("Nog " + String.valueOf(intAantalTotNablijven) + " keer te laat tot nablijven");
+
+        if(aantalTeLaat == 0 && aantalTeLaatTrimester == 0 && intAantalTotNablijven == 0){
+            aantalKerenTeLaat.setText("?");
+            aantalKerenTeLaatTrimester.setText("?");
+        }
+        else{
+            aantalKerenTeLaat.setText(String.valueOf(aantalTeLaat));
+            aantalKerenTeLaatTrimester.setText(String.valueOf(aantalTeLaatTrimester));
+            aantalTotNablijven.setText("Nog " + String.valueOf(intAantalTotNablijven) + " keer te laat tot nablijven");
+        }
+
+
+
+
 
     }
+
+
 }

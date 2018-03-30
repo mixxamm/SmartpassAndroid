@@ -49,10 +49,10 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (!isNetworkAvailable() && naamGebruiker != "") {
             laden();
-            Intent leerlingenKaart = new Intent(MainActivity.this, LeerlingenKaartActivity.class);
+            Intent leerlingActivity = new Intent(MainActivity.this, LeerlingActivity.class);
             id = account.getString("id", "");
-            LeerlingenKaartActivity.id = id;
-            startActivity(leerlingenKaart);
+            LeerlingActivity.id = Integer.valueOf(id);
+            startActivity(leerlingActivity);
         }
         /*VideoView videoView = (VideoView) findViewById(R.id.videoView1);
         Uri path = Uri.parse("android.recourse://" + getPackageName() + "/" + R.raw.video);
