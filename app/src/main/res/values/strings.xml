@@ -32,4 +32,8 @@
     <string name="gebruikersnaam">Gebruikersnaam</string>
     <string name="middagpasjes_beu">Klassieke middagpasjes beu?</string>
     <string name="title_activity_settings">Instellingen</string>
+    <string name="title_activity_leerling">LeerlingActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

@@ -196,7 +196,7 @@ public class Login extends AsyncTask<String, Void, String> {
 
     @Override
     public void onPostExecute(String naam) {
-        if (type1.equals("login")) {
+        if (type1.equals("login1")) {
             LeerlingenKaartActivity.id = leerlingID;
             LeerlingenKaartActivity.naam = leerlingNaam;
             LeerlingenKaartActivity.fotoURL = "https://smartpass.one/foto/" + leerlingID + ".png";
@@ -219,7 +219,32 @@ public class Login extends AsyncTask<String, Void, String> {
                 ((Activity) context).finish();
             }
 
-        } else if (type1.equals("zetTeLaat") && type2.equals("tli")) {
+        }
+        else if(type1.equals("login")){
+            LeerlingenKaartFragment.id = leerlingID;
+            LeerlingenKaartFragment.naam = leerlingNaam;
+            LeerlingenKaartFragment.fotoURL = "https://smartpass.one/foto/" + leerlingID + ".png";
+            LeerlingenKaartFragment.buiten = naarBuiten;
+
+            if(leerlingNaam.equals("Leerling niet gevonden")){
+                Toast.makeText(context, "Naam of wachtwoord fout", Toast.LENGTH_LONG).show();
+                resetLeerling();
+                LoginTest loginTest = new LoginTest();
+                loginTest.type = "login";
+                Intent loginTest1 = new Intent(context, LoginTest.class);
+                context.startActivity(loginTest1);
+                ((Activity) context).finish();
+                /*LoginTest loginTest = new LoginTest();
+                LoginTest.progressBar.setVisibility(View.INVISIBLE);*/
+            }
+            else{
+                Intent leerlingenkaart = new Intent(context, LeerlingActivity.class);
+                context.startActivity(leerlingenkaart);
+                ((Activity) context).finish();
+            }
+        }
+
+        else if (type1.equals("zetTeLaat") && type2.equals("tli")) {
             if(tekst.contains("Leerling niet te laat gezet") || tekst.equals("Er is iets fout gegaan")){
                 Toast.makeText(context, tekst, Toast.LENGTH_SHORT).show();
             }
@@ -234,9 +259,9 @@ public class Login extends AsyncTask<String, Void, String> {
                 Toast.makeText(context, tekst, Toast.LENGTH_SHORT).show();
             }
             else{
-                ScanActivity2.buiten = "0";
-                Intent scanActivity2 = new Intent(context, ScanActivity2.class);
-                context.startActivity(scanActivity2);
+                ScanFragment.buiten = "0";
+                ScanFragment scanFragment = new ScanFragment();
+                scanFragment.laden();
             }
         }
         else if(type1.equals("loginLeerkracht")){

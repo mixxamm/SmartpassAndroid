@@ -54,7 +54,10 @@
         <activity android:name=".ScanActivity2" />
         <activity android:name=".Mail" />
         <activity android:name=".Betalen" />
-        <activity android:name=".Instellingen"></activity>
+        <activity android:name=".Instellingen" />
+        <activity
+            android:name=".LeerlingActivity"
+            android:label="@string/title_activity_leerling"></activity>
     </application>
 
 </manifest>

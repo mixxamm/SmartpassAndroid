@@ -14,48 +14,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
-    <LinearLayout
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:orientation="vertical"
-        android:id="@+id/scanLayout"
-        android:background="@color/colorAccent">
+        android:id="@+id/scanFragment">
 
+    </FrameLayout>
 
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profielFotoScan"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="16dp"/>
-
-        <TextView
-            android:id="@+id/info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/profielFotoScan"
-            android:layout_marginTop="8dp"
-            android:padding="8dp"
-            android:textAlignment="center"
-            android:textSize="25sp" />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Zet te laat"
-            android:id="@+id/telaatknop"
-            android:visibility="visible"/>
-        <ProgressBar
-            android:id="@+id/ProgressBarScan2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Stuur bericht naar beheerder"
-            android:visibility="gone"/>
-    </LinearLayout>
 
 </RelativeLayout>
 
