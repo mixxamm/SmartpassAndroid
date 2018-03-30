@@ -4,18 +4,6 @@
     android:layout_height="match_parent"
     android:id="@+id/fragmentleerlingenkaart">
 
-
-
-
-        <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
-            android:id="@+id/bottom_navigation_leerlingenkaart"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            >
-        </com.aurelhubert.ahbottomnavigation.AHBottomNavigation>
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -244,31 +244,8 @@ public class Login extends AsyncTask<String, Void, String> {
 
     @Override
     public void onPostExecute(String naam) {
-        if (type1.equals("login1")) {
-            LeerlingenKaartActivity.id = leerlingID;
-            LeerlingenKaartActivity.naam = leerlingNaam;
-            LeerlingenKaartActivity.fotoURL = "https://smartpass.one/foto/" + leerlingID + ".png";
-            LeerlingenKaartActivity.buiten = naarBuiten;
 
-            if(leerlingNaam.equals("Leerling niet gevonden")){
-                Toast.makeText(context, "Naam of wachtwoord fout", Toast.LENGTH_LONG).show();
-                resetLeerling();
-                LoginTest loginTest = new LoginTest();
-                loginTest.type = "login";
-                Intent loginTest1 = new Intent(context, LoginTest.class);
-                context.startActivity(loginTest1);
-                ((Activity) context).finish();
-                /*LoginTest loginTest = new LoginTest();
-                LoginTest.progressBar.setVisibility(View.INVISIBLE);*/
-            }
-            else{
-                Intent leerlingenkaart = new Intent(context, LeerlingenKaartActivity.class);
-                context.startActivity(leerlingenkaart);
-                ((Activity) context).finish();
-            }
-
-        }
-        else if(type1.equals("login")){
+        if(type1.equals("login")){
             LeerlingenKaartFragment.id = leerlingID;
             LeerlingenKaartFragment.naam = leerlingNaam;
             LeerlingenKaartFragment.fotoURL = "https://smartpass.one/foto/" + leerlingID + ".png";

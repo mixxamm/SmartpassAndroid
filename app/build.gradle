@@ -33,7 +33,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     //Libraries
-    implementation 'com.aurelhubert:ahbottomnavigation:2.1.0' //Betere bottom navigation
     implementation 'com.android.support:design:27.1.0' //Voor bottom navigation
     implementation 'de.hdodenhof:circleimageview:2.1.0'//Afbeelding in cirkelvorm
     implementation 'com.google.zxing:core:3.2.1'//QR-code generator

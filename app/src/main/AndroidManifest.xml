@@ -35,7 +35,6 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".LeerlingenKaartActivity" />
         <activity android:name=".LeerkrachtenActivity" />
         <activity android:name=".ScanActivity" />
         <activity android:name=".LoginTest" />
@@ -53,8 +52,6 @@
         <activity android:name=".WoWoAlphaAnimationActivity" />
         <activity android:name=".ScanActivity2" />
         <activity android:name=".Mail" />
-        <activity android:name=".Betalen" />
-        <activity android:name=".Instellingen" />
         <activity
             android:name=".LeerlingActivity"
             android:label="@string/title_activity_leerling"></activity>
