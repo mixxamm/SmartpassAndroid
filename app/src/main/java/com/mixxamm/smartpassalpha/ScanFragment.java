@@ -27,7 +27,7 @@ import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
 
 public class ScanFragment extends Fragment {
 
-    public static String fotoURL, naam, buiten = "2", id;
+    public static String fotoURL, naam, buiten = "2", id, klas;
     CircleImageView leerlingFoto;
     TextView leerlingNaam;
     public static ImageView magBuiten;
@@ -82,7 +82,7 @@ public class ScanFragment extends Fragment {
         leerlingFoto = (CircleImageView) v.findViewById(R.id.profielFotoScan);
         Picasso.with(v.getContext()).load(fotoURL).into(leerlingFoto);
         leerlingNaam = (TextView) v.findViewById(R.id.info);
-        leerlingNaam.setText(naam);
+        leerlingNaam.setText(naam + " | " + klas);
         teLaat = (Button) v.findViewById(R.id.telaatknop);
         if(buiten.equals("1")){
             setActivityBackgroundColor(Color.parseColor("#8BC34A"), Color.parseColor("#689F38"));

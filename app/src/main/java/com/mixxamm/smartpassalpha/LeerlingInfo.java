@@ -35,7 +35,7 @@ import static java.security.AccessController.getContext;
  */
 
 public class LeerlingInfo extends AsyncTask<String, Void, String> {
-    static String leerlingNaam, naarBuiten, id, type;
+    static String leerlingNaam, naarBuiten, id, type, klas;
     Context context;
 
 
@@ -107,6 +107,7 @@ public class LeerlingInfo extends AsyncTask<String, Void, String> {
                 JSONObject jsonObject = new JSONObject(result);
                 leerlingNaam = jsonObject.getString("naam");
                 naarBuiten = jsonObject.getString("buiten");
+                klas = jsonObject.getString("klas");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -141,6 +142,7 @@ public class LeerlingInfo extends AsyncTask<String, Void, String> {
             ScanFragment.fotoURL = "https://smartpass.one/foto/" + id + ".png";
             ScanFragment.buiten = naarBuiten;
             ScanFragment.id = id;
+            ScanFragment.klas = klas;
             ScanFragment.teLaat.setVisibility(View.VISIBLE);
             ScanFragment scanFragment = new ScanFragment();
             scanFragment.laden();
