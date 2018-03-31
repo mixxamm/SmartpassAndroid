@@ -2,6 +2,7 @@ package com.mixxamm.smartpassalpha;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -46,6 +47,34 @@ public class LeerlingenKaartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         v = inflater.inflate(R.layout.fragment_leerlingenkaart, container, false);
 
+        BottomNavigationView navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
+
+        //Kleurlijsten maken
+        int[][] states = new int[][] {
+                new int[] {-android.R.attr.state_checked}, // unchecked
+                new int[] { android.R.attr.state_checked}, // checked
+
+        };
+
+        int[] colors = new int[] {
+                Color.parseColor("#757575"),
+                Color.parseColor("#455A64")
+        };
+
+        int[][] states1 = new int[][] {
+                new int[] {-android.R.attr.state_checked}, // unchecked
+                new int[] { android.R.attr.state_checked}, // checked
+
+        };
+
+        int[] colors2 = new int[] {
+                Color.parseColor("#BDBDBD"),
+                Color.parseColor("#455A64")
+        };
+
+        final ColorStateList normaalLijst = new ColorStateList(states, colors);
+        final ColorStateList lichtLijst = new ColorStateList(states, colors);
+
         if(!isNetworkAvailable()){
             SharedPreferences account = getActivity().getSharedPreferences(ACCOUNT, 0);
             naam = account.getString("naamGebruiker", "");
@@ -62,6 +91,9 @@ public class LeerlingenKaartFragment extends Fragment {
             setActivityBackgroundColor(Color.parseColor("#8BC34A"), Color.parseColor("#689F38"));//parseColor gebruiken aangezien kleuren van colors.xml pakken niet werkt om een vage reden
 
 
+            navigation.setItemTextColor(normaalLijst);
+            navigation.setItemIconTintList(normaalLijst);
+
             color1 = Color.parseColor("#8BC34A");
             int color2 = Color.parseColor("#689F38");
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -70,6 +102,11 @@ public class LeerlingenKaartFragment extends Fragment {
         } else if (buiten.equals("0")) {
             setActivityBackgroundColor(Color.parseColor("#F44336"), Color.parseColor("#D32F2F"));
             color1 = Color.parseColor("#F44336");
+
+
+            navigation.setItemTextColor(lichtLijst);
+            navigation.setItemIconTintList(lichtLijst);
+
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getActivity().getWindow().setNavigationBarColor(Color.parseColor("#D32F2F"));
             }
@@ -78,10 +115,14 @@ public class LeerlingenKaartFragment extends Fragment {
             profielFotoView.setVisibility(View.VISIBLE);
             profielFotoView.setVisibility(View.INVISIBLE);
             color1 = Color.WHITE;
+            navigation.setItemTextColor(normaalLijst);
+            navigation.setItemIconTintList(normaalLijst);
         } else if(buiten.equals("4")){
             profielFotoView.setImageResource(R.drawable.sync_alert);
             profielFotoView.setVisibility(View.VISIBLE);
             color1 = Color.WHITE;
+            navigation.setItemTextColor(normaalLijst);
+            navigation.setItemIconTintList(normaalLijst);
         }
 
 

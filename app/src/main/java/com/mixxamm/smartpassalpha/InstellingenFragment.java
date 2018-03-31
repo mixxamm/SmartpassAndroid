@@ -46,10 +46,6 @@ public class InstellingenFragment extends Fragment implements View.OnClickListen
         v = inflater.inflate(R.layout.fragment_instellingen, container, false);
         SharedPreferences account = getActivity().getSharedPreferences(ACCOUNT, 0);
         naamGebruiker = account.getString("naamGebruiker", "");
-
-
-
-
         bugReport = v.findViewById(R.id.bugReport);
         bugReport.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +123,37 @@ public class InstellingenFragment extends Fragment implements View.OnClickListen
             nieuwWachtwoordTextView.setTextColor(Color.WHITE);
             navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
             navigation.setBackgroundColor(Color.parseColor("#000000"));
+
+            int[][] states = new int[][] {
+                    new int[] {-android.R.attr.state_checked}, // unchecked
+                    new int[] { android.R.attr.state_checked}, // checked
+
+            };
+
+            int[] colors = new int[] {
+                    Color.WHITE,
+                    Color.parseColor("#2196F3")
+            };
+
+            ColorStateList donkerLijst = new ColorStateList(states, colors);
+            navigation.setItemTextColor(donkerLijst);
+            navigation.setItemIconTintList(donkerLijst);
+        }
+        else{
+            int[][] states = new int[][] {
+                    new int[] {-android.R.attr.state_checked}, // unchecked
+                    new int[] { android.R.attr.state_checked}, // checked
+
+            };
+
+            int[] colors = new int[] {
+                    Color.parseColor("#757575"),
+                    Color.parseColor("#455A64")
+            };
+
+            ColorStateList lichtLijst = new ColorStateList(states, colors);
+            navigation.setItemTextColor(lichtLijst);
+            navigation.setItemIconTintList(lichtLijst);
         }
         donkereModus.setOnClickListener(new View.OnClickListener() {
             @Override
