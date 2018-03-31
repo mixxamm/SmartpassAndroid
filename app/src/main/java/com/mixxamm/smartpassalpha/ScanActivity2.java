@@ -103,6 +103,7 @@ public class ScanActivity2 extends AppCompatActivity {//TODO: ook hier loaders g
                     @Override
                     public void surfaceDestroyed(SurfaceHolder holder) {
                         cameraSource.stop();
+                        vorigID = "eersteKeer";
                         //Stopt de camera nadat de scanactiviteit is gesloten (bespaart enorm veel batterij)
                     }
                 });
@@ -127,7 +128,6 @@ public class ScanActivity2 extends AppCompatActivity {//TODO: ook hier loaders g
                                 Fragment fragment = new ScanFragment();
                                 loadFragment(fragment);
                             }
-
                         }
 
             }
