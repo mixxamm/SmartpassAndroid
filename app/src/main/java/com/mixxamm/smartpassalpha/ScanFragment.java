@@ -51,17 +51,13 @@ public class ScanFragment extends Fragment {
             public void onClick(View v){
                 String type = "zetTeLaat";
 
-                if(id != null){//Voorkomt crash indien er geen leerling is gescant
-
-                        Login login = new Login(getContext());
-                        login.execute(type, id, wachtwoordGebruiker1, naamLeerkracht, "sa");
-
-                }
-                else{
+                if(naam.equals("Leerling niet gevonden")){
                     Toast.makeText(getContext(), "Scan de QR-code van een leerling om deze te laat te zetten.", Toast.LENGTH_SHORT).show();
                 }
-
-
+                else if(id != null){//Voorkomt crash indien er geen leerling is gescant
+                        Login login = new Login(getContext());
+                        login.execute(type, id, wachtwoordGebruiker1, naamLeerkracht, "sa");
+                        }
             }
         });
 
@@ -89,6 +85,9 @@ public class ScanFragment extends Fragment {
         }
         else if(buiten.equals("0")){
             setActivityBackgroundColor(Color.parseColor("#F44336"), Color.parseColor("#D32F2F"));
+        }
+        else if(naam.equals("Leerling niet gevonden")){
+            leerlingNaam.setText(naam);
         }
 //        magBuiten = (ImageView) findViewById(R.id.magBuiten);
     }
