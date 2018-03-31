@@ -247,7 +247,6 @@ public class Login extends AsyncTask<String, Void, String> {
     public void onPostExecute(String naam) {
 
         if(type1.equals("login")){
-            LeerlingenKaartFragment.id = leerlingID;
             LeerlingenKaartFragment.naam = leerlingNaam;
             LeerlingenKaartFragment.fotoURL = "https://smartpass.one/foto/" + leerlingID + ".png";
             LeerlingenKaartFragment.buiten = naarBuiten;

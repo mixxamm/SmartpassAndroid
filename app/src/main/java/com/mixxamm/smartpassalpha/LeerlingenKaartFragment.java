@@ -77,9 +77,9 @@ public class LeerlingenKaartFragment extends Fragment {
 
         final ColorStateList normaalLijst = new ColorStateList(states, colors);
         final ColorStateList lichtLijst = new ColorStateList(states, colors);
-
+        SharedPreferences account = getActivity().getSharedPreferences(ACCOUNT, 0);
+        id = account.getString("id", "");
         if(!isNetworkAvailable()){
-            SharedPreferences account = getActivity().getSharedPreferences(ACCOUNT, 0);
             naam = account.getString("naamGebruiker", "");
             klas = account.getString("klas", "");
             buiten = "4";
