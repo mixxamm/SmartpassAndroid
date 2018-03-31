@@ -36,9 +36,9 @@ public class InstellingenFragment extends Fragment implements View.OnClickListen
     public static View v;
     static String naamGebruiker;
     Switch donkereModus;
-    ImageView uitloggen, donkereModusImageView, bugReportImageView, ondersteuningImageView, nieuwWachtwoordImageView;
-    TextView bugReport, ondersteuning, nieuwWachtwoordTextView;
-    LinearLayout nieuwWachtwoord, testVersie;
+    ImageView uitloggen, donkereModusImageView, bugReportImageView, ondersteuningImageView, nieuwWachtwoordImageView, nieuweFunctieImageView;
+    TextView bugReport, ondersteuning, nieuwWachtwoordTextView, nieuweFunctieTextView;
+    LinearLayout nieuwWachtwoord, nieuweFunctie;
 
     @Nullable
     @Override
@@ -61,6 +61,17 @@ public class InstellingenFragment extends Fragment implements View.OnClickListen
         ondersteuning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {composeEmail();
+            }
+        });
+
+        nieuweFunctie = v.findViewById(R.id.functie_aanvraag_linear_layout);
+        nieuweFunctie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://github.com/mixxamm/SmartpassAndroid/issues/new?template=feature_request.md";
+                Intent link = new Intent(Intent.ACTION_VIEW);
+                link.setData(Uri.parse(url));
+                startActivity(link);
             }
         });
 
@@ -94,6 +105,9 @@ public class InstellingenFragment extends Fragment implements View.OnClickListen
         ondersteuningImageView = v.findViewById(R.id.ondersteuningImageView);
         nieuwWachtwoordImageView = v.findViewById(R.id.nieuwWachtwoordImageView);
         nieuwWachtwoordTextView = v.findViewById(R.id.nieuwWachtwoordTextView);
+        nieuweFunctieImageView = v.findViewById(R.id.functie_aanvraag_image_view);
+        nieuweFunctieTextView = v.findViewById(R.id.functie_aanvraag_text_view);
+
 
         //Voorkeuren
         SharedPreferences algemeen = getActivity().getSharedPreferences(PREFS_ALGEMEEN, 0);
@@ -121,6 +135,8 @@ public class InstellingenFragment extends Fragment implements View.OnClickListen
             ondersteuningImageView.setColorFilter(Color.WHITE);
             nieuwWachtwoordImageView.setColorFilter(Color.WHITE);
             nieuwWachtwoordTextView.setTextColor(Color.WHITE);
+            nieuweFunctieTextView.setTextColor(Color.WHITE);
+            nieuweFunctieImageView.setColorFilter(Color.WHITE);
             navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
             navigation.setBackgroundColor(Color.parseColor("#000000"));
 
