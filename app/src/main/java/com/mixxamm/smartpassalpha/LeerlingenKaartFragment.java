@@ -35,7 +35,7 @@ public class LeerlingenKaartFragment extends Fragment {
 
     public final static int QRcodeWidth = 500;
     int color1;
-    public static String id, naam, fotoURL, buiten;
+    public static String id, naam, fotoURL, buiten, klas;
     public static View v;
     ImageView imageView;
     TextView naamLeerling;
@@ -78,6 +78,7 @@ public class LeerlingenKaartFragment extends Fragment {
         if(!isNetworkAvailable()){
             SharedPreferences account = getActivity().getSharedPreferences(ACCOUNT, 0);
             naam = account.getString("naamGebruiker", "");
+            klas = account.getString("klas", "");
             buiten = "4";
         }
 
@@ -127,7 +128,7 @@ public class LeerlingenKaartFragment extends Fragment {
 
 
         naamLeerling = (TextView) v.findViewById(R.id.leerlingNaam);
-        naamLeerling.setText(naam);
+        naamLeerling.setText(naam + " | " + klas);
         if(buiten.equals("1") || buiten.equals("0")){
             Picasso.with(getContext()).load(fotoURL).into(profielFotoView);
         }

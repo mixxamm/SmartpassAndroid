@@ -17,6 +17,7 @@
             android:text="Aantal keren te laat:"
             android:textSize="25sp"/>
         <TextView
+            android:textSize="25sp"
             android:id="@+id/aantal_keren_te_laat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,6 +37,7 @@
             android:text="Waarvan deze trimester:"
             android:textSize="25sp"/>
         <TextView
+            android:textSize="25sp"
             android:id="@+id/aantal_keren_te_laat_trimester"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nog ? keer te laat tot nablijven"
-            android:textSize="25sp"/>
+            android:textSize="23sp"/>
     </LinearLayout>
 
 

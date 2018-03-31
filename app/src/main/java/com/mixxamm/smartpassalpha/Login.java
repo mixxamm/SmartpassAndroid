@@ -39,7 +39,7 @@ import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
 
 
 public class Login extends AsyncTask<String, Void, String> {
-    static String leerlingID, leerlingNaam, naarBuiten, tekst, type1, leerkrachtNaam, login, type2;
+    static String leerlingID, leerlingNaam, naarBuiten, tekst, type1, leerkrachtNaam, login, type2, klas;
     static int aantalTotaal, aantalTrimester, aantalTotNablijven;
     Context context;
     AlertDialog alertDialog;
@@ -86,6 +86,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 leerlingID = jsonobj.getString("leerlingID");
                 leerlingNaam = jsonobj.getString("naam");
                 naarBuiten = jsonobj.getString("buiten");
+                klas = jsonobj.getString("klas");
                 stelLeerlingIdIn(context);
 
                 bufferedReader.close();
@@ -250,6 +251,7 @@ public class Login extends AsyncTask<String, Void, String> {
             LeerlingenKaartFragment.naam = leerlingNaam;
             LeerlingenKaartFragment.fotoURL = "https://smartpass.one/foto/" + leerlingID + ".png";
             LeerlingenKaartFragment.buiten = naarBuiten;
+            LeerlingenKaartFragment.klas = klas;
 
             if(leerlingNaam.equals("Leerling niet gevonden")){
                 Toast.makeText(context, "Naam of wachtwoord fout", Toast.LENGTH_LONG).show();
@@ -329,6 +331,7 @@ public class Login extends AsyncTask<String, Void, String> {
         SharedPreferences account = c.getSharedPreferences(ACCOUNT, 0);
         SharedPreferences.Editor editor = account.edit();
         editor.putString("id", leerlingID);
+        editor.putString("klas", klas);
         editor.commit();
     }
 
