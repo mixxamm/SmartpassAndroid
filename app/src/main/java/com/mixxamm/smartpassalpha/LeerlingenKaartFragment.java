@@ -124,7 +124,8 @@ public class LeerlingenKaartFragment extends Fragment {
         } else if(buiten.equals("4")){
             profielFotoView.setImageResource(R.drawable.sync_alert);
             profielFotoView.setVisibility(View.VISIBLE);
-            color1 = Color.WHITE;
+            color1 = Color.parseColor("#FAFAFA");
+            setActivityBackgroundColor(Color.parseColor("#FAFAFA"), Color.parseColor("#455A64"));
             navigation.setItemTextColor(normaalLijst);
             navigation.setItemIconTintList(normaalLijst);
         }
