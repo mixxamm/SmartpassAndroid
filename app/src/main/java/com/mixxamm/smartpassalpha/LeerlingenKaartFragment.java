@@ -193,8 +193,6 @@ public class LeerlingenKaartFragment extends Fragment {
         lp.screenBrightness = brightness;
         getActivity().getWindow().setAttributes(lp);
     }
-
-
     public void onDestroy(){
         super.onDestroy();
         setScreenBrightnessTo(BRIGHTNESS_OVERRIDE_NONE);
