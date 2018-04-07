@@ -1,4 +1,4 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.mixxamm.smartpassalpha.R;
 
 public class WachtwoordInstellen extends AppCompatActivity {
 

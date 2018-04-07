@@ -1,4 +1,4 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,7 +14,6 @@ import com.github.florent37.materialtextfield.MaterialTextField;
 
 import static com.mixxamm.smartpassalpha.R.id;
 import static com.mixxamm.smartpassalpha.R.layout;
-import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
 
 public class LoginTest extends AppCompatActivity {
 
@@ -46,7 +45,7 @@ public class LoginTest extends AppCompatActivity {
                     String wachtwoord = Wachtwoord.getText().toString();
 
 
-                    SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
+                    SharedPreferences account = getSharedPreferences(MainActivity.ACCOUNT, 0);
                     SharedPreferences.Editor editor = account.edit();
                     editor.putString("naamGebruiker", gebruikersnaam);
                     editor.commit();
@@ -62,7 +61,7 @@ public class LoginTest extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
                     String leerkrachtnaam = Gebruikersnaam.getText().toString();
                     String wachtwoord = Wachtwoord.getText().toString();
-                    SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
+                    SharedPreferences account = getSharedPreferences(MainActivity.ACCOUNT, 0);
                     SharedPreferences.Editor editor = account.edit();
                     editor.putString("naamLeerkracht", leerkrachtnaam);
                     editor.commit();

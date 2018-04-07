@@ -1,4 +1,4 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
 /**
  * Created by maxim on 27/12/2017.

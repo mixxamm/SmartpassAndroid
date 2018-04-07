@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mixxamm.smartpassalpha.WoWoAlphaAnimationActivity">
+    tools:context="com.mixxamm.smartpassalpha.one.mixxamm.smartpassalpha.WoWoAlphaAnimationActivity">
 
     <com.nightonke.wowoviewpager.WoWoViewPager
         android:id="@+id/wowo_viewpager"

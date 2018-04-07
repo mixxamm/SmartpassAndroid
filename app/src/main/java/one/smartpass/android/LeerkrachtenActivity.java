@@ -1,4 +1,4 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
 import android.Manifest;
 import android.content.Intent;
@@ -16,8 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.barcode.Barcode;
-
-import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
+import com.mixxamm.smartpassalpha.R;
 
 public class LeerkrachtenActivity extends AppCompatActivity {
 
@@ -126,7 +125,7 @@ public class LeerkrachtenActivity extends AppCompatActivity {
     }
 
     public void resetLeerkracht(){
-        SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
+        SharedPreferences account = getSharedPreferences(MainActivity.ACCOUNT, 0);
         SharedPreferences.Editor editor = account.edit();
         editor.putString("naamLeerkracht", "");
         editor.commit();

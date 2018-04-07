@@ -1,6 +1,5 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,15 +7,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import javax.net.ssl.HttpsURLConnection;
+import com.mixxamm.smartpassalpha.R;
 
 import static com.mixxamm.smartpassalpha.R.id.leerling_login;
 
@@ -67,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = introductie1.edit();
             editor.putBoolean("introductie", true);//Zo weet de app dat de gebruiker de introductie al heeft gezien
             editor.commit();
-            Intent Introductie = new Intent(MainActivity.this, com.mixxamm.smartpassalpha.Introductie.class);
+            Intent Introductie = new Intent(MainActivity.this, one.smartpass.android.Introductie.class);
             startActivity(Introductie);
             finish();
         }

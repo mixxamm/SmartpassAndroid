@@ -1,29 +1,23 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mixxamm.smartpassalpha.R;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
 
 public class ScanFragment extends Fragment {
 
@@ -43,7 +37,7 @@ public class ScanFragment extends Fragment {
 
 
         teLaat = v.findViewById(R.id.telaatknop);
-        SharedPreferences account = getActivity().getSharedPreferences(ACCOUNT, 0);
+        SharedPreferences account = getActivity().getSharedPreferences(MainActivity.ACCOUNT, 0);
         final String wachtwoordGebruiker1 = account.getString("wachtwoordGebruiker", "");
         final String naamLeerkracht = account.getString("naamLeerkracht", "");
         teLaat.setOnClickListener(new View.OnClickListener(){

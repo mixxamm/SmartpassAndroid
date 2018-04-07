@@ -1,11 +1,8 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,14 +14,11 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.vision.text.Line;
+import com.mixxamm.smartpassalpha.R;
 
-import static com.mixxamm.smartpassalpha.InstellingenFragment.PREFS_ALGEMEEN;
-import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
+import static one.smartpass.android.InstellingenFragment.PREFS_ALGEMEEN;
 
 public class DashboardFragment extends Fragment {
 
@@ -39,7 +33,7 @@ public class DashboardFragment extends Fragment {
         //Voorkeuren
         SharedPreferences algemeen = getActivity().getSharedPreferences(PREFS_ALGEMEEN, 0);
         boolean donker = algemeen.getBoolean("donkereModus", false);
-        SharedPreferences account = getActivity().getSharedPreferences(ACCOUNT, 0);
+        SharedPreferences account = getActivity().getSharedPreferences(MainActivity.ACCOUNT, 0);
         String id = account.getString("id", "");
 
         aantalKerenTeLaat = v.findViewById(R.id.aantal_keren_te_laat);

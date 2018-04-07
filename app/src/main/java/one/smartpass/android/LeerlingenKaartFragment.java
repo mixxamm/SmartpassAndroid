@@ -1,4 +1,4 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -26,8 +26,8 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.mixxamm.smartpassalpha.R;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -36,7 +36,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static android.view.WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL;
 import static android.view.WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
 
-import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
+import static one.smartpass.android.MainActivity.ACCOUNT;
 
 public class LeerlingenKaartFragment extends Fragment {
 

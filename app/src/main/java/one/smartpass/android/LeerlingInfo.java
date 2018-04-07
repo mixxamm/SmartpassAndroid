@@ -1,16 +1,10 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import com.google.zxing.client.android.Intents;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,8 +21,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
-
-import static java.security.AccessController.getContext;
 
 /**
  * Created by maxim on 20/12/2017.

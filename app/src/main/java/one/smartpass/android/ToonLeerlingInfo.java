@@ -1,4 +1,4 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,12 +9,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mixxamm.smartpassalpha.R;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.mixxamm.smartpassalpha.LeerkrachtenActivity.REQUEST_CODE;
-import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
 
 public class ToonLeerlingInfo extends AppCompatActivity {
 
@@ -38,7 +36,7 @@ public class ToonLeerlingInfo extends AppCompatActivity {
         stopScannen = findViewById(R.id.stopScannen);
         nieuweScan = findViewById(R.id.nieuweScan);
 
-        SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
+        SharedPreferences account = getSharedPreferences(MainActivity.ACCOUNT, 0);
         final String wachtwoordGebruiker1 = account.getString("wachtwoordGebruiker", "");
         final String naamLeerkracht = account.getString("naamLeerkracht", "");
 

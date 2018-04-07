@@ -1,4 +1,4 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.mixxamm.smartpassalpha.R;
 import com.nightonke.wowoviewpager.Animation.WoWoAlphaAnimation;
 import com.nightonke.wowoviewpager.Animation.WoWoElevationAnimation;
 import com.nightonke.wowoviewpager.Animation.WoWoPathAnimation;
@@ -24,7 +25,6 @@ import com.nightonke.wowoviewpager.Animation.WoWoTextViewTextAnimation;
 import com.nightonke.wowoviewpager.Animation.WoWoTranslationAnimation;
 import com.nightonke.wowoviewpager.Enum.Ease;
 import com.nightonke.wowoviewpager.WoWoPathView;
-import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
 
 public class Introductie extends WoWoActivity {
 
@@ -103,7 +103,7 @@ public class Introductie extends WoWoActivity {
                 String wachtwoord = Wachtwoord.getText().toString();
                 String type = "login";//Zorgt ervoor dat de klasse login weet dat we willen inloggen als leerling
 
-                SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
+                SharedPreferences account = getSharedPreferences(MainActivity.ACCOUNT, 0);
                 SharedPreferences.Editor editor = account.edit();
                 editor.putString("naamGebruiker", gebruikersnaam);
                 editor.commit();
@@ -126,7 +126,7 @@ public class Introductie extends WoWoActivity {
                 String wachtwoord = Wachtwoord.getText().toString();
                 String type = "loginLeerkracht";
 
-                SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
+                SharedPreferences account = getSharedPreferences(MainActivity.ACCOUNT, 0);
                 SharedPreferences.Editor editor = account.edit();
                 editor.putString("naamleerkracht", leerkrachtnaam);
                 editor.commit();

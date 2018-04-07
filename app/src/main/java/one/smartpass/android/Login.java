@@ -1,4 +1,4 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -6,10 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.mixxamm.smartpassalpha.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +27,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
-import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
+
 /**
  * Created by maxim on 19/12/2017.
  * Deze klasse zorgt ervoor dat inloggen mogelijk is. Werkt in de achtergrond. De klasse LoginActivity en LoginTest bevatten de lay-out.
@@ -327,7 +326,7 @@ public class Login extends AsyncTask<String, Void, String> {
     }
 
     public void stelLeerlingIdIn(Context c) {
-        SharedPreferences account = c.getSharedPreferences(ACCOUNT, 0);
+        SharedPreferences account = c.getSharedPreferences(MainActivity.ACCOUNT, 0);
         SharedPreferences.Editor editor = account.edit();
         editor.putString("id", leerlingID);
         editor.putString("klas", klas);
@@ -335,14 +334,14 @@ public class Login extends AsyncTask<String, Void, String> {
     }
 
     public void resetLeerkracht(){
-        SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
+        SharedPreferences account = context.getSharedPreferences(MainActivity.ACCOUNT, 0);
         SharedPreferences.Editor editor = account.edit();
         editor.putString("naamLeerkracht", "");
         editor.commit();
     }
 
     public void resetLeerling(){
-        SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
+        SharedPreferences account = context.getSharedPreferences(MainActivity.ACCOUNT, 0);
         SharedPreferences.Editor editor = account.edit();
         editor.putString("naamGebruiker", "");
         editor.commit();

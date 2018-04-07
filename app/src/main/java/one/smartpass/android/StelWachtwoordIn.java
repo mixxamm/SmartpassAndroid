@@ -1,9 +1,8 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -21,8 +20,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
-
-import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
 
 /**
  * Created by maxim on 26/12/2017.
@@ -131,7 +128,7 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
                 login.execute(type, gebruikersnaam, newpass);
                 Toast.makeText(context, "Automatisch inloggen met nieuwe gegevens.", Toast.LENGTH_SHORT).show();
 
-                SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
+                SharedPreferences account = context.getSharedPreferences(MainActivity.ACCOUNT, 0);
                 SharedPreferences.Editor editor = account.edit();
                 editor.putString("naamGebruiker", gebruikersnaam);
                 editor.commit();
@@ -148,7 +145,7 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
                 login.execute(type, gebruikersnaam, newpass);
                 Toast.makeText(context, "Automatisch inloggen met nieuwe gegevens.", Toast.LENGTH_SHORT).show();
 
-                SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
+                SharedPreferences account = context.getSharedPreferences(MainActivity.ACCOUNT, 0);
                 SharedPreferences.Editor editor = account.edit();
                 editor.putString("naamLeerkracht", gebruikersnaam);
                 editor.commit();

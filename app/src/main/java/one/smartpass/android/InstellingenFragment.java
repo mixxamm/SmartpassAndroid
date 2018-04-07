@@ -1,4 +1,4 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,14 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
+import com.mixxamm.smartpassalpha.R;
 
 /**
  * Created by janssensm on 27-3-2018.
@@ -44,7 +43,7 @@ public class InstellingenFragment extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         v = inflater.inflate(R.layout.fragment_instellingen, container, false);
-        SharedPreferences account = getActivity().getSharedPreferences(ACCOUNT, 0);
+        SharedPreferences account = getActivity().getSharedPreferences(MainActivity.ACCOUNT, 0);
         naamGebruiker = account.getString("naamGebruiker", "");
         bugReport = v.findViewById(R.id.bugReport);
         bugReport.setOnClickListener(new View.OnClickListener() {
@@ -202,7 +201,7 @@ public class InstellingenFragment extends Fragment implements View.OnClickListen
     }
 
     public void resetLeerlingNaam(){
-        SharedPreferences account = getActivity().getSharedPreferences(ACCOUNT, 0);
+        SharedPreferences account = getActivity().getSharedPreferences(MainActivity.ACCOUNT, 0);
         SharedPreferences.Editor editor = account.edit();
         editor.putString("naamGebruiker", "");//Aangezien bij het inloggen enkel op de naam wordt gecontroleerd, hoeven we het wachtwoord niet te resetten
         editor.commit();//Dit voert de wijzigingen door
