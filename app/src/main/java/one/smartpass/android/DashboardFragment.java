@@ -54,6 +54,8 @@ public class DashboardFragment extends Fragment {
             aantalTotNablijven.setTextColor(Color.WHITE);
             aantalKerenTeLaatTekst.setTextColor(Color.WHITE);
             aantalKerenTeLaatTrimesterTekst.setTextColor(Color.WHITE);
+            nablijvenText.setTextColor(Color.WHITE);
+            nablijven.setTextColor(Color.WHITE);
             BottomNavigationView navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
             navigation.setBackgroundColor(Color.parseColor("#000000"));
 
