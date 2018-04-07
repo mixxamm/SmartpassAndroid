@@ -23,8 +23,9 @@ import static one.smartpass.android.InstellingenFragment.PREFS_ALGEMEEN;
 public class DashboardFragment extends Fragment {
 
     public static int aantalTeLaat, aantalTeLaatTrimester, intAantalTotNablijven;
+    public static String datum;
     public static View v;
-    public static TextView aantalKerenTeLaat, aantalKerenTeLaatTrimester, aantalTotNablijven, aantalKerenTeLaatTekst, aantalKerenTeLaatTrimesterTekst;
+    public static TextView aantalKerenTeLaat, aantalKerenTeLaatTrimester, aantalTotNablijven, aantalKerenTeLaatTekst, aantalKerenTeLaatTrimesterTekst, nablijvenText, nablijven;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         v = inflater.inflate(R.layout.fragment_dashboard, container, false);
@@ -41,6 +42,8 @@ public class DashboardFragment extends Fragment {
         aantalTotNablijven = v.findViewById(R.id.aantal_tot_nablijven);
         aantalKerenTeLaatTekst = v.findViewById(R.id.aantal_keren_te_laat_tekst);
         aantalKerenTeLaatTrimesterTekst = v.findViewById(R.id.aantal_keren_te_laat_trimester_tekst);
+        nablijvenText = v.findViewById(R.id.nablijven_text);
+        nablijven = v.findViewById(R.id.nablijven);
 
         if(donker){
             int color = Color.parseColor("#000000");
@@ -115,6 +118,9 @@ public class DashboardFragment extends Fragment {
             aantalKerenTeLaat.setText(String.valueOf(aantalTeLaat));
             aantalKerenTeLaatTrimester.setText(String.valueOf(aantalTeLaatTrimester));
             aantalTotNablijven.setText("Nog " + String.valueOf(intAantalTotNablijven) + " keer te laat tot nablijven");
+            if(!datum.isEmpty()){
+                nablijven.setText("U moet op " + datum + " nablijven in D112.");
+            }
         }
     }
 

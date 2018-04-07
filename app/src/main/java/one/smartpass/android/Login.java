@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.UriMatcher;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -29,6 +28,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
+
 import static one.smartpass.android.MainActivity.ACCOUNT;
 
 /**
@@ -41,7 +41,7 @@ import static one.smartpass.android.MainActivity.ACCOUNT;
 
 
 public class Login extends AsyncTask<String, Void, String> {
-    static String leerlingID, leerlingNaam, naarBuiten, tekst, type1, leerkrachtNaam, login, type2, klas;
+    static String leerlingID, leerlingNaam, naarBuiten, tekst, type1, leerkrachtNaam, login, type2, klas, datum;
     static int aantalTotaal, aantalTrimester, aantalTotNablijven;
     Context context;
     AlertDialog alertDialog;
@@ -176,6 +176,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 aantalTotaal = jsonobj.getInt("totaal");
                 aantalTrimester = jsonobj.getInt("trimester");
                 aantalTotNablijven = jsonobj.getInt("totnablijven");
+                datum = jsonobj.getString("datum");
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -320,6 +321,7 @@ public class Login extends AsyncTask<String, Void, String> {
             DashboardFragment.aantalTeLaat = aantalTotaal;
             DashboardFragment.aantalTeLaatTrimester = aantalTrimester;
             DashboardFragment.intAantalTotNablijven = aantalTotNablijven;
+            DashboardFragment.datum = datum;
             DashboardFragment dashboardFragment = new DashboardFragment();
             dashboardFragment.laden();
         }
