@@ -5,9 +5,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.UriMatcher;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.mixxamm.smartpassalpha.R;
 
 import org.json.JSONException;
@@ -27,6 +29,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
+import static one.smartpass.android.MainActivity.ACCOUNT;
 
 /**
  * Created by maxim on 19/12/2017.
@@ -58,6 +61,8 @@ public class Login extends AsyncTask<String, Void, String> {
                 String tabel = "tblleerlingen";
                 String gebruikersnaam = params[1];
                 String wachtwoord = params[2];
+                SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
+                String id = account.getString("id", "");
                 URL url = new URL(login_url);
                 HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
                 httpsURLConnection.setRequestMethod("POST");
@@ -65,9 +70,12 @@ public class Login extends AsyncTask<String, Void, String> {
                 httpsURLConnection.setDoInput(true);
                 OutputStream outputStream = httpsURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String token = FirebaseInstanceId.getInstance().getToken();
                 String post_data = URLEncoder.encode("tabel", "UTF-8") + "=" + URLEncoder.encode(tabel, "UTF-8") + "&"
                         + URLEncoder.encode("gebruikersnaam", "UTF-8") + "=" + URLEncoder.encode(gebruikersnaam, "UTF-8") + "&"
-                        + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8");
+                        + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8") + "&"
+                        + URLEncoder.encode("androidtoken", "UTF-8") + "=" + URLEncoder.encode(token, "UTF-8") + "&"
+                        + URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
