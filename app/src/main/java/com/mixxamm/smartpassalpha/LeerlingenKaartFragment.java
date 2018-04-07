@@ -32,6 +32,10 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+
+import static android.view.WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL;
+import static android.view.WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
+
 import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
 
 public class LeerlingenKaartFragment extends Fragment {
@@ -49,6 +53,7 @@ public class LeerlingenKaartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         v = inflater.inflate(R.layout.fragment_leerlingenkaart, container, false);
+        setScreenBrightnessTo(BRIGHTNESS_OVERRIDE_FULL);
 
         BottomNavigationView navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
 
@@ -179,4 +184,19 @@ public class LeerlingenKaartFragment extends Fragment {
         editor.putString("naamGebruiker", "");//Aangezien bij het inloggen enkel op de naam wordt gecontroleerd, hoeven we het wachtwoord niet te resetten
         editor.commit();//Dit voert de wijzigingen door
     }
+
+    private void setScreenBrightnessTo(float brightness) {
+        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+        if (lp.screenBrightness == brightness) {
+            return;
+        }
+        lp.screenBrightness = brightness;
+        getActivity().getWindow().setAttributes(lp);
+    }
+
+
+    public void onDestroy(){
+        super.onDestroy();
+        setScreenBrightnessTo(BRIGHTNESS_OVERRIDE_NONE);
+        }
 }
