@@ -74,8 +74,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 String post_data = URLEncoder.encode("tabel", "UTF-8") + "=" + URLEncoder.encode(tabel, "UTF-8") + "&"
                         + URLEncoder.encode("gebruikersnaam", "UTF-8") + "=" + URLEncoder.encode(gebruikersnaam, "UTF-8") + "&"
                         + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8") + "&"
-                        + URLEncoder.encode("androidtoken", "UTF-8") + "=" + URLEncoder.encode(token, "UTF-8") + "&"
-                        + URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8");
+                        + URLEncoder.encode("androidtoken", "UTF-8") + "=" + URLEncoder.encode(token, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
