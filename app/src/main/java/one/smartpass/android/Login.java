@@ -41,7 +41,7 @@ import static one.smartpass.android.MainActivity.ACCOUNT;
 
 
 public class Login extends AsyncTask<String, Void, String> {
-    static String leerlingID, leerlingNaam, naarBuiten, tekst, type1, leerkrachtNaam, login, type2, klas, datum;
+    static String leerlingID, leerlingNaam, naarBuiten, tekst, type1, leerkrachtNaam, login, type2, klas, datum, logintoken, gebruikersnaam, wachtwoord, tabel1;
     static int aantalTotaal, aantalTrimester, aantalTotNablijven;
     Context context;
     AlertDialog alertDialog;
@@ -59,8 +59,17 @@ public class Login extends AsyncTask<String, Void, String> {
             try {
                 login_url = "https://smartpass.one/connect/login.php";
                 String tabel = "tblleerlingen";
-                String gebruikersnaam = params[1];
-                String wachtwoord = params[2];
+                String loginType = params[1];
+                if(loginType.equals("token")){
+                    gebruikersnaam = params[2];
+                    logintoken = params[3];
+                    wachtwoord = "";
+                }
+                else{
+                    gebruikersnaam = params[1];
+                    wachtwoord = params[2];
+                    logintoken = "";
+                }
                 SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
                 String id = account.getString("id", "");
                 URL url = new URL(login_url);
@@ -74,7 +83,8 @@ public class Login extends AsyncTask<String, Void, String> {
                 String post_data = URLEncoder.encode("tabel", "UTF-8") + "=" + URLEncoder.encode(tabel, "UTF-8") + "&"
                         + URLEncoder.encode("gebruikersnaam", "UTF-8") + "=" + URLEncoder.encode(gebruikersnaam, "UTF-8") + "&"
                         + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8") + "&"
-                        + URLEncoder.encode("androidtoken", "UTF-8") + "=" + URLEncoder.encode(token, "UTF-8");
+                        + URLEncoder.encode("androidtoken", "UTF-8") + "=" + URLEncoder.encode(token, "UTF-8") + "&"
+                        + URLEncoder.encode("logintoken", "UTF-8") + "=" + URLEncoder.encode(logintoken, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -93,6 +103,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 leerlingNaam = jsonobj.getString("naam");
                 naarBuiten = jsonobj.getString("buiten");
                 klas = jsonobj.getString("klas");
+                logintoken = jsonobj.getString("logintoken");
                 stelLeerlingIdIn(context);
 
                 bufferedReader.close();
@@ -109,9 +120,18 @@ public class Login extends AsyncTask<String, Void, String> {
         } else if (type.equals("loginLeerkracht")) {
             try {
                 login_url = "https://smartpass.one/connect/login.php";
-                String tabel1 = "tblleerkrachten";
-                String gebruikersnaam = params[1];
-                String wachtwoord = params[2];
+                tabel1 = "tblleerkrachten";
+                String loginType = params[1];
+                if(loginType.equals("token")){
+                    gebruikersnaam = params[2];
+                    logintoken = params[3];
+                    wachtwoord = "";
+                }
+                else{
+                    gebruikersnaam = params[1];
+                    wachtwoord = params[2];
+                    logintoken = "";
+                }
                 URL url = new URL(login_url);
                 HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
                 httpsURLConnection.setRequestMethod("POST");
@@ -121,7 +141,8 @@ public class Login extends AsyncTask<String, Void, String> {
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String post_data = URLEncoder.encode("tabel", "UTF-8") + "=" + URLEncoder.encode(tabel1, "UTF-8") + "&"
                         + URLEncoder.encode("gebruikersnaam", "UTF-8") + "=" + URLEncoder.encode(gebruikersnaam, "UTF-8") + "&"
-                        + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8");
+                        + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8") + "&"
+                        + URLEncoder.encode("logintoken", "UTF-8") + "=" + URLEncoder.encode(logintoken, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -136,6 +157,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 JSONObject jsonObject = new JSONObject(result);
                 leerkrachtNaam = jsonObject.getString("naamLeerkracht");
                 login = jsonObject.getString("login");
+                logintoken = jsonObject.getString("logintoken");
 
                 bufferedReader.close();
                 inputStream.close();
@@ -198,7 +220,7 @@ public class Login extends AsyncTask<String, Void, String> {
 
         else if (type.equals("zetTeLaat")) {
             String id = params[1];
-            String wachtwoord = params[2];
+            String logintoken = params[2];
             String leerkrachtNaam = params[3];
             type2 = params[4];
             login_url = "https://smartpass.one/connect/telaat.php";
@@ -211,7 +233,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 OutputStream outputStream = httpsURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String post_data = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8")
-                        + "&" + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8")
+                        + "&" + URLEncoder.encode("token", "UTF-8") + "=" + URLEncoder.encode(logintoken, "UTF-8")
                         + "&" + URLEncoder.encode("naam", "UTF-8") + "=" + URLEncoder.encode(leerkrachtNaam, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
@@ -301,6 +323,10 @@ public class Login extends AsyncTask<String, Void, String> {
                 if(login.equals("1")){
                     Intent leerkrachtenActivity = new Intent(context, LeerkrachtenActivity.class);
                     leerkrachtenActivity.putExtra("type", "normal");
+                    SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
+                    SharedPreferences.Editor editor = account.edit();
+                    editor.putString("token", logintoken);
+                    editor.commit();
                     context.startActivity(leerkrachtenActivity);
                     ((Activity) context).finish();
                 }
@@ -338,6 +364,7 @@ public class Login extends AsyncTask<String, Void, String> {
         SharedPreferences account = c.getSharedPreferences(MainActivity.ACCOUNT, 0);
         SharedPreferences.Editor editor = account.edit();
         editor.putString("id", leerlingID);
+        editor.putString("token", logintoken);
         editor.putString("klas", klas);
         editor.commit();
     }

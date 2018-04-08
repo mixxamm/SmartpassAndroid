@@ -49,9 +49,6 @@ public class LoginTest extends AppCompatActivity {
                     SharedPreferences.Editor editor = account.edit();
                     editor.putString("naamGebruiker", gebruikersnaam);
                     editor.commit();
-                    SharedPreferences.Editor editor1 = account.edit();
-                    editor1.putString("wachtwoordGebruiker", wachtwoord);
-                    editor1.commit();
 
                     Login login = new Login(LoginTest.this);
                     login.execute(type, gebruikersnaam, wachtwoord);
@@ -65,9 +62,6 @@ public class LoginTest extends AppCompatActivity {
                     SharedPreferences.Editor editor = account.edit();
                     editor.putString("naamLeerkracht", leerkrachtnaam);
                     editor.commit();
-                    SharedPreferences.Editor editor1 = account.edit();
-                    editor1.putString("wachtwoordGebruiker", wachtwoord);
-                    editor1.commit();
 
                     Login login = new Login(LoginTest.this);
                     login.execute(type, leerkrachtnaam, wachtwoord);

@@ -49,8 +49,10 @@ public class ScanFragment extends Fragment {
                     Toast.makeText(getContext(), "Scan de QR-code van een leerling om deze te laat te zetten.", Toast.LENGTH_SHORT).show();
                 }
                 else if(id != null){//Voorkomt crash indien er geen leerling is gescant
+                        SharedPreferences account = getContext().getSharedPreferences(MainActivity.ACCOUNT, 0);
+                        String logintoken = account.getString("token", "");
                         Login login = new Login(getContext());
-                        login.execute(type, id, wachtwoordGebruiker1, naamLeerkracht, "sa");
+                        login.execute(type, id, logintoken, naamLeerkracht, "sa");
                         }
             }
         });

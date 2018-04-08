@@ -29,17 +29,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         SharedPreferences account = getSharedPreferences(ACCOUNT, 0);
         String naamGebruiker = account.getString("naamGebruiker", "");
-        String wachtwoordGebruiker1 = account.getString("wachtwoordGebruiker", "");
+        String loginToken = account.getString("token", "");
         String naamLeerkracht = account.getString("naamLeerkracht", "");
         if(isNetworkAvailable() && naamGebruiker != ""){
             laden();
             Login login = new Login(MainActivity.this);
-            login.execute("login", naamGebruiker, wachtwoordGebruiker1);
+            login.execute("login", "token", naamGebruiker, loginToken);
         }
         else if(isNetworkAvailable() && naamLeerkracht != ""){
             laden();
             Login login = new Login(MainActivity.this);
-            login.execute("loginLeerkracht", naamLeerkracht, wachtwoordGebruiker1);
+            login.execute("loginLeerkracht", "token", naamLeerkracht, loginToken);
         }
         else if(!isNetworkAvailable() && naamLeerkracht != ""){
             Toast.makeText(this, "Maak verbinding met internet om automatisch in te loggen.", Toast.LENGTH_SHORT).show();
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         smartschoolLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                     laden();
-                    LoginTest.type = "login";//Zorgt ervoor dat de klasse login weet dat we willen inloggen. (In de toekomst kunnen we nog andere functies toevoegen)
+                    LoginTest.type = "login";//Zorgt ervoor dat de klasse login weet dat we willen inloggen als gebruiker.
                     Intent login = new Intent(view.getContext(), LoginTest.class);
                     startActivity(login);
                     finish();}
