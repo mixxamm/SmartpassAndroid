@@ -43,6 +43,7 @@ public class LeerlingenKaartFragment extends Fragment {
     public final static int QRcodeWidth = 500;
     int color1;
     public static String id, naam, fotoURL, buiten, klas;
+    public static boolean internet;
     public static View v;
     ImageView imageView;
     TextView naamLeerling;
@@ -84,7 +85,8 @@ public class LeerlingenKaartFragment extends Fragment {
         final ColorStateList lichtLijst = new ColorStateList(states, colors);
         SharedPreferences account = getActivity().getSharedPreferences(ACCOUNT, 0);
         id = account.getString("id", "");
-        if(!isNetworkAvailable()){
+
+        if(!isNetworkAvailable() || !internet){
             naam = account.getString("naamGebruiker", "");
             klas = account.getString("klas", "");
             buiten = "4";

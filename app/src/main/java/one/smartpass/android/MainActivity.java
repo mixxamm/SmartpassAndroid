@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.mixxamm.smartpassalpha.R;
 
+import java.io.IOException;
+
 import static com.mixxamm.smartpassalpha.R.id.leerling_login;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,25 +33,32 @@ public class MainActivity extends AppCompatActivity {
         String naamGebruiker = account.getString("naamGebruiker", "");
         String loginToken = account.getString("token", "");
         String naamLeerkracht = account.getString("naamLeerkracht", "");
-        if(isNetworkAvailable() && naamGebruiker != ""){
-            laden();
-            Login login = new Login(MainActivity.this);
-            login.execute("login", "token", naamGebruiker, loginToken);
-        }
-        else if(isNetworkAvailable() && naamLeerkracht != ""){
-            laden();
-            Login login = new Login(MainActivity.this);
-            login.execute("loginLeerkracht", "token", naamLeerkracht, loginToken);
-        }
-        else if(!isNetworkAvailable() && naamLeerkracht != ""){
-            Toast.makeText(this, "Maak verbinding met internet om automatisch in te loggen.", Toast.LENGTH_SHORT).show();
-        }
-        else if (!isNetworkAvailable() && naamGebruiker != "") {
-            laden();
-            Intent leerlingActivity = new Intent(MainActivity.this, LeerlingActivity.class);
-            id = account.getString("id", "");
-            LeerlingActivity.id = Integer.valueOf(id);
-            startActivity(leerlingActivity);
+        try {
+            if(isNetworkAvailable() && naamGebruiker != "" && isConnected()){
+                laden();
+                Login login = new Login(MainActivity.this);
+                login.execute("login", "token", naamGebruiker, loginToken);
+            }
+            else if(isNetworkAvailable() && naamLeerkracht != "" && isConnected()){
+                laden();
+                Login login = new Login(MainActivity.this);
+                login.execute("loginLeerkracht", "token", naamLeerkracht, loginToken);
+            }
+            else if(!isNetworkAvailable() && naamLeerkracht != "" &&!isConnected()){
+                Toast.makeText(this, "Maak verbinding met internet om automatisch in te loggen.", Toast.LENGTH_SHORT).show();
+            }
+            else if (!isConnected() && naamGebruiker != "") {
+                laden();
+                Intent leerlingActivity = new Intent(MainActivity.this, LeerlingActivity.class);
+                leerlingActivity.putExtra("internet", "false");
+                id = account.getString("id", "");
+                LeerlingActivity.id = Integer.valueOf(id);
+                startActivity(leerlingActivity);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         /*VideoView videoView = (VideoView) findViewById(R.id.videoView1);
         Uri path = Uri.parse("android.recourse://" + getPackageName() + "/" + R.raw.video);
@@ -100,10 +109,18 @@ public class MainActivity extends AppCompatActivity {
         leerkrachtLogin.setVisibility(View.INVISIBLE);
     }
     private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        ConnectivityManager cm =
+                (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        return isConnected;
+    }
+    public boolean isConnected() throws InterruptedException, IOException
+    {
+        String command = "ping -c 1 smartpass.one";
+        return (Runtime.getRuntime().exec (command).waitFor() == 0);
     }
 
 

@@ -12,6 +12,7 @@ import com.mixxamm.smartpassalpha.R;
 public class LeerlingActivity extends AppCompatActivity {
 
 public static int id;
+public static boolean internet;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -49,6 +50,15 @@ public static int id;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leerling);
 
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            internet = Boolean.parseBoolean(extras.getString("internet"));
+        }
+        else{
+            internet = true;
+        }
+
+        LeerlingenKaartFragment.internet = internet;
         LeerlingenKaartFragment.id = String.valueOf(id);
 
         loadFragment(new LeerlingenKaartFragment());
