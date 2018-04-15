@@ -26,7 +26,6 @@ public class LeerkrachtenActivity extends AppCompatActivity {
     //CircleImageView profielFotoScan;
     public static String naam, fotoURL, buiten;
     Button scanButton;//Knop object aanmaken
-    CheckBox houdCameraOpen;
     TextView info;//TextView met informatie aanmaken TODO: weghalen, is niet meer nodig
     ImageView uitloggen;
 
@@ -37,7 +36,6 @@ public class LeerkrachtenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leerkrachten);
         scanButton = (Button) findViewById(R.id.scanButton);
-        houdCameraOpen = (CheckBox) findViewById(R.id.houdCameraOpen);
         uitloggen = findViewById(R.id.loguitLeerkracht);
         info = (TextView) findViewById(R.id.info);
 
@@ -54,21 +52,13 @@ public class LeerkrachtenActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST);
         }
 
-        if(type.equals("scan")){
-            scanLeerling();
-        }
 
 
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(houdCameraOpen.isChecked()){
                     Intent intent = new Intent(LeerkrachtenActivity.this, ScanActivity2.class);
                     startActivityForResult(intent, REQUEST_CODE);
-                }
-                else {
-                    scanLeerling();
-                }
             }
         });
 
@@ -81,7 +71,6 @@ public class LeerkrachtenActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
     @Override
@@ -92,7 +81,6 @@ public class LeerkrachtenActivity extends AppCompatActivity {
                 info.post(new Runnable() {
                     @Override
                     public void run() {
-                        if(houdCameraOpen.isChecked()){
                             String id = barcode.rawValue;
                             String type = "infoOphalen2";
                             LeerlingInfo infoLeerling = new LeerlingInfo(LeerkrachtenActivity.this);
@@ -100,28 +88,10 @@ public class LeerkrachtenActivity extends AppCompatActivity {
 
                             progressBar = (ProgressBar) findViewById(R.id.infoLaden);
                             progressBar.setVisibility(View.VISIBLE);
-                        }
-                        else{
-                            String id = barcode.rawValue;
-                            String type = "infoOphalen";
-                            LeerlingInfo infoLeerling = new LeerlingInfo(LeerkrachtenActivity.this);
-                            infoLeerling.execute(type, id);
-
-                            progressBar = (ProgressBar) findViewById(R.id.infoLaden);
-                            progressBar.setVisibility(View.VISIBLE);
-                        }
-
                     }
-
-
                 });
-
             }
-
-
         }
-
-
     }
 
     public void resetLeerkracht(){
@@ -131,10 +101,6 @@ public class LeerkrachtenActivity extends AppCompatActivity {
         editor.commit();
     }
 
-    public void scanLeerling(){
-        Intent intent = new Intent(LeerkrachtenActivity.this, ScanActivity.class);
-        startActivityForResult(intent, REQUEST_CODE);
-    }
 }
 
 
