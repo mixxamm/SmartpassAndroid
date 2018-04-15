@@ -32,12 +32,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="one.smartpass.android.LoginActivity"
-            android:label="@string/title_activity_login" />
         <activity android:name="one.smartpass.android.LeerkrachtenActivity" />
         <activity android:name="one.smartpass.android.ScanActivity" />
-        <activity android:name="one.smartpass.android.LoginTest" />
+        <activity android:name="one.smartpass.android.LoginActivity" />
         <activity android:name="one.smartpass.android.ToonLeerlingInfo" />
         <activity android:name="one.smartpass.android.WachtwoordInstellen" />
         <activity

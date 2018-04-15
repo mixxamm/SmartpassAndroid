@@ -33,16 +33,14 @@ import static one.smartpass.android.MainActivity.ACCOUNT;
 
 /**
  * Created by maxim on 19/12/2017.
- * Deze klasse zorgt ervoor dat inloggen mogelijk is. Werkt in de achtergrond. De klasse LoginActivity en LoginTest bevatten de lay-out.
- * LoginTest heeft een simpelere lay-out, omdat dat makkelijker is om mee te werken. LoginActivity heeft een ingewikkeldere lay-out
- * die waarschijnlijk niet meer gaat gebruikt worden aangezien LoginTest er ondertussen al beter uitziet, en volledig zelf is gemaakt,
- * waardoor het makkelijker is om mee te werken.
+ * Deze klasse zorgt ervoor dat inloggen mogelijk is. Werkt in de achtergrond. De klasse LoginActivity bevat de lay-out.
  */
 
 
 public class Login extends AsyncTask<String, Void, String> {
     static String leerlingID, leerlingNaam, naarBuiten, tekst, type1, leerkrachtNaam, login, type2, klas, datum, logintoken, gebruikersnaam, wachtwoord, tabel1;
     static int aantalTotaal, aantalTrimester, aantalTotNablijven;
+    static boolean slaagGegevensOp;
     Context context;
     AlertDialog alertDialog;
 
@@ -68,6 +66,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 else{
                     gebruikersnaam = params[1];
                     wachtwoord = params[2];
+                    slaagGegevensOp = Boolean.parseBoolean(params[3]);
                     logintoken = "";
                 }
                 SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
@@ -130,6 +129,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 else{
                     gebruikersnaam = params[1];
                     wachtwoord = params[2];
+                    slaagGegevensOp = Boolean.parseBoolean(params[3]);
                     logintoken = "";
                 }
                 URL url = new URL(login_url);
@@ -284,13 +284,13 @@ public class Login extends AsyncTask<String, Void, String> {
             if(leerlingNaam.equals("Leerling niet gevonden")){
                 Toast.makeText(context, "Naam of wachtwoord fout", Toast.LENGTH_LONG).show();
                 resetLeerling();
-                LoginTest loginTest = new LoginTest();
-                loginTest.type = "login";
-                Intent loginTest1 = new Intent(context, LoginTest.class);
+                LoginActivity loginActivity = new LoginActivity();
+                loginActivity.type = "login";
+                Intent loginTest1 = new Intent(context, LoginActivity.class);
                 context.startActivity(loginTest1);
                 ((Activity) context).finish();
-                /*LoginTest loginTest = new LoginTest();
-                LoginTest.progressBar.setVisibility(View.INVISIBLE);*/
+                /*LoginActivity loginActivity = new LoginActivity();
+                LoginActivity.progressBar.setVisibility(View.INVISIBLE);*/
             }
             else{
                 Intent leerlingenkaart = new Intent(context, LeerlingActivity.class);
@@ -323,23 +323,25 @@ public class Login extends AsyncTask<String, Void, String> {
                 if(login.equals("1")){
                     Intent leerkrachtenActivity = new Intent(context, LeerkrachtenActivity.class);
                     leerkrachtenActivity.putExtra("type", "normal");
-                    SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
-                    SharedPreferences.Editor editor = account.edit();
-                    editor.putString("token", logintoken);
-                    editor.commit();
+                    if(slaagGegevensOp){
+                        SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
+                        SharedPreferences.Editor editor = account.edit();
+                        editor.putString("token", logintoken);
+                        editor.commit();
+                    }
                     context.startActivity(leerkrachtenActivity);
                     ((Activity) context).finish();
                 }
                 else{
                     Toast.makeText(context, "Inloggen als leerkracht mislukt, kijk gegevens na", Toast.LENGTH_SHORT).show();
                     resetLeerkracht();
-                    LoginTest loginTest = new LoginTest();
-                    loginTest.type = "loginLeerkracht";
-                    Intent loginTest1 = new Intent(context, LoginTest.class);
+                    LoginActivity loginActivity = new LoginActivity();
+                    loginActivity.type = "loginLeerkracht";
+                    Intent loginTest1 = new Intent(context, LoginActivity.class);
                     context.startActivity(loginTest1);
                     ((Activity) context).finish();
-                    /*LoginTest loginTest = new LoginTest();
-                    loginTest.progressOnzichtbaar();*/
+                    /*LoginActivity loginActivity = new LoginActivity();
+                    loginActivity.progressOnzichtbaar();*/
                 }
 
         }
@@ -361,12 +363,14 @@ public class Login extends AsyncTask<String, Void, String> {
     }
 
     public void stelLeerlingIdIn(Context c) {
-        SharedPreferences account = c.getSharedPreferences(MainActivity.ACCOUNT, 0);
-        SharedPreferences.Editor editor = account.edit();
-        editor.putString("id", leerlingID);
-        editor.putString("token", logintoken);
-        editor.putString("klas", klas);
-        editor.commit();
+        if(slaagGegevensOp){
+            SharedPreferences account = c.getSharedPreferences(MainActivity.ACCOUNT, 0);
+            SharedPreferences.Editor editor = account.edit();
+            editor.putString("id", leerlingID);
+            editor.putString("token", logintoken);
+            editor.putString("klas", klas);
+            editor.commit();
+        }
     }
 
     public void resetLeerkracht(){

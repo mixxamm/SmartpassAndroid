@@ -111,7 +111,7 @@ public class Introductie extends WoWoActivity {
                 editor1.putString("wachtwoordGebruiker", wachtwoord);
                 editor1.commit();
 
-                LoginTest.type = type;
+                LoginActivity.type = type;
                 Login login = new Login(Introductie.this);
                 login.execute(type, gebruikersnaam, wachtwoord);
             }
@@ -134,7 +134,7 @@ public class Introductie extends WoWoActivity {
                 editor1.putString("wachtwoordGebruiker", wachtwoord);
                 editor1.commit();
 
-                LoginTest.type = type;
+                LoginActivity.type = type;
                 Login login = new Login(Introductie.this);
                 login.execute(type, leerkrachtnaam, wachtwoord);
             }
