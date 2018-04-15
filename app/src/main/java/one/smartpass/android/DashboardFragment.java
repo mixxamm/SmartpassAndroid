@@ -121,7 +121,7 @@ public class DashboardFragment extends Fragment {
             aantalKerenTeLaatTrimester.setText(String.valueOf(aantalTeLaatTrimester));
             aantalTotNablijven.setText("Nog " + String.valueOf(intAantalTotNablijven) + " keer te laat tot nablijven");
             if(!datum.isEmpty()){
-                nablijven.setText("U moet op " + datum + " nablijven in D112.");
+                nablijven.setText(datum);
             }
         }
     }
