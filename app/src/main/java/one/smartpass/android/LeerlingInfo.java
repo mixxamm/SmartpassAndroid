@@ -118,17 +118,6 @@ public class LeerlingInfo extends AsyncTask<String, Void, String> {
 
     @Override
     public void onPostExecute(String naam) {
-        if(type.equals("infoOphalen")){
-            ToonLeerlingInfo.naam = leerlingNaam;
-            ToonLeerlingInfo.fotoURL = "https://smartpass.one/foto/" + id + ".png";
-            ToonLeerlingInfo.buiten = naarBuiten;
-            ToonLeerlingInfo.id = id;
-
-            Intent toonLeerlingInfo = new Intent(context, ToonLeerlingInfo.class);
-            context.startActivity(toonLeerlingInfo);
-            ((Activity)context).finish();
-        }
-
         if(type.equals("infoOphalen2")){
             ScanFragment.naam = leerlingNaam;
             ScanFragment.fotoURL = "https://smartpass.one/foto/" + id + ".png";

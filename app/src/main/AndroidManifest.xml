@@ -33,9 +33,7 @@
             </intent-filter>
         </activity>
         <activity android:name="one.smartpass.android.LeerkrachtenActivity" />
-        <activity android:name="one.smartpass.android.ScanActivity" />
         <activity android:name="one.smartpass.android.LoginActivity" />
-        <activity android:name="one.smartpass.android.ToonLeerlingInfo" />
         <activity android:name="one.smartpass.android.WachtwoordInstellen" />
         <activity
             android:name="one.smartpass.android.Introductie"
