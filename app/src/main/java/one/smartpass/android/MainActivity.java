@@ -65,18 +65,6 @@ public class MainActivity extends AppCompatActivity {
         videoView.setVideoURI(path);
         videoView.start();*/
 
-        SharedPreferences introductie = getSharedPreferences(PREFS_INTRODUCTIE, 0);
-        boolean booleanIntroductie = introductie.getBoolean("introductie", false);
-
-        if (!booleanIntroductie) {//Kijkt na of introductie al bekeken is
-            SharedPreferences introductie1 = getSharedPreferences(PREFS_INTRODUCTIE, 0);
-            SharedPreferences.Editor editor = introductie1.edit();
-            editor.putBoolean("introductie", true);//Zo weet de app dat de gebruiker de introductie al heeft gezien
-            editor.commit();
-            Intent Introductie = new Intent(MainActivity.this, one.smartpass.android.Introductie.class);
-            startActivity(Introductie);
-            finish();
-        }
 
 
         TextView smartschoolLogin = findViewById(leerling_login);

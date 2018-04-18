@@ -44,7 +44,6 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name="one.smartpass.android.WoWoAlphaAnimationActivity" />
         <activity android:name="one.smartpass.android.ScanActivity2" />
         <activity android:name="one.smartpass.android.Mail" />
         <activity
