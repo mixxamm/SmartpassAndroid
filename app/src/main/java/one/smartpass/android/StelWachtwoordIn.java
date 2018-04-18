@@ -138,7 +138,7 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
             if(result1.equals("Wachtwoord instellen gelukt.")){
                 Login login = new Login(context);
                 login.execute(type, "token", gebruikersnaam, token);
-                Toast.makeText(context, "Automatisch inloggen met nieuwe gegevens.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Automatisch inloggen met nieuwe gegevens.", Toast.LENGTH_LONG).show();
 
                 SharedPreferences account = context.getSharedPreferences(MainActivity.ACCOUNT, 0);
                 SharedPreferences.Editor editor = account.edit();

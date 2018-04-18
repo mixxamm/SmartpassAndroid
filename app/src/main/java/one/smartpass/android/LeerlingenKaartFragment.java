@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -84,7 +85,9 @@ public class LeerlingenKaartFragment extends Fragment {
         final ColorStateList normaalLijst = new ColorStateList(states, colors);
         final ColorStateList lichtLijst = new ColorStateList(states, colors);
         SharedPreferences account = getActivity().getSharedPreferences(ACCOUNT, 0);
-        id = account.getString("id", "");
+        if(account.getString("id", "") != ""){
+            id = account.getString("id", "");
+        }
 
         if(!isNetworkAvailable() || !internet){
             naam = account.getString("naamGebruiker", "");

@@ -280,6 +280,7 @@ public class Login extends AsyncTask<String, Void, String> {
             LeerlingenKaartFragment.fotoURL = "https://smartpass.one/foto/" + leerlingID + ".png";
             LeerlingenKaartFragment.buiten = naarBuiten;
             LeerlingenKaartFragment.klas = klas;
+            LeerlingenKaartFragment.id = leerlingID;
 
             if(leerlingNaam.equals("Leerling niet gevonden")){
                 Toast.makeText(context, "Naam of wachtwoord fout", Toast.LENGTH_LONG).show();
