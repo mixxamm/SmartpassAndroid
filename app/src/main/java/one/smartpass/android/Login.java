@@ -304,10 +304,6 @@ public class Login extends AsyncTask<String, Void, String> {
             if(tekst.contains("Leerling niet te laat gezet") || tekst.equals("Er is iets fout gegaan")){
                 Toast.makeText(context, tekst, Toast.LENGTH_SHORT).show();
             }
-            else{
-                ToonLeerlingInfo.magBuiten.setImageResource(R.drawable.ic_cancel_black_48dp);
-            }
-
 
         }
         else if(type1.equals("zetTeLaat") && type2.equals("sa")){
