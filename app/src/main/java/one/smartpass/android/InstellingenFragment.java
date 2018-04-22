@@ -138,6 +138,7 @@ public class InstellingenFragment extends Fragment implements View.OnClickListen
             nieuweFunctieImageView.setColorFilter(Color.WHITE);
             navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
             navigation.setBackgroundColor(Color.parseColor("#000000"));
+            getActivity().getWindow().setNavigationBarColor(Color.parseColor("#000000"));
 
             int[][] states = new int[][] {
                     new int[] {-android.R.attr.state_checked}, // unchecked
@@ -169,6 +170,7 @@ public class InstellingenFragment extends Fragment implements View.OnClickListen
             ColorStateList lichtLijst = new ColorStateList(states, colors);
             navigation.setItemTextColor(lichtLijst);
             navigation.setItemIconTintList(lichtLijst);
+            getActivity().getWindow().setNavigationBarColor(Color.parseColor("#000000"));
         }
         donkereModus.setOnClickListener(new View.OnClickListener() {
             @Override
