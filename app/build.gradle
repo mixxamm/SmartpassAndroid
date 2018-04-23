@@ -1,14 +1,15 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'//crashlytics
 
 android {
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
     defaultConfig {
-        applicationId "com.mixxamm.smartpassalpha"
+        applicationId "one.smartpass.android"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 7
-        versionName "1.1.7"
+        versionCode 15
+        versionName "2.1.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -21,9 +22,12 @@ android {
 }
 
 dependencies {
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.1'//crashlytics
     implementation 'com.android.support:support-v4:27.1.0'
     implementation 'com.android.support:support-vector-drawable:27.1.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.google.firebase:firebase-core:12.0.1'
+    implementation 'com.google.firebase:firebase-messaging:12.0.1'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -33,14 +37,15 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     //Libraries
-    implementation 'com.aurelhubert:ahbottomnavigation:2.1.0' //Betere bottom navigation
     implementation 'com.android.support:design:27.1.0' //Voor bottom navigation
     implementation 'de.hdodenhof:circleimageview:2.1.0'//Afbeelding in cirkelvorm
     implementation 'com.google.zxing:core:3.2.1'//QR-code generator
     implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
-    implementation 'com.google.android.gms:play-services-vision:11.6.0'//QR-code lezer
+    implementation 'com.google.android.gms:play-services-vision:12.0.1'//QR-code lezer
     implementation 'com.android.volley:volley:1.1.0'//Data versturen over netwerk
     implementation 'com.squareup.picasso:picasso:2.5.2'//Makkelijk foto's uit database halen
     implementation 'com.github.florent37:materialtextfield:1.0.7'//Material design textveld
     implementation 'com.nightonke:wowoviewpager:2.0.0'//library voor introductiescherm te maken
 }
+apply plugin: 'com.google.gms.google-services'
+

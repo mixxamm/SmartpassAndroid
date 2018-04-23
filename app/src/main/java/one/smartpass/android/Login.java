@@ -1,4 +1,4 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -6,10 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.mixxamm.smartpassalpha.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,18 +28,19 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
-import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
+
+import static one.smartpass.android.MainActivity.ACCOUNT;
+
 /**
  * Created by maxim on 19/12/2017.
- * Deze klasse zorgt ervoor dat inloggen mogelijk is. Werkt in de achtergrond. De klasse LoginActivity en LoginTest bevatten de lay-out.
- * LoginTest heeft een simpelere lay-out, omdat dat makkelijker is om mee te werken. LoginActivity heeft een ingewikkeldere lay-out
- * die waarschijnlijk niet meer gaat gebruikt worden aangezien LoginTest er ondertussen al beter uitziet, en volledig zelf is gemaakt,
- * waardoor het makkelijker is om mee te werken.
+ * Deze klasse zorgt ervoor dat inloggen mogelijk is. Werkt in de achtergrond. De klasse LoginActivity bevat de lay-out.
  */
 
 
 public class Login extends AsyncTask<String, Void, String> {
-    static String leerlingID, leerlingNaam, naarBuiten, tekst, type1, leerkrachtNaam, login, type2;
+    static String leerlingID, leerlingNaam, naarBuiten, tekst, type1, leerkrachtNaam, login, type2, klas, datum, logintoken, gebruikersnaam, wachtwoord, tabel1;
+    static int aantalTotaal, aantalTrimester, aantalTotNablijven;
+    static boolean slaagGegevensOp;
     Context context;
     AlertDialog alertDialog;
 
@@ -56,8 +57,20 @@ public class Login extends AsyncTask<String, Void, String> {
             try {
                 login_url = "https://smartpass.one/connect/login.php";
                 String tabel = "tblleerlingen";
-                String gebruikersnaam = params[1];
-                String wachtwoord = params[2];
+                String loginType = params[1];
+                if(loginType.equals("token")){
+                    gebruikersnaam = params[2];
+                    logintoken = params[3];
+                    wachtwoord = "";
+                }
+                else{
+                    gebruikersnaam = params[1];
+                    wachtwoord = params[2];
+                    slaagGegevensOp = Boolean.parseBoolean(params[3]);
+                    logintoken = "";
+                }
+                SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
+                String id = account.getString("id", "");
                 URL url = new URL(login_url);
                 HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
                 httpsURLConnection.setRequestMethod("POST");
@@ -65,9 +78,12 @@ public class Login extends AsyncTask<String, Void, String> {
                 httpsURLConnection.setDoInput(true);
                 OutputStream outputStream = httpsURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String token = FirebaseInstanceId.getInstance().getToken();
                 String post_data = URLEncoder.encode("tabel", "UTF-8") + "=" + URLEncoder.encode(tabel, "UTF-8") + "&"
                         + URLEncoder.encode("gebruikersnaam", "UTF-8") + "=" + URLEncoder.encode(gebruikersnaam, "UTF-8") + "&"
-                        + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8");
+                        + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8") + "&"
+                        + URLEncoder.encode("androidtoken", "UTF-8") + "=" + URLEncoder.encode(token, "UTF-8") + "&"
+                        + URLEncoder.encode("logintoken", "UTF-8") + "=" + URLEncoder.encode(logintoken, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -85,6 +101,8 @@ public class Login extends AsyncTask<String, Void, String> {
                 leerlingID = jsonobj.getString("leerlingID");
                 leerlingNaam = jsonobj.getString("naam");
                 naarBuiten = jsonobj.getString("buiten");
+                klas = jsonobj.getString("klas");
+                logintoken = jsonobj.getString("logintoken");
                 stelLeerlingIdIn(context);
 
                 bufferedReader.close();
@@ -101,9 +119,19 @@ public class Login extends AsyncTask<String, Void, String> {
         } else if (type.equals("loginLeerkracht")) {
             try {
                 login_url = "https://smartpass.one/connect/login.php";
-                String tabel1 = "tblleerkrachten";
-                String gebruikersnaam = params[1];
-                String wachtwoord = params[2];
+                tabel1 = "tblleerkrachten";
+                String loginType = params[1];
+                if(loginType.equals("token")){
+                    gebruikersnaam = params[2];
+                    logintoken = params[3];
+                    wachtwoord = "";
+                }
+                else{
+                    gebruikersnaam = params[1];
+                    wachtwoord = params[2];
+                    slaagGegevensOp = Boolean.parseBoolean(params[3]);
+                    logintoken = "";
+                }
                 URL url = new URL(login_url);
                 HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
                 httpsURLConnection.setRequestMethod("POST");
@@ -113,7 +141,8 @@ public class Login extends AsyncTask<String, Void, String> {
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String post_data = URLEncoder.encode("tabel", "UTF-8") + "=" + URLEncoder.encode(tabel1, "UTF-8") + "&"
                         + URLEncoder.encode("gebruikersnaam", "UTF-8") + "=" + URLEncoder.encode(gebruikersnaam, "UTF-8") + "&"
-                        + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8");
+                        + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8") + "&"
+                        + URLEncoder.encode("logintoken", "UTF-8") + "=" + URLEncoder.encode(logintoken, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -128,6 +157,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 JSONObject jsonObject = new JSONObject(result);
                 leerkrachtNaam = jsonObject.getString("naamLeerkracht");
                 login = jsonObject.getString("login");
+                logintoken = jsonObject.getString("logintoken");
 
                 bufferedReader.close();
                 inputStream.close();
@@ -140,9 +170,57 @@ public class Login extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             }
 
-        } else if (type.equals("zetTeLaat")) {
+
+        } else if(type.equals("dashboard")){
+            login_url = "https://smartpass.one/connect/dashboard.php";
             String id = params[1];
-            String wachtwoord = params[2];
+            try{
+                URL url = new URL(login_url);
+                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+                httpsURLConnection.setRequestMethod("POST");
+                httpsURLConnection.setDoOutput(true);
+                httpsURLConnection.setDoInput(true);
+                OutputStream outputStream = httpsURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpsURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                String line = "";
+                while ((line = bufferedReader.readLine()) != null) {
+                    result += line;
+                }
+                JSONObject jsonobj = new JSONObject(result);
+                aantalTotaal = jsonobj.getInt("totaal");
+                aantalTrimester = jsonobj.getInt("trimester");
+                aantalTotNablijven = jsonobj.getInt("totnablijven");
+                datum = jsonobj.getString("datum");
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            }
+
+
+
+
+
+        else if (type.equals("zetTeLaat")) {
+            String id = params[1];
+            String logintoken = params[2];
             String leerkrachtNaam = params[3];
             type2 = params[4];
             login_url = "https://smartpass.one/connect/telaat.php";
@@ -155,7 +233,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 OutputStream outputStream = httpsURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String post_data = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8")
-                        + "&" + URLEncoder.encode("wachtwoord", "UTF-8") + "=" + URLEncoder.encode(wachtwoord, "UTF-8")
+                        + "&" + URLEncoder.encode("token", "UTF-8") + "=" + URLEncoder.encode(logintoken, "UTF-8")
                         + "&" + URLEncoder.encode("naam", "UTF-8") + "=" + URLEncoder.encode(leerkrachtNaam, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
@@ -196,46 +274,24 @@ public class Login extends AsyncTask<String, Void, String> {
 
     @Override
     public void onPostExecute(String naam) {
-        if (type1.equals("login1")) {
-            LeerlingenKaartActivity.id = leerlingID;
-            LeerlingenKaartActivity.naam = leerlingNaam;
-            LeerlingenKaartActivity.fotoURL = "https://smartpass.one/foto/" + leerlingID + ".png";
-            LeerlingenKaartActivity.buiten = naarBuiten;
 
-            if(leerlingNaam.equals("Leerling niet gevonden")){
-                Toast.makeText(context, "Naam of wachtwoord fout", Toast.LENGTH_LONG).show();
-                resetLeerling();
-                LoginTest loginTest = new LoginTest();
-                loginTest.type = "login";
-                Intent loginTest1 = new Intent(context, LoginTest.class);
-                context.startActivity(loginTest1);
-                ((Activity) context).finish();
-                /*LoginTest loginTest = new LoginTest();
-                LoginTest.progressBar.setVisibility(View.INVISIBLE);*/
-            }
-            else{
-                Intent leerlingenkaart = new Intent(context, LeerlingenKaartActivity.class);
-                context.startActivity(leerlingenkaart);
-                ((Activity) context).finish();
-            }
-
-        }
-        else if(type1.equals("login")){
-            LeerlingenKaartFragment.id = leerlingID;
+        if(type1.equals("login")){
             LeerlingenKaartFragment.naam = leerlingNaam;
             LeerlingenKaartFragment.fotoURL = "https://smartpass.one/foto/" + leerlingID + ".png";
             LeerlingenKaartFragment.buiten = naarBuiten;
+            LeerlingenKaartFragment.klas = klas;
+            LeerlingenKaartFragment.id = leerlingID;
 
             if(leerlingNaam.equals("Leerling niet gevonden")){
                 Toast.makeText(context, "Naam of wachtwoord fout", Toast.LENGTH_LONG).show();
                 resetLeerling();
-                LoginTest loginTest = new LoginTest();
-                loginTest.type = "login";
-                Intent loginTest1 = new Intent(context, LoginTest.class);
+                LoginActivity loginActivity = new LoginActivity();
+                loginActivity.type = "login";
+                Intent loginTest1 = new Intent(context, LoginActivity.class);
                 context.startActivity(loginTest1);
                 ((Activity) context).finish();
-                /*LoginTest loginTest = new LoginTest();
-                LoginTest.progressBar.setVisibility(View.INVISIBLE);*/
+                /*LoginActivity loginActivity = new LoginActivity();
+                LoginActivity.progressBar.setVisibility(View.INVISIBLE);*/
             }
             else{
                 Intent leerlingenkaart = new Intent(context, LeerlingActivity.class);
@@ -248,10 +304,6 @@ public class Login extends AsyncTask<String, Void, String> {
             if(tekst.contains("Leerling niet te laat gezet") || tekst.equals("Er is iets fout gegaan")){
                 Toast.makeText(context, tekst, Toast.LENGTH_SHORT).show();
             }
-            else{
-                ToonLeerlingInfo.magBuiten.setImageResource(R.drawable.ic_cancel_black_48dp);
-            }
-
 
         }
         else if(type1.equals("zetTeLaat") && type2.equals("sa")){
@@ -268,21 +320,35 @@ public class Login extends AsyncTask<String, Void, String> {
                 if(login.equals("1")){
                     Intent leerkrachtenActivity = new Intent(context, LeerkrachtenActivity.class);
                     leerkrachtenActivity.putExtra("type", "normal");
+                    if(slaagGegevensOp){
+                        SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
+                        SharedPreferences.Editor editor = account.edit();
+                        editor.putString("token", logintoken);
+                        editor.commit();
+                    }
                     context.startActivity(leerkrachtenActivity);
                     ((Activity) context).finish();
                 }
                 else{
                     Toast.makeText(context, "Inloggen als leerkracht mislukt, kijk gegevens na", Toast.LENGTH_SHORT).show();
                     resetLeerkracht();
-                    LoginTest loginTest = new LoginTest();
-                    loginTest.type = "loginLeerkracht";
-                    Intent loginTest1 = new Intent(context, LoginTest.class);
+                    LoginActivity loginActivity = new LoginActivity();
+                    loginActivity.type = "loginLeerkracht";
+                    Intent loginTest1 = new Intent(context, LoginActivity.class);
                     context.startActivity(loginTest1);
                     ((Activity) context).finish();
-                    /*LoginTest loginTest = new LoginTest();
-                    loginTest.progressOnzichtbaar();*/
+                    /*LoginActivity loginActivity = new LoginActivity();
+                    loginActivity.progressOnzichtbaar();*/
                 }
 
+        }
+        else if(type1.equals("dashboard")){
+            DashboardFragment.aantalTeLaat = aantalTotaal;
+            DashboardFragment.aantalTeLaatTrimester = aantalTrimester;
+            DashboardFragment.intAantalTotNablijven = aantalTotNablijven;
+            DashboardFragment.datum = datum;
+            DashboardFragment dashboardFragment = new DashboardFragment();
+            dashboardFragment.laden();
         }
 
     }
@@ -294,21 +360,25 @@ public class Login extends AsyncTask<String, Void, String> {
     }
 
     public void stelLeerlingIdIn(Context c) {
-        SharedPreferences account = c.getSharedPreferences(ACCOUNT, 0);
-        SharedPreferences.Editor editor = account.edit();
-        editor.putString("id", leerlingID);
-        editor.commit();
+        if(slaagGegevensOp){
+            SharedPreferences account = c.getSharedPreferences(MainActivity.ACCOUNT, 0);
+            SharedPreferences.Editor editor = account.edit();
+            editor.putString("id", leerlingID);
+            editor.putString("token", logintoken);
+            editor.putString("klas", klas);
+            editor.commit();
+        }
     }
 
     public void resetLeerkracht(){
-        SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
+        SharedPreferences account = context.getSharedPreferences(MainActivity.ACCOUNT, 0);
         SharedPreferences.Editor editor = account.edit();
         editor.putString("naamLeerkracht", "");
         editor.commit();
     }
 
     public void resetLeerling(){
-        SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
+        SharedPreferences account = context.getSharedPreferences(MainActivity.ACCOUNT, 0);
         SharedPreferences.Editor editor = account.edit();
         editor.putString("naamGebruiker", "");
         editor.commit();

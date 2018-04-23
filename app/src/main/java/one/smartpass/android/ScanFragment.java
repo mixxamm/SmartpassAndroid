@@ -1,33 +1,27 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mixxamm.smartpassalpha.R;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
-
 public class ScanFragment extends Fragment {
 
-    public static String fotoURL, naam, buiten = "2", id;
+    public static String fotoURL, naam, buiten = "2", id, klas;
     CircleImageView leerlingFoto;
     TextView leerlingNaam;
     public static ImageView magBuiten;
@@ -43,7 +37,7 @@ public class ScanFragment extends Fragment {
 
 
         teLaat = v.findViewById(R.id.telaatknop);
-        SharedPreferences account = getActivity().getSharedPreferences(ACCOUNT, 0);
+        SharedPreferences account = getActivity().getSharedPreferences(MainActivity.ACCOUNT, 0);
         final String wachtwoordGebruiker1 = account.getString("wachtwoordGebruiker", "");
         final String naamLeerkracht = account.getString("naamLeerkracht", "");
         teLaat.setOnClickListener(new View.OnClickListener(){
@@ -51,17 +45,15 @@ public class ScanFragment extends Fragment {
             public void onClick(View v){
                 String type = "zetTeLaat";
 
-                if(id != null){//Voorkomt crash indien er geen leerling is gescant
-
-                        Login login = new Login(getContext());
-                        login.execute(type, id, wachtwoordGebruiker1, naamLeerkracht, "sa");
-
-                }
-                else{
+                if(naam.equals("Leerling niet gevonden")){
                     Toast.makeText(getContext(), "Scan de QR-code van een leerling om deze te laat te zetten.", Toast.LENGTH_SHORT).show();
                 }
-
-
+                else if(id != null){//Voorkomt crash indien er geen leerling is gescant
+                        SharedPreferences account = getContext().getSharedPreferences(MainActivity.ACCOUNT, 0);
+                        String logintoken = account.getString("token", "");
+                        Login login = new Login(getContext());
+                        login.execute(type, id, logintoken, naamLeerkracht, "sa");
+                        }
             }
         });
 
@@ -82,13 +74,16 @@ public class ScanFragment extends Fragment {
         leerlingFoto = (CircleImageView) v.findViewById(R.id.profielFotoScan);
         Picasso.with(v.getContext()).load(fotoURL).into(leerlingFoto);
         leerlingNaam = (TextView) v.findViewById(R.id.info);
-        leerlingNaam.setText(naam);
+        leerlingNaam.setText(naam + " | " + klas);
         teLaat = (Button) v.findViewById(R.id.telaatknop);
         if(buiten.equals("1")){
             setActivityBackgroundColor(Color.parseColor("#8BC34A"), Color.parseColor("#689F38"));
         }
         else if(buiten.equals("0")){
             setActivityBackgroundColor(Color.parseColor("#F44336"), Color.parseColor("#D32F2F"));
+        }
+        else if(naam.equals("Leerling niet gevonden")){
+            leerlingNaam.setText(naam);
         }
 //        magBuiten = (ImageView) findViewById(R.id.magBuiten);
     }

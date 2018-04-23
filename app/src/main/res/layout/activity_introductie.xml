@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context="com.mixxamm.smartpassalpha.Introductie">
+    tools:context="com.mixxamm.smartpassalpha.one.mixxamm.smartpassalpha.Introductie">
 
     <com.nightonke.wowoviewpager.WoWoViewPager
         android:id="@+id/wowo_viewpager"

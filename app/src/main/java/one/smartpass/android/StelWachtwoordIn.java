@@ -1,12 +1,14 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -22,8 +24,6 @@ import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
-
 /**
  * Created by maxim on 26/12/2017.
  */
@@ -32,7 +32,7 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
     Context context;
     AlertDialog alertDialog;
 
-    static String result, type, gebruikersnaam, wachtwoord, newpass;
+    static String result, type, gebruikersnaam, wachtwoord, newpass, token, result1;
 
     StelWachtwoordIn(Context context1) {
         context = context1;
@@ -69,12 +69,17 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
                 while ((line = bufferedReader.readLine()) != null) {
                     result += line;
                 }
+                JSONObject jsonobj = new JSONObject(result);
+                token = jsonobj.getString("logintoken");
+                result1 = jsonobj.getString("result");
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (ProtocolException e) {
                 e.printStackTrace();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
@@ -104,11 +109,16 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
                 while ((line = bufferedReader.readLine()) != null) {
                     result += line;
                 }
+                JSONObject jsonobj = new JSONObject(result);
+                token = jsonobj.getString("logintoken");
+                result1 = jsonobj.getString("result");
             } catch (MalformedURLException e){
                 e.printStackTrace();
             } catch (ProtocolException e){
                 e.printStackTrace();
             } catch (IOException e){
+                e.printStackTrace();
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
 
@@ -125,35 +135,33 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
     @Override
     public void onPostExecute(String test) {
         if(type.equals("login")){
-            Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
-            if(result.equals("Wachtwoord instellen gelukt.")){
+            if(result1.equals("Wachtwoord instellen gelukt.")){
                 Login login = new Login(context);
-                login.execute(type, gebruikersnaam, newpass);
-                Toast.makeText(context, "Automatisch inloggen met nieuwe gegevens.", Toast.LENGTH_SHORT).show();
+                login.execute(type, "token", gebruikersnaam, token);
+                Toast.makeText(context, "Automatisch inloggen met nieuwe gegevens.", Toast.LENGTH_LONG).show();
 
-                SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
+                SharedPreferences account = context.getSharedPreferences(MainActivity.ACCOUNT, 0);
                 SharedPreferences.Editor editor = account.edit();
                 editor.putString("naamGebruiker", gebruikersnaam);
                 editor.commit();
                 SharedPreferences.Editor editor1 = account.edit();
-                editor1.putString("wachtwoordGebruiker", newpass);
+                editor1.putString("token", token);
                 editor1.commit();
                 ((Activity) context).finish();
             }
         }
         else if(type.equals("loginLeerkracht")){
-            Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
-            if(result.equals("Wachtwoord instellen gelukt.")){
+            if(result1.equals("Wachtwoord instellen gelukt.")){
                 Login login = new Login(context);
-                login.execute(type, gebruikersnaam, newpass);
+                login.execute(type, "token", gebruikersnaam, token);
                 Toast.makeText(context, "Automatisch inloggen met nieuwe gegevens.", Toast.LENGTH_SHORT).show();
 
-                SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
+                SharedPreferences account = context.getSharedPreferences(MainActivity.ACCOUNT, 0);
                 SharedPreferences.Editor editor = account.edit();
                 editor.putString("naamLeerkracht", gebruikersnaam);
                 editor.commit();
                 SharedPreferences.Editor editor1 = account.edit();
-                editor1.putString("wachtwoordGebruiker", newpass);
+                editor1.putString("token", token);
                 editor1.commit();
                 ((Activity) context).finish();
             }

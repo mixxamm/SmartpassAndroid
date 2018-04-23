@@ -1,9 +1,11 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -19,22 +21,30 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.mixxamm.smartpassalpha.R;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
+
+import static android.view.WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL;
+import static android.view.WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
+
+import static one.smartpass.android.MainActivity.ACCOUNT;
 
 public class LeerlingenKaartFragment extends Fragment {
 
     public final static int QRcodeWidth = 500;
     int color1;
-    public static String id, naam, fotoURL, buiten;
+    public static String id, naam, fotoURL, buiten, klas;
+    public static boolean internet;
     public static View v;
     ImageView imageView;
     TextView naamLeerling;
@@ -45,14 +55,47 @@ public class LeerlingenKaartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         v = inflater.inflate(R.layout.fragment_leerlingenkaart, container, false);
+        setScreenBrightnessTo(BRIGHTNESS_OVERRIDE_FULL);
 
-        if(!isNetworkAvailable()){
-            SharedPreferences account = getActivity().getSharedPreferences(ACCOUNT, 0);
+        BottomNavigationView navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
+
+        //Kleurlijsten maken
+        int[][] states = new int[][] {
+                new int[] {-android.R.attr.state_checked}, // unchecked
+                new int[] { android.R.attr.state_checked}, // checked
+
+        };
+
+        int[] colors = new int[] {
+                Color.parseColor("#757575"),
+                Color.parseColor("#455A64")
+        };
+
+        int[][] states1 = new int[][] {
+                new int[] {-android.R.attr.state_checked}, // unchecked
+                new int[] { android.R.attr.state_checked}, // checked
+
+        };
+
+        int[] colors2 = new int[] {
+                Color.parseColor("#BDBDBD"),
+                Color.parseColor("#455A64")
+        };
+
+        final ColorStateList normaalLijst = new ColorStateList(states, colors);
+        final ColorStateList lichtLijst = new ColorStateList(states, colors);
+        SharedPreferences account = getActivity().getSharedPreferences(ACCOUNT, 0);
+        if(account.getString("id", "") != ""){
+            id = account.getString("id", "");
+        }
+
+        if(!isNetworkAvailable() || !internet){
             naam = account.getString("naamGebruiker", "");
+            klas = account.getString("klas", "");
             buiten = "4";
         }
 
-        if(naam.equals("Leerling niet gevonden")){//log automatisch uit als account1 niet bestaat
+        if(naam.equals("Leerling niet gevonden")){//log automatisch uit als account niet bestaat
             resetLeerlingNaam();
         }
 
@@ -62,6 +105,9 @@ public class LeerlingenKaartFragment extends Fragment {
             setActivityBackgroundColor(Color.parseColor("#8BC34A"), Color.parseColor("#689F38"));//parseColor gebruiken aangezien kleuren van colors.xml pakken niet werkt om een vage reden
 
 
+            navigation.setItemTextColor(normaalLijst);
+            navigation.setItemIconTintList(normaalLijst);
+
             color1 = Color.parseColor("#8BC34A");
             int color2 = Color.parseColor("#689F38");
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -70,6 +116,11 @@ public class LeerlingenKaartFragment extends Fragment {
         } else if (buiten.equals("0")) {
             setActivityBackgroundColor(Color.parseColor("#F44336"), Color.parseColor("#D32F2F"));
             color1 = Color.parseColor("#F44336");
+
+
+            navigation.setItemTextColor(lichtLijst);
+            navigation.setItemIconTintList(lichtLijst);
+
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getActivity().getWindow().setNavigationBarColor(Color.parseColor("#D32F2F"));
             }
@@ -78,34 +129,32 @@ public class LeerlingenKaartFragment extends Fragment {
             profielFotoView.setVisibility(View.VISIBLE);
             profielFotoView.setVisibility(View.INVISIBLE);
             color1 = Color.WHITE;
+            navigation.setItemTextColor(normaalLijst);
+            navigation.setItemIconTintList(normaalLijst);
         } else if(buiten.equals("4")){
             profielFotoView.setImageResource(R.drawable.sync_alert);
             profielFotoView.setVisibility(View.VISIBLE);
-            color1 = Color.WHITE;
+            color1 = Color.parseColor("#FAFAFA");
+            setActivityBackgroundColor(Color.parseColor("#FAFAFA"), Color.parseColor("#455A64"));
+            navigation.setItemTextColor(normaalLijst);
+            navigation.setItemIconTintList(normaalLijst);
         }
 
 
         naamLeerling = (TextView) v.findViewById(R.id.leerlingNaam);
-        naamLeerling.setText(naam);
+        naamLeerling.setText(naam + " | " + klas);
         if(buiten.equals("1") || buiten.equals("0")){
             Picasso.with(getContext()).load(fotoURL).into(profielFotoView);
         }
 
-
-
-        QRCodeWriter writer = new QRCodeWriter();
         try {
-            BitMatrix bitMatrix = writer.encode(id, BarcodeFormat.QR_CODE, 512, 512);
-            int width = bitMatrix.getWidth();
-            int height = bitMatrix.getHeight();
-            Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-            for (int x = 0; x < width; x++) {
-                for (int y = 0; y < height; y++) {
-                    bitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : color1);
-                }
-            }
+            MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+            BitMatrix bitMatrix = multiFormatWriter.encode(id, BarcodeFormat.QR_CODE,600,600);
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
             ((ImageView) v.findViewById(R.id.qrcode1)).setImageBitmap(bitmap);
-
+            ImageView qrcode = v.findViewById(R.id.qrcode1);
+            qrcode.setColorFilter(color1, PorterDuff.Mode.MULTIPLY);
         } catch (WriterException e) {
             e.printStackTrace();
         }
@@ -140,4 +189,17 @@ public class LeerlingenKaartFragment extends Fragment {
         editor.putString("naamGebruiker", "");//Aangezien bij het inloggen enkel op de naam wordt gecontroleerd, hoeven we het wachtwoord niet te resetten
         editor.commit();//Dit voert de wijzigingen door
     }
+
+    private void setScreenBrightnessTo(float brightness) {
+        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+        if (lp.screenBrightness == brightness) {
+            return;
+        }
+        lp.screenBrightness = brightness;
+        getActivity().getWindow().setAttributes(lp);
+    }
+    public void onDestroy(){
+        super.onDestroy();
+        setScreenBrightnessTo(BRIGHTNESS_OVERRIDE_NONE);
+        }
 }

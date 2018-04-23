@@ -1,15 +1,8 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Build;
-import android.support.design.internal.SnackbarContentLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,12 +10,10 @@ import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,12 +21,12 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
-import com.squareup.picasso.Picasso;
+import com.mixxamm.smartpassalpha.R;
 
 import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import static com.mixxamm.smartpassalpha.MainActivity.ACCOUNT;
+
 public class ScanActivity2 extends AppCompatActivity {//TODO: ook hier loaders gebruiken, zo moet de activiteit niet herstarten bij elke scan
 
     SurfaceView cameraView;
@@ -102,8 +93,8 @@ public class ScanActivity2 extends AppCompatActivity {//TODO: ook hier loaders g
 
                     @Override
                     public void surfaceDestroyed(SurfaceHolder holder) {
-                        cameraSource.stop();
-                        //Stopt de camera nadat de scanactiviteit is gesloten (bespaart enorm veel batterij)
+                        cameraSource.stop();//Stopt de camera nadat de scanactiviteit is gesloten (bespaart enorm veel batterij)
+                        vorigID = "eersteKeer";
                     }
                 });
                 barcode.setProcessor(new Detector.Processor<Barcode>() {
@@ -127,7 +118,6 @@ public class ScanActivity2 extends AppCompatActivity {//TODO: ook hier loaders g
                                 Fragment fragment = new ScanFragment();
                                 loadFragment(fragment);
                             }
-
                         }
 
             }

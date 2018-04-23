@@ -1,16 +1,10 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import com.google.zxing.client.android.Intents;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,14 +22,12 @@ import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import static java.security.AccessController.getContext;
-
 /**
  * Created by maxim on 20/12/2017.
  */
 
 public class LeerlingInfo extends AsyncTask<String, Void, String> {
-    static String leerlingNaam, naarBuiten, id, type;
+    static String leerlingNaam, naarBuiten, id, type, klas;
     Context context;
 
 
@@ -107,6 +99,7 @@ public class LeerlingInfo extends AsyncTask<String, Void, String> {
                 JSONObject jsonObject = new JSONObject(result);
                 leerlingNaam = jsonObject.getString("naam");
                 naarBuiten = jsonObject.getString("buiten");
+                klas = jsonObject.getString("klas");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -125,22 +118,12 @@ public class LeerlingInfo extends AsyncTask<String, Void, String> {
 
     @Override
     public void onPostExecute(String naam) {
-        if(type.equals("infoOphalen")){
-            ToonLeerlingInfo.naam = leerlingNaam;
-            ToonLeerlingInfo.fotoURL = "https://smartpass.one/foto/" + id + ".png";
-            ToonLeerlingInfo.buiten = naarBuiten;
-            ToonLeerlingInfo.id = id;
-
-            Intent toonLeerlingInfo = new Intent(context, ToonLeerlingInfo.class);
-            context.startActivity(toonLeerlingInfo);
-            ((Activity)context).finish();
-        }
-
         if(type.equals("infoOphalen2")){
             ScanFragment.naam = leerlingNaam;
             ScanFragment.fotoURL = "https://smartpass.one/foto/" + id + ".png";
             ScanFragment.buiten = naarBuiten;
             ScanFragment.id = id;
+            ScanFragment.klas = klas;
             ScanFragment.teLaat.setVisibility(View.VISIBLE);
             ScanFragment scanFragment = new ScanFragment();
             scanFragment.laden();

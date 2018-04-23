@@ -1,17 +1,18 @@
-package com.mixxamm.smartpassalpha;
+package one.smartpass.android;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import com.mixxamm.smartpassalpha.R;
 
 public class LeerlingActivity extends AppCompatActivity {
 
-
+public static int id;
+public static boolean internet;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -49,13 +50,22 @@ public class LeerlingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leerling);
 
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            internet = Boolean.parseBoolean(extras.getString("internet"));
+        }
+        else{
+            internet = true;
+        }
+
+        LeerlingenKaartFragment.internet = internet;
+        LeerlingenKaartFragment.id = String.valueOf(id);
+
         loadFragment(new LeerlingenKaartFragment());
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-    public void veranderBottomNavigationKleur(int color){
 
-    }
 
 }

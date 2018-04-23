@@ -25,24 +25,18 @@
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name="one.smartpass.android.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="one.smartpass.android.LeerkrachtenActivity" />
+        <activity android:name="one.smartpass.android.LoginActivity" />
+        <activity android:name="one.smartpass.android.WachtwoordInstellen" />
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login" />
-        <activity android:name=".LeerlingenKaartActivity" />
-        <activity android:name=".LeerkrachtenActivity" />
-        <activity android:name=".ScanActivity" />
-        <activity android:name=".LoginTest" />
-        <activity android:name=".ToonLeerlingInfo" />
-        <activity android:name=".WachtwoordInstellen" />
-        <activity
-            android:name=".Introductie"
+            android:name="one.smartpass.android.Introductie"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_introductie"
             android:theme="@style/FullscreenTheme">
@@ -50,13 +44,10 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".WoWoAlphaAnimationActivity" />
-        <activity android:name=".ScanActivity2" />
-        <activity android:name=".Mail" />
-        <activity android:name=".Betalen" />
-        <activity android:name=".Instellingen" />
+        <activity android:name="one.smartpass.android.ScanActivity2" />
+        <activity android:name="one.smartpass.android.Mail" />
         <activity
-            android:name=".LeerlingActivity"
+            android:name="one.smartpass.android.LeerlingActivity"
             android:label="@string/title_activity_leerling"></activity>
     </application>
 

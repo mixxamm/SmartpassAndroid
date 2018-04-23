@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mixxamm.smartpassalpha.LeerkrachtenActivity">
+    tools:context="com.mixxamm.smartpassalpha.one.mixxamm.smartpassalpha.LeerkrachtenActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,14 +18,6 @@
             android:layout_alignParentRight="true"
             android:src="@drawable/uitloggen"
             android:padding="16dp"/>
-        <CheckBox
-            android:id="@+id/houdCameraOpen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/scanButton"
-            android:text="Houd camera open (experimenteel, meld bugs)"
-            android:visibility="visible"
-            android:enabled="true"/>
         <Button
             android:id="@+id/scanButton"
             android:layout_width="match_parent"
