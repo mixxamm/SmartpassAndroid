@@ -6,10 +6,10 @@ android {
     buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "one.smartpass.android"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 27
-        versionCode 15
-        versionName "2.1.4"
+        versionCode 16
+        versionName "2.1.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }

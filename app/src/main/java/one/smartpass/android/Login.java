@@ -8,6 +8,9 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.security.ProviderInstaller;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.mixxamm.smartpassalpha.R;
 
@@ -50,6 +53,13 @@ public class Login extends AsyncTask<String, Void, String> {
 
     @Override
     public String doInBackground(String... params) {
+        try {
+            ProviderInstaller.installIfNeeded(context);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
         String type = params[0];
         type1 = type;
         String login_url;
