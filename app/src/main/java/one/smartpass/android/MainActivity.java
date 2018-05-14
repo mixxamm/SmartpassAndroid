@@ -34,20 +34,20 @@ public class MainActivity extends AppCompatActivity {
         String loginToken = account.getString("token", "");
         String naamLeerkracht = account.getString("naamLeerkracht", "");
         try {
-            if(isNetworkAvailable() && naamGebruiker != "" && isConnected()){
+            if(isNetworkAvailable() && !naamGebruiker.equals("") && isConnected()){
                 laden();
                 Login login = new Login(MainActivity.this);
                 login.execute("login", "token", naamGebruiker, loginToken);
             }
-            else if(isNetworkAvailable() && naamLeerkracht != "" && isConnected()){
+            else if(isNetworkAvailable() && !naamLeerkracht.equals("") && isConnected()){
                 laden();
                 Login login = new Login(MainActivity.this);
                 login.execute("loginLeerkracht", "token", naamLeerkracht, loginToken);
             }
-            else if(!isNetworkAvailable() && naamLeerkracht != "" &&!isConnected()){
+            else if(!isNetworkAvailable() && !naamLeerkracht.equals("") &&!isConnected()){
                 Toast.makeText(this, "Maak verbinding met internet om automatisch in te loggen.", Toast.LENGTH_SHORT).show();
             }
-            else if (!isConnected() && naamGebruiker != "") {
+            else if (!isConnected() && !naamGebruiker.equals("")) {
                 laden();
                 Intent leerlingActivity = new Intent(MainActivity.this, LeerlingActivity.class);
                 leerlingActivity.putExtra("internet", "false");
