@@ -58,7 +58,9 @@ public class DashboardFragment extends Fragment {
             nablijven.setTextColor(Color.WHITE);
             BottomNavigationView navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
             navigation.setBackgroundColor(Color.parseColor("#000000"));
-            getActivity().getWindow().setNavigationBarColor(Color.parseColor("#000000"));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getActivity().getWindow().setNavigationBarColor(Color.parseColor("#000000"));
+            }
 
             int[][] states = new int[][] {
                     new int[] {-android.R.attr.state_checked}, // unchecked
@@ -84,7 +86,9 @@ public class DashboardFragment extends Fragment {
         else {
             BottomNavigationView navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
             navigation.setBackgroundColor(Color.parseColor("#FAFAFA"));
-            getActivity().getWindow().setNavigationBarColor(Color.parseColor("#000000"));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getActivity().getWindow().setNavigationBarColor(Color.parseColor("#000000"));
+            }
 
             int[][] states = new int[][] {
                     new int[] {-android.R.attr.state_checked}, // unchecked
