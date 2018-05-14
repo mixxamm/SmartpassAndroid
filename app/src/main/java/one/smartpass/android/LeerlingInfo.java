@@ -1,8 +1,6 @@
 package one.smartpass.android;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
 
@@ -27,8 +25,8 @@ import javax.net.ssl.HttpsURLConnection;
  */
 
 public class LeerlingInfo extends AsyncTask<String, Void, String> {
-    static String leerlingNaam, naarBuiten, id, type, klas;
-    Context context;
+    private static String leerlingNaam, naarBuiten, id, type, klas;
+    protected Context context;
 
 
     LeerlingInfo(Context context1) {
@@ -39,7 +37,7 @@ public class LeerlingInfo extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         type = params[0];
         String scan_url = "https://smartpass.one/connect/scan.php";
-        if (type.equals("infoOphalen")) {
+        if ("infoOphalen".equals(type)) {
             try {
                 id = params[1];
                 URL url = new URL(scan_url);
@@ -57,7 +55,7 @@ public class LeerlingInfo extends AsyncTask<String, Void, String> {
                 InputStream inputStream = httpsURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
                 String result = "";
-                String line = "";
+                String line;
                 while ((line = bufferedReader.readLine()) != null) {
                     result += line;
                 }
@@ -73,7 +71,7 @@ public class LeerlingInfo extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             }
         }
-        if (type.equals("infoOphalen2")) {
+        if ("infoOphalen2".equals(type)) {
             try {
                 id = params[1];
                 URL url = new URL(scan_url);
@@ -91,7 +89,7 @@ public class LeerlingInfo extends AsyncTask<String, Void, String> {
                 InputStream inputStream = httpsURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
                 String result = "";
-                String line = "";
+                String line;
                 while ((line = bufferedReader.readLine()) != null) {
                     result += line;
                 }

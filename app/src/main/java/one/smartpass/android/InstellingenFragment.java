@@ -28,16 +28,16 @@ import com.mixxamm.smartpassalpha.R;
  * Created by janssensm on 27-3-2018.
  */
 
-public class InstellingenFragment extends Fragment implements View.OnClickListener {
+public class InstellingenFragment extends Fragment {
 
     //Voorkeuren
     public static final String PREFS_ALGEMEEN = "Algemeen";
     public static View v;
-    static String naamGebruiker;
-    Switch donkereModus;
-    ImageView uitloggen, donkereModusImageView, bugReportImageView, ondersteuningImageView, nieuwWachtwoordImageView, nieuweFunctieImageView;
-    TextView bugReport, ondersteuning, nieuwWachtwoordTextView, nieuweFunctieTextView;
-    LinearLayout nieuwWachtwoord, nieuweFunctie;
+    private static String naamGebruiker;
+    private Switch donkereModus;
+    private ImageView uitloggen, donkereModusImageView, bugReportImageView, ondersteuningImageView, nieuwWachtwoordImageView, nieuweFunctieImageView;
+    private TextView bugReport, ondersteuning, nieuwWachtwoordTextView, nieuweFunctieTextView;
+    private LinearLayout nieuwWachtwoord, nieuweFunctie;
 
     @Nullable
     @Override
@@ -201,11 +201,6 @@ public class InstellingenFragment extends Fragment implements View.OnClickListen
     }
 
 
-    @Override
-    public void onClick(View view) {
-
-    }
-
     public void resetLeerlingNaam(){
         SharedPreferences account = getActivity().getSharedPreferences(MainActivity.ACCOUNT, 0);
         SharedPreferences.Editor editor = account.edit();
@@ -224,7 +219,7 @@ public class InstellingenFragment extends Fragment implements View.OnClickListen
     public void composeEmail(){
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:"));
-        intent.putExtra(android.content.Intent.EXTRA_EMAIL,new String[] { "support.android@smartpass.one" });
+        intent.putExtra(Intent.EXTRA_EMAIL,new String[] { "support.android@smartpass.one" });
         if(intent.resolveActivity(getActivity().getPackageManager()) != null){
             startActivity(intent);
         }

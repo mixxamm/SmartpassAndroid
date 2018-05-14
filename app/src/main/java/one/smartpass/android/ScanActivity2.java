@@ -29,15 +29,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ScanActivity2 extends AppCompatActivity {//TODO: ook hier loaders gebruiken, zo moet de activiteit niet herstarten bij elke scan
 
-    SurfaceView cameraView;
-    BarcodeDetector barcode;
-    CameraSource cameraSource;
-    SurfaceHolder holder;
-    public static String fotoURL, naam, buiten = "2", id, vorigID = "eersteKeer";
-    CircleImageView leerlingFoto;
-    TextView leerlingNaam;
-    public static ImageView magBuiten;
-    public static Button teLaat;
+    private SurfaceView cameraView;
+    private BarcodeDetector barcode;
+    private CameraSource cameraSource;
+    protected SurfaceHolder holder;
+    public static String naam, id, vorigID = "eersteKeer";
 
 
     private boolean loadFragment(Fragment fragment) {
@@ -62,7 +58,7 @@ public class ScanActivity2 extends AppCompatActivity {//TODO: ook hier loaders g
                     Window w = getWindow();
                     w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
                 }
-                cameraView = (SurfaceView) findViewById(R.id.cameraView2);
+                cameraView = findViewById(R.id.cameraView2);
                 cameraView.setZOrderMediaOverlay(true);
                 holder = cameraView.getHolder();
                 barcode = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.QR_CODE).build();
@@ -88,7 +84,7 @@ public class ScanActivity2 extends AppCompatActivity {//TODO: ook hier loaders g
 
                     @Override
                     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
+                        //doet voorlopig niks, ik zou ook niet weten waarvoor dit gebruikt kan worden
                     }
 
                     @Override
@@ -100,7 +96,7 @@ public class ScanActivity2 extends AppCompatActivity {//TODO: ook hier loaders g
                 barcode.setProcessor(new Detector.Processor<Barcode>() {
                     @Override
                     public void release() {
-
+                        //Geen idee waarvoor dit dient TODO: nakijken of dit moet blijven staan
                     }
 
                     @Override
@@ -110,7 +106,7 @@ public class ScanActivity2 extends AppCompatActivity {//TODO: ook hier loaders g
                             Barcode thisCode = barcodes.valueAt(0);
                             String id = thisCode.rawValue;
 
-                            if(vorigID.equals("eersteKeer") || !vorigID.equals(id)){
+                            if("eersteKeer".equals(vorigID) || !vorigID.equals(id)){
                                 vorigID = id;
                                 String type = "infoOphalen2";
                                 LeerlingInfo infoLeerling = new LeerlingInfo(ScanActivity2.this);

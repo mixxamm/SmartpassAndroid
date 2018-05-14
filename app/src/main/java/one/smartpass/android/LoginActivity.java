@@ -19,33 +19,26 @@ import static com.mixxamm.smartpassalpha.R.layout;
 public class LoginActivity extends AppCompatActivity {
 
     public static String type;
-    /*public ProgressBar progressBar = findViewById(id.progressBar);*/
-    EditText Gebruikersnaam, Wachtwoord;
-    CheckBox onthoudGegevens;
+    private EditText Gebruikersnaam, Wachtwoord;
+    private CheckBox onthoudGegevens;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_login);
-        Gebruikersnaam = (EditText) findViewById(id.gebruikersnaamtest);
-        Wachtwoord = (EditText) findViewById(id.wachtwoordtest);
-        Button loginButton = (Button) findViewById(id.loginButton);
-        TextView wachtwoordInstellen = (TextView) findViewById(id.wachtwoordInstellen);
-
+        Gebruikersnaam = findViewById(id.gebruikersnaamtest);
+        Wachtwoord = findViewById(id.wachtwoordtest);
+        Button loginButton = findViewById(id.loginButton);
+        TextView wachtwoordInstellen = findViewById(id.wachtwoordInstellen);
         onthoudGegevens = findViewById(id.onthoudGegevens);
-
-
-
-
-        /*checkAccount(naam, wachtwoordGebruiker1);*/
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Boolean slaagGegevensOp = onthoudGegevens.isChecked();
                 String slaagGegevensOpString = Boolean.toString(slaagGegevensOp);
-                if(type.equals("login")){
-                    ProgressBar progressBar = (ProgressBar) findViewById(id.login_laden);
+                if("login".equals(type)){
+                    ProgressBar progressBar = findViewById(id.login_laden);
                     progressBar.setVisibility(View.VISIBLE);
                     String gebruikersnaam = Gebruikersnaam.getText().toString();
                     String wachtwoord = Wachtwoord.getText().toString();
@@ -62,8 +55,8 @@ public class LoginActivity extends AppCompatActivity {
                     Login login = new Login(LoginActivity.this);
                     login.execute(type, gebruikersnaam, wachtwoord, slaagGegevensOpString);
                 }
-                else if(type.equals("loginLeerkracht")){
-                    ProgressBar progressBar = (ProgressBar) findViewById(id.login_laden);
+                else if("loginLeerkracht".equals(type)){
+                    ProgressBar progressBar = findViewById(id.login_laden);
                     progressBar.setVisibility(View.VISIBLE);
                     String leerkrachtnaam = Gebruikersnaam.getText().toString();
                     String wachtwoord = Wachtwoord.getText().toString();
@@ -94,36 +87,4 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
-    /*public void checkAccount(String naam, String wachtwoord) {
-         else if (naam != "") {
-            laden();//Geeft een progressbar weer en laat alle andere velden verdwijnen
-            Login login = new Login(LoginActivity.this);
-            login.execute("login", naam, wachtwoord);
-        }
-    }*/
-
-
-
-    private void laden(){
-        ProgressBar progressBar = (ProgressBar) findViewById(id.login_laden);
-        progressBar.setVisibility(View.VISIBLE);
-        TextView textViewGebruikersnaam = (TextView) findViewById(id.gebruikersnaamtest);
-        textViewGebruikersnaam.setVisibility(View.INVISIBLE);
-        TextView textViewWachtwoord = (TextView) findViewById(id.wachtwoordtest);
-        textViewWachtwoord.setVisibility(View.INVISIBLE);
-        Button inlogKnop = (Button) findViewById(id.loginButton);
-        inlogKnop.setVisibility(View.INVISIBLE);
-        TextView textViewWachtwoordInstellen = (TextView) findViewById(id.wachtwoordInstellen);
-        textViewWachtwoordInstellen.setVisibility(View.INVISIBLE);
-        MaterialTextField materialTextFieldGebruikersnaam = (MaterialTextField) findViewById(id.materialtextfieldgebruikersnaam);
-        materialTextFieldGebruikersnaam.setVisibility(View.INVISIBLE);
-        MaterialTextField materialTextFieldWachtwoord = (MaterialTextField) findViewById(id.materialtextfieldwachtwoord);
-        materialTextFieldWachtwoord.setVisibility(View.INVISIBLE);
-        onthoudGegevens.setVisibility(View.INVISIBLE);
-    }
-    /*public void progressOnzichtbaar(){
-        ProgressBar progressBar = (ProgressBar) findViewById(id.login_laden);
-        progressBar.setVisibility(View.INVISIBLE);
-    }*/
 }

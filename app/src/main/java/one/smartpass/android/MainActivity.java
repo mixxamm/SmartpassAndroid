@@ -18,12 +18,13 @@ import com.mixxamm.smartpassalpha.R;
 import java.io.IOException;
 
 import static com.mixxamm.smartpassalpha.R.id.leerling_login;
+import static com.mixxamm.smartpassalpha.R.id.naam;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String PREFS_INTRODUCTIE = "Introductie";
     public static final String ACCOUNT = "Account";
-    String id;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,20 +35,20 @@ public class MainActivity extends AppCompatActivity {
         String loginToken = account.getString("token", "");
         String naamLeerkracht = account.getString("naamLeerkracht", "");
         try {
-            if(isNetworkAvailable() && !naamGebruiker.equals("") && isConnected()){
+            if(isNetworkAvailable() && !"".equals(naamGebruiker) && isConnected()){
                 laden();
                 Login login = new Login(MainActivity.this);
                 login.execute("login", "token", naamGebruiker, loginToken);
             }
-            else if(isNetworkAvailable() && !naamLeerkracht.equals("") && isConnected()){
+            else if(isNetworkAvailable() && !"".equals(naamLeerkracht) && isConnected()){
                 laden();
                 Login login = new Login(MainActivity.this);
                 login.execute("loginLeerkracht", "token", naamLeerkracht, loginToken);
             }
-            else if(!isNetworkAvailable() && !naamLeerkracht.equals("") &&!isConnected()){
+            else if(!isNetworkAvailable() && !"".equals(naamLeerkracht) &&!isConnected()){
                 Toast.makeText(this, "Maak verbinding met internet om automatisch in te loggen.", Toast.LENGTH_SHORT).show();
             }
-            else if (!isConnected() && !naamGebruiker.equals("")) {
+            else if (!isConnected() && !"".equals(naamGebruiker)) {
                 laden();
                 Intent leerlingActivity = new Intent(MainActivity.this, LeerlingActivity.class);
                 leerlingActivity.putExtra("internet", "false");
@@ -89,11 +90,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void laden(){
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.ProgressBarMainActivity);
+        ProgressBar progressBar = findViewById(R.id.ProgressBarMainActivity);
         progressBar.setVisibility(View.VISIBLE);
-        TextView smartschoolLogin = (TextView) findViewById(R.id.leerling_login);
+        TextView smartschoolLogin = findViewById(leerling_login);
         smartschoolLogin.setVisibility(View.INVISIBLE);
-        Button leerkrachtLogin = (Button) findViewById(R.id.leerkrachtLogin);
+        Button leerkrachtLogin = findViewById(R.id.leerkrachtLogin);
         leerkrachtLogin.setVisibility(View.INVISIBLE);
     }
     private boolean isNetworkAvailable() {

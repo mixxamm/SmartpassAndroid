@@ -12,7 +12,6 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.security.ProviderInstaller;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.mixxamm.smartpassalpha.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,11 +40,10 @@ import static one.smartpass.android.MainActivity.ACCOUNT;
 
 
 public class Login extends AsyncTask<String, Void, String> {
-    static String leerlingID, leerlingNaam, naarBuiten, tekst, type1, leerkrachtNaam, login, type2, klas, datum, logintoken, gebruikersnaam, wachtwoord, tabel1;
-    static int aantalTotaal, aantalTrimester, aantalTotNablijven;
-    static boolean slaagGegevensOp;
-    Context context;
-    AlertDialog alertDialog;
+    protected static String leerlingID, leerlingNaam, naarBuiten, tekst, type1, leerkrachtNaam, login, type2, klas, datum, logintoken, gebruikersnaam, wachtwoord, tabel1, fout = "Leerling niet te laat gezet";
+    private static int aantalTotaal, aantalTrimester, aantalTotNablijven;
+    private static boolean slaagGegevensOp;
+    private Context context;
 
     Login(Context context1) {
         context = context1;
@@ -63,7 +61,7 @@ public class Login extends AsyncTask<String, Void, String> {
         String type = params[0];
         type1 = type;
         String login_url;
-        if (type.equals("login")) {
+        if ("login".equals(type)) {
             try {
                 login_url = "https://smartpass.one/connect/login.php";
                 String tabel = "tblleerlingen";
@@ -79,8 +77,6 @@ public class Login extends AsyncTask<String, Void, String> {
                     slaagGegevensOp = Boolean.parseBoolean(params[3]);
                     logintoken = "";
                 }
-                SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
-                String id = account.getString("id", "");
                 URL url = new URL(login_url);
                 HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
                 httpsURLConnection.setRequestMethod("POST");
@@ -126,7 +122,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             }
 
-        } else if (type.equals("loginLeerkracht")) {
+        } else if ("loginLeerkracht".equals(type)) {
             try {
                 login_url = "https://smartpass.one/connect/login.php";
                 tabel1 = "tblleerkrachten";
@@ -181,7 +177,7 @@ public class Login extends AsyncTask<String, Void, String> {
             }
 
 
-        } else if(type.equals("dashboard")){
+        } else if("dashboard".equals(type)){
             login_url = "https://smartpass.one/connect/dashboard.php";
             String id = params[1];
             try{
@@ -228,7 +224,7 @@ public class Login extends AsyncTask<String, Void, String> {
 
 
 
-        else if (type.equals("zetTeLaat")) {
+        else if ("zetTeLaat".equals(type)) {
             String id = params[1];
             String logintoken = params[2];
             String leerkrachtNaam = params[3];
@@ -285,14 +281,14 @@ public class Login extends AsyncTask<String, Void, String> {
     @Override
     public void onPostExecute(String naam) {
 
-        if(type1.equals("login")){
+        if("login".equals(type1)){
             LeerlingenKaartFragment.naam = leerlingNaam;
             LeerlingenKaartFragment.fotoURL = "https://smartpass.one/foto/" + leerlingID + ".png";
             LeerlingenKaartFragment.buiten = naarBuiten;
             LeerlingenKaartFragment.klas = klas;
             LeerlingenKaartFragment.id = leerlingID;
 
-            if(leerlingNaam.equals("Leerling niet gevonden")){
+            if("Leerling niet gevonden".equals(leerlingNaam)){
                 Toast.makeText(context, "Naam of wachtwoord fout", Toast.LENGTH_LONG).show();
                 resetLeerling();
                 LoginActivity loginActivity = new LoginActivity();
@@ -310,14 +306,14 @@ public class Login extends AsyncTask<String, Void, String> {
             }
         }
 
-        else if (type1.equals("zetTeLaat") && type2.equals("tli")) {
-            if(tekst.contains("Leerling niet te laat gezet") || tekst.equals("Er is iets fout gegaan")){
+        else if ("zetTeLaat".equals(type1) && "tli".equals(type2)) {
+            if(tekst.contains(fout) || "Er is iets fout gegaan".equals(tekst)){
                 Toast.makeText(context, tekst, Toast.LENGTH_SHORT).show();
             }
 
         }
-        else if(type1.equals("zetTeLaat") && type2.equals("sa")){
-            if(tekst.contains("Leerling niet te laat gezet") || tekst.equals("Er is iets fout gegaan")){
+        else if("zetTeLaat".equals(type1) && "sa".equals(type2)){
+            if(tekst.contains(fout) || "Er is iets fout gegaan".equals(tekst)){
                 Toast.makeText(context, tekst, Toast.LENGTH_SHORT).show();
             }
             else{
@@ -326,8 +322,8 @@ public class Login extends AsyncTask<String, Void, String> {
                 scanFragment.laden();
             }
         }
-        else if(type1.equals("loginLeerkracht")){
-                if(login.equals("1")){
+        else if("loginLeerkracht".equals(type1)){
+                if("1".equals(login)){
                     Intent leerkrachtenActivity = new Intent(context, LeerkrachtenActivity.class);
                     leerkrachtenActivity.putExtra("type", "normal");
                     if(slaagGegevensOp){
@@ -352,7 +348,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 }
 
         }
-        else if(type1.equals("dashboard")){
+        else if("dashboard".equals(type1)){
             DashboardFragment.aantalTeLaat = aantalTotaal;
             DashboardFragment.aantalTeLaatTrimester = aantalTrimester;
             DashboardFragment.intAantalTotNablijven = aantalTotNablijven;
@@ -371,7 +367,7 @@ public class Login extends AsyncTask<String, Void, String> {
 
     public void stelLeerlingIdIn(Context c) {
         if(slaagGegevensOp){
-            SharedPreferences account = c.getSharedPreferences(MainActivity.ACCOUNT, 0);
+            SharedPreferences account = c.getSharedPreferences(ACCOUNT, 0);
             SharedPreferences.Editor editor = account.edit();
             editor.putString("id", leerlingID);
             editor.putString("token", logintoken);
@@ -381,7 +377,7 @@ public class Login extends AsyncTask<String, Void, String> {
     }
 
     public void resetLeerkracht(){
-        SharedPreferences account = context.getSharedPreferences(MainActivity.ACCOUNT, 0);
+        SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
         SharedPreferences.Editor editor = account.edit();
         editor.putString("naamLeerkracht", "");
         editor.commit();

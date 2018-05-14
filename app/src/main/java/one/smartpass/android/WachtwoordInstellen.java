@@ -12,9 +12,9 @@ import com.mixxamm.smartpassalpha.R;
 
 public class WachtwoordInstellen extends AppCompatActivity {
 
-    static String type, gebruikersnaam;
-    TextView GebruikersnaamTextView;
-    EditText Gebruikersnaam, Wachtwoord, HerhaalWachtwoord, OudWachtwoord;
+    protected static String type, gebruikersnaam;
+    private TextView GebruikersnaamTextView;
+    private EditText Gebruikersnaam, Wachtwoord, HerhaalWachtwoord, OudWachtwoord;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +32,7 @@ public class WachtwoordInstellen extends AppCompatActivity {
             gebruikersnaam = getIntent().getStringExtra("gebruikersnaam");
         }
 
-        if(!gebruikersnaam.equals("")){
+        if(!"".equals(gebruikersnaam)){
             GebruikersnaamTextView.setText(gebruikersnaam);
             GebruikersnaamTextView.setVisibility(View.VISIBLE);
             Gebruikersnaam.setVisibility(View.GONE);

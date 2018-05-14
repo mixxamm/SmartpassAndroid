@@ -21,7 +21,7 @@ public static boolean internet;
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
 
-            Fragment fragment = null;
+            Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     fragment = new LeerlingenKaartFragment();
@@ -31,6 +31,9 @@ public static boolean internet;
                     break;
                 case R.id.navigation_settings:
                     fragment = new InstellingenFragment();
+                    break;
+                default:
+                    fragment = new LeerlingenKaartFragment();
                     break;
             }
             return loadFragment(fragment);

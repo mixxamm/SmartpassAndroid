@@ -21,7 +21,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -41,23 +40,19 @@ import static one.smartpass.android.MainActivity.ACCOUNT;
 
 public class LeerlingenKaartFragment extends Fragment {
 
-    public final static int QRcodeWidth = 500;
-    int color1;
+    private int color1;
     public static String id, naam, fotoURL, buiten, klas;
     public static boolean internet;
     public static View v;
-    ImageView imageView;
-    TextView naamLeerling;
-    CircleImageView profielFoto;
-    Thread thread;
-    Bitmap bitmap;
+    public ImageView imageView;
+    private TextView naamLeerling;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         v = inflater.inflate(R.layout.fragment_leerlingenkaart, container, false);
         setScreenBrightnessTo(BRIGHTNESS_OVERRIDE_FULL);
 
-        BottomNavigationView navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
+        BottomNavigationView navigation = getActivity().findViewById(R.id.navigation);
 
         //Kleurlijsten maken
         int[][] states = new int[][] {
@@ -95,13 +90,13 @@ public class LeerlingenKaartFragment extends Fragment {
             buiten = "4";
         }
 
-        if(naam.equals("Leerling niet gevonden")){//log automatisch uit als account niet bestaat
+        if("Leerling niet gevonden".equals(naam)){//log automatisch uit als account niet bestaat
             resetLeerlingNaam();
         }
 
-        imageView = (ImageView) v.findViewById(R.id.qrcode1);
-        CircleImageView profielFotoView = (CircleImageView) v.findViewById(R.id.profielFoto);
-        if (buiten.equals("1")) {
+        imageView = v.findViewById(R.id.qrcode1);
+        CircleImageView profielFotoView = v.findViewById(R.id.profielFoto);
+        if ("1".equals(buiten)) {
             setActivityBackgroundColor(Color.parseColor("#8BC34A"), Color.parseColor("#689F38"));//parseColor gebruiken aangezien kleuren van colors.xml pakken niet werkt om een vage reden
 
 
@@ -109,11 +104,10 @@ public class LeerlingenKaartFragment extends Fragment {
             navigation.setItemIconTintList(normaalLijst);
 
             color1 = Color.parseColor("#8BC34A");
-            int color2 = Color.parseColor("#689F38");
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getActivity().getWindow().setNavigationBarColor(Color.parseColor("#689F38"));
             }
-        } else if (buiten.equals("0")) {
+        } else if ("0".equals(buiten)) {
             setActivityBackgroundColor(Color.parseColor("#F44336"), Color.parseColor("#D32F2F"));
             color1 = Color.parseColor("#F44336");
 
@@ -124,14 +118,14 @@ public class LeerlingenKaartFragment extends Fragment {
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getActivity().getWindow().setNavigationBarColor(Color.parseColor("#D32F2F"));
             }
-        } else if (buiten.equals("3")) {
+        } else if ("3".equals(buiten)) {
             profielFotoView.setImageResource(R.drawable.alert_circle);
             profielFotoView.setVisibility(View.VISIBLE);
             profielFotoView.setVisibility(View.INVISIBLE);
             color1 = Color.WHITE;
             navigation.setItemTextColor(normaalLijst);
             navigation.setItemIconTintList(normaalLijst);
-        } else if(buiten.equals("4")){
+        } else if("4".equals(buiten)){
             profielFotoView.setImageResource(R.drawable.sync_alert);
             profielFotoView.setVisibility(View.VISIBLE);
             color1 = Color.parseColor("#FAFAFA");
@@ -143,7 +137,7 @@ public class LeerlingenKaartFragment extends Fragment {
 
         naamLeerling = (TextView) v.findViewById(R.id.leerlingNaam);
         naamLeerling.setText(naam + " | " + klas);
-        if(buiten.equals("1") || buiten.equals("0")){
+        if("1".equals(buiten) || "0".equals(buiten)){
             Picasso.with(getContext()).load(fotoURL).into(profielFotoView);
         }
 
@@ -174,7 +168,7 @@ public class LeerlingenKaartFragment extends Fragment {
         RelativeLayout relativeLayout = v.findViewById(R.id.fragmentleerlingenkaart);
         relativeLayout.setBackgroundColor(color);
 
-        BottomNavigationView navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
+        BottomNavigationView navigation = getActivity().findViewById(R.id.navigation);
         navigation.setBackgroundColor(color);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

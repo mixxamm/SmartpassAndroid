@@ -29,10 +29,9 @@ import javax.net.ssl.HttpsURLConnection;
  */
 
 public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
-    Context context;
-    AlertDialog alertDialog;
+    private Context context;
 
-    static String result, type, gebruikersnaam, wachtwoord, newpass, token, result1;
+    private static String result, type, gebruikersnaam, wachtwoord, newpass, token, result1;
 
     StelWachtwoordIn(Context context1) {
         context = context1;
@@ -42,7 +41,7 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
     public String doInBackground(String... params) {
         type = params[0];
         String stelWachtwoordIn_url = "https://smartpass.one/connect/stelwachtwoordin.php";
-        if (type.equals("login")) {
+        if ("login".equals(type)) {
             try {
                 gebruikersnaam = params[1];
                 wachtwoord = params[2];
@@ -65,7 +64,7 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
                 InputStream inputStream = httpsURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
                 result = "";
-                String line = "";
+                String line;
                 while ((line = bufferedReader.readLine()) != null) {
                     result += line;
                 }
@@ -83,7 +82,7 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             }
         }
-        else if(type.equals("loginLeerkracht")){
+        else if("loginLeerkracht".equals(type)){
             try {
                 gebruikersnaam = params[1];
                 wachtwoord = params[2];
@@ -105,7 +104,7 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
                 InputStream inputStream = httpsURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
                 result = "";
-                String line = "";
+                String line;
                 while ((line = bufferedReader.readLine()) != null) {
                     result += line;
                 }
@@ -128,14 +127,9 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    public void onPreExecute() {
-
-    }
-
-    @Override
     public void onPostExecute(String test) {
-        if(type.equals("login")){
-            if(result1.equals("Wachtwoord instellen gelukt.")){
+        if("login".equals(type)){
+            if("Wachtwoord instellen gelukt.".equals(result1)){
                 Login login = new Login(context);
                 login.execute(type, "token", gebruikersnaam, token);
                 Toast.makeText(context, "Automatisch inloggen met nieuwe gegevens.", Toast.LENGTH_LONG).show();
@@ -143,15 +137,15 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
                 SharedPreferences account = context.getSharedPreferences(MainActivity.ACCOUNT, 0);
                 SharedPreferences.Editor editor = account.edit();
                 editor.putString("naamGebruiker", gebruikersnaam);
-                editor.commit();
+                editor.apply();
                 SharedPreferences.Editor editor1 = account.edit();
                 editor1.putString("token", token);
-                editor1.commit();
+                editor1.apply();
                 ((Activity) context).finish();
             }
         }
-        else if(type.equals("loginLeerkracht")){
-            if(result1.equals("Wachtwoord instellen gelukt.")){
+        else if("loginLeerkracht".equals(type)){
+            if("Wachtwoord instellen gelukt.".equals(result1)){
                 Login login = new Login(context);
                 login.execute(type, "token", gebruikersnaam, token);
                 Toast.makeText(context, "Automatisch inloggen met nieuwe gegevens.", Toast.LENGTH_SHORT).show();
@@ -159,10 +153,10 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
                 SharedPreferences account = context.getSharedPreferences(MainActivity.ACCOUNT, 0);
                 SharedPreferences.Editor editor = account.edit();
                 editor.putString("naamLeerkracht", gebruikersnaam);
-                editor.commit();
+                editor.apply();
                 SharedPreferences.Editor editor1 = account.edit();
                 editor1.putString("token", token);
-                editor1.commit();
+                editor1.apply();
                 ((Activity) context).finish();
             }
         }

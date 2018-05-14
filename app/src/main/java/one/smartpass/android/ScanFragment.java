@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,9 +21,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ScanFragment extends Fragment {
 
     public static String fotoURL, naam, buiten = "2", id, klas;
-    CircleImageView leerlingFoto;
-    TextView leerlingNaam;
-    public static ImageView magBuiten;
+    public CircleImageView leerlingFoto;
+    private static TextView leerlingNaam;
     public static Button teLaat;
     public static View v;
 
@@ -38,14 +36,13 @@ public class ScanFragment extends Fragment {
 
         teLaat = v.findViewById(R.id.telaatknop);
         SharedPreferences account = getActivity().getSharedPreferences(MainActivity.ACCOUNT, 0);
-        final String wachtwoordGebruiker1 = account.getString("wachtwoordGebruiker", "");
         final String naamLeerkracht = account.getString("naamLeerkracht", "");
         teLaat.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 String type = "zetTeLaat";
 
-                if(naam.equals("Leerling niet gevonden")){
+                if("Leerling niet gevonden".equals(naam)){
                     Toast.makeText(getContext(), "Scan de QR-code van een leerling om deze te laat te zetten.", Toast.LENGTH_SHORT).show();
                 }
                 else if(id != null){//Voorkomt crash indien er geen leerling is gescant
@@ -71,20 +68,19 @@ public class ScanFragment extends Fragment {
         }*/
     }
     public void laden(){
-        leerlingFoto = (CircleImageView) v.findViewById(R.id.profielFotoScan);
+        leerlingFoto = v.findViewById(R.id.profielFotoScan);
         Picasso.with(v.getContext()).load(fotoURL).into(leerlingFoto);
-        leerlingNaam = (TextView) v.findViewById(R.id.info);
-        leerlingNaam.setText(naam + " | " + klas);
-        teLaat = (Button) v.findViewById(R.id.telaatknop);
-        if(buiten.equals("1")){
+        leerlingNaam = v.findViewById(R.id.info);
+        leerlingNaam.setText(naam + " | " + klas);//TODO: helemaal niet de juiste manier om dit te doen, maar ik was te moe dus moet nog eens gefixt worden.
+        teLaat = v.findViewById(R.id.telaatknop);
+        if("1".equals(buiten)){
             setActivityBackgroundColor(Color.parseColor("#8BC34A"), Color.parseColor("#689F38"));
         }
-        else if(buiten.equals("0")){
+        else if("0".equals(buiten)){
             setActivityBackgroundColor(Color.parseColor("#F44336"), Color.parseColor("#D32F2F"));
         }
-        else if(naam.equals("Leerling niet gevonden")){
+        else if("Leerling niet gevonden".equals(naam)){
             leerlingNaam.setText(naam);
         }
-//        magBuiten = (ImageView) findViewById(R.id.magBuiten);
     }
 }

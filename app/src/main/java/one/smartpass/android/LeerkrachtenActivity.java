@@ -10,7 +10,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -22,22 +21,22 @@ public class LeerkrachtenActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE = 100;
     public static final int PERMISSION_REQUEST = 200;
-    public static ProgressBar progressBar;
+    public ProgressBar progressBar;
     //CircleImageView profielFotoScan;
     public static String naam, fotoURL, buiten;
-    Button scanButton;//Knop object aanmaken
-    TextView info;//TextView met informatie aanmaken TODO: weghalen, is niet meer nodig
-    ImageView uitloggen;
+    private Button scanButton;//Knop object aanmaken
+    private TextView info;//TextView met informatie aanmaken TODO: weghalen, is niet meer nodig
+    private ImageView uitloggen;
 
-    String type;
+    protected String type;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leerkrachten);
-        scanButton = (Button) findViewById(R.id.scanButton);
+        scanButton = findViewById(R.id.scanButton);
         uitloggen = findViewById(R.id.loguitLeerkracht);
-        info = (TextView) findViewById(R.id.info);
+        info = findViewById(R.id.info);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
@@ -75,8 +74,7 @@ public class LeerkrachtenActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-            if (data != null) {
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
                 final Barcode barcode = data.getParcelableExtra("barcode");
                 info.post(new Runnable() {
                     @Override
@@ -86,11 +84,10 @@ public class LeerkrachtenActivity extends AppCompatActivity {
                             LeerlingInfo infoLeerling = new LeerlingInfo(LeerkrachtenActivity.this);
                             infoLeerling.execute(type, id);
 
-                            progressBar = (ProgressBar) findViewById(R.id.infoLaden);
+                            progressBar = findViewById(R.id.infoLaden);
                             progressBar.setVisibility(View.VISIBLE);
                     }
                 });
-            }
         }
     }
 
@@ -98,7 +95,7 @@ public class LeerkrachtenActivity extends AppCompatActivity {
         SharedPreferences account = getSharedPreferences(MainActivity.ACCOUNT, 0);
         SharedPreferences.Editor editor = account.edit();
         editor.putString("naamLeerkracht", "");
-        editor.commit();
+        editor.apply();
     }
 
 }
