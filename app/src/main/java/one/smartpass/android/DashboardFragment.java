@@ -87,7 +87,7 @@ public class DashboardFragment extends Fragment {
             BottomNavigationView navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
             navigation.setBackgroundColor(Color.parseColor("#FAFAFA"));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getActivity().getWindow().setNavigationBarColor(Color.parseColor("#000000"));
+                getActivity().getWindow().setNavigationBarColor(Color.parseColor("#bcbcbc"));
             }
 
             int[][] states = new int[][] {
@@ -108,7 +108,7 @@ public class DashboardFragment extends Fragment {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 Window window = getActivity().getWindow();
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.setStatusBarColor(Color.parseColor("#455A64"));
+                window.setStatusBarColor(Color.parseColor("#bcbcbc"));
             }
         }
         Login login = new Login(getContext());

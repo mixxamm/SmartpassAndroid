@@ -129,9 +129,12 @@ public class LeerlingenKaartFragment extends Fragment {
             profielFotoView.setImageResource(R.drawable.sync_alert);
             profielFotoView.setVisibility(View.VISIBLE);
             color1 = Color.parseColor("#FAFAFA");
-            setActivityBackgroundColor(Color.parseColor("#FAFAFA"), Color.parseColor("#455A64"));
+            setActivityBackgroundColor(Color.parseColor("#FAFAFA"), Color.parseColor("#bcbcbc"));
             navigation.setItemTextColor(normaalLijst);
             navigation.setItemIconTintList(normaalLijst);
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getActivity().getWindow().setNavigationBarColor(Color.parseColor("#bcbcbc"));
+            }
         }
 
 

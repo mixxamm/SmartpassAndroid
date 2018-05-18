@@ -117,7 +117,7 @@ public class InstellingenFragment extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getActivity().getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.parseColor("#455A64"));
+            window.setStatusBarColor(Color.parseColor("#bcbcbc"));
         }
         if(donker){
             donkereModus.setChecked(true);
@@ -173,7 +173,7 @@ public class InstellingenFragment extends Fragment {
             navigation.setItemTextColor(lichtLijst);
             navigation.setItemIconTintList(lichtLijst);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getActivity().getWindow().setNavigationBarColor(Color.parseColor("#000000"));
+                getActivity().getWindow().setNavigationBarColor(Color.parseColor("#bcbcbc"));
             }
         }
         donkereModus.setOnClickListener(new View.OnClickListener() {
