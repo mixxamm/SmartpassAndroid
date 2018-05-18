@@ -288,7 +288,7 @@ public class Login extends AsyncTask<String, Void, String> {
             LeerlingenKaartFragment.klas = klas;
             LeerlingenKaartFragment.id = leerlingID;
 
-            if("Leerling niet gevonden".equals(leerlingNaam)){
+            if("Leerling niet gevonden".equals(leerlingNaam) || leerlingNaam.isEmpty()){
                 Toast.makeText(context, "Naam of wachtwoord fout", Toast.LENGTH_LONG).show();
                 resetLeerling();
                 LoginActivity loginActivity = new LoginActivity();
@@ -323,7 +323,7 @@ public class Login extends AsyncTask<String, Void, String> {
             }
         }
         else if("loginLeerkracht".equals(type1)){
-                if("1".equals(login)){
+                if("1".equals(login) && !leerkrachtNaam.isEmpty()){
                     Intent leerkrachtenActivity = new Intent(context, LeerkrachtenActivity.class);
                     leerkrachtenActivity.putExtra("type", "normal");
                     if(slaagGegevensOp){
