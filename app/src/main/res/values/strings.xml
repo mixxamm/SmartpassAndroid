@@ -18,6 +18,7 @@
     <string name="mijnSchool">mijn-school</string>
     <string name="smartschool">.smartschool.be</string>
     <string name="Account">Account</string>
+    <string name="LeerlingNaam">%1$s | %2$s</string>
 
     <string name="title_activity_introductie">Introductie</string>
     <string name="dummy_button">Dummy Button</string>

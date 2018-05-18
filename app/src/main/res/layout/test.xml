@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/page"
+        style="@style/PageIndexTextView" /><!--OM EEN OF ANDERE REDEN MOETen DEZE 2
+        2 LIJNTJES ER STAAN ANDERS WERKT HET NIET IK HEB GEEN IDEE WAAROM WANT ALS IK
+        USAGE SEARCH DOE DAN VIND IK NIKS
+        TODO: UITZOEKEN WA ER FOUT IS EN HET FIXEN WANT IK WORD ER ZOT VAN-->
+
+</RelativeLayout>
