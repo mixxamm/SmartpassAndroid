@@ -14,15 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mixxamm.smartpassalpha.R;
-
 import java.io.IOException;
-
 import static com.mixxamm.smartpassalpha.R.id.leerling_login;
-import static com.mixxamm.smartpassalpha.R.id.naam;
-
 public class MainActivity extends AppCompatActivity {
 
-    public static final String PREFS_INTRODUCTIE = "Introductie";
     public static final String ACCOUNT = "Account";
     private String id;
 
