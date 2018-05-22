@@ -112,7 +112,7 @@ public class InstellingenFragment extends Fragment {
         SharedPreferences algemeen = getActivity().getSharedPreferences(PREFS_ALGEMEEN, 0);
         boolean donker = algemeen.getBoolean("donkereModus", false);
 
-        BottomNavigationView navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
+        BottomNavigationView navigation = getActivity().findViewById(R.id.navigation);
         navigation.setBackgroundColor(Color.parseColor("#FAFAFA"));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getActivity().getWindow();
@@ -136,7 +136,7 @@ public class InstellingenFragment extends Fragment {
             nieuwWachtwoordTextView.setTextColor(Color.WHITE);
             nieuweFunctieTextView.setTextColor(Color.WHITE);
             nieuweFunctieImageView.setColorFilter(Color.WHITE);
-            navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
+            navigation = getActivity().findViewById(R.id.navigation);
             navigation.setBackgroundColor(Color.parseColor("#000000"));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getActivity().getWindow().setNavigationBarColor(Color.parseColor("#000000"));

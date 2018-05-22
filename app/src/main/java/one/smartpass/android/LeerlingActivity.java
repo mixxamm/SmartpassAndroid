@@ -65,7 +65,7 @@ public static boolean internet;
         LeerlingenKaartFragment.id = String.valueOf(id);
 
         loadFragment(new LeerlingenKaartFragment());
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 

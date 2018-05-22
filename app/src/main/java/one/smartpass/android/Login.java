@@ -97,7 +97,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 InputStream inputStream = httpsURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
                 String result = "";
-                String line = "";
+                String line;
                 while ((line = bufferedReader.readLine()) != null) {
                     result += line;
                 }
@@ -292,7 +292,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 Toast.makeText(context, "Naam of wachtwoord fout", Toast.LENGTH_LONG).show();
                 resetLeerling();
                 LoginActivity loginActivity = new LoginActivity();
-                loginActivity.type = "login";
+                LoginActivity.type = "login";
                 Intent loginTest1 = new Intent(context, LoginActivity.class);
                 context.startActivity(loginTest1);
                 ((Activity) context).finish();
@@ -339,7 +339,7 @@ public class Login extends AsyncTask<String, Void, String> {
                     Toast.makeText(context, "Inloggen als leerkracht mislukt, kijk gegevens na", Toast.LENGTH_SHORT).show();
                     resetLeerkracht();
                     LoginActivity loginActivity = new LoginActivity();
-                    loginActivity.type = "loginLeerkracht";
+                    LoginActivity.type = "loginLeerkracht";
                     Intent loginTest1 = new Intent(context, LoginActivity.class);
                     context.startActivity(loginTest1);
                     ((Activity) context).finish();

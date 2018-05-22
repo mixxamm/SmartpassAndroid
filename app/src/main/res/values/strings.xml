@@ -37,4 +37,8 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="waarvan_dit_trimester">Waarvan dit trimester:</string>
+    <string name="aantal_keren_te_laat">Aantal keren te laat:</string>
+    <string name="leerlingenkaart">Leerlingenkaart</string>
+    <string name="instellingen">Instellingen</string>
 </resources>

@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(login);
                     finish();}
         });
-        Button leerkrachtLogin = (Button) findViewById(R.id.leerkrachtLogin);
+        Button leerkrachtLogin = findViewById(R.id.leerkrachtLogin);
         leerkrachtLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 LoginActivity.type = "loginLeerkracht";
@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
 
-            ;
         });
     }
     private void laden(){

@@ -138,7 +138,7 @@ public class LeerlingenKaartFragment extends Fragment {
         }
 
 
-        naamLeerling = (TextView) v.findViewById(R.id.leerlingNaam);
+        naamLeerling = v.findViewById(R.id.leerlingNaam);
         naamLeerling.setText(naam + " | " + klas);
         if("1".equals(buiten) || "0".equals(buiten)){
             Picasso.with(getContext()).load(fotoURL).into(profielFotoView);

@@ -4,7 +4,7 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/account"
-        android:title="Leerlingenkaart" />
+        android:title="@string/leerlingenkaart" />
 
     <item
         android:id="@+id/navigation_dashboard"
@@ -14,6 +14,6 @@
     <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/settings_vector"
-        android:title="Instellingen" />
+        android:title="@string/instellingen" />
 
 </menu>
