@@ -5,16 +5,18 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mixxamm.smartpassalpha.one.mixxamm.smartpassalpha.LeerlingActivity">
-
+    tools:context="one.smartpass.android.LeerlingActivity">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_marginBottom="56dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
     </FrameLayout>
-
+</ScrollView>
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"
@@ -26,5 +28,4 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/navigation" />
-
 </android.support.constraint.ConstraintLayout>

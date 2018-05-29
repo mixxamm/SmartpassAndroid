@@ -56,7 +56,7 @@ public class DashboardFragment extends Fragment {
             aantalKerenTeLaatTrimesterTekst.setTextColor(Color.WHITE);
             nablijvenText.setTextColor(Color.WHITE);
             nablijven.setTextColor(Color.WHITE);
-            BottomNavigationView navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
+            BottomNavigationView navigation = getActivity().findViewById(R.id.navigation);
             navigation.setBackgroundColor(Color.parseColor("#000000"));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getActivity().getWindow().setNavigationBarColor(Color.parseColor("#000000"));
@@ -84,7 +84,7 @@ public class DashboardFragment extends Fragment {
             }
         }
         else {
-            BottomNavigationView navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
+            BottomNavigationView navigation = getActivity().findViewById(R.id.navigation);
             navigation.setBackgroundColor(Color.parseColor("#FAFAFA"));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getActivity().getWindow().setNavigationBarColor(Color.parseColor("#bcbcbc"));

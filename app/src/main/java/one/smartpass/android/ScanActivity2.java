@@ -27,13 +27,13 @@ import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ScanActivity2 extends AppCompatActivity {//TODO: ook hier loaders gebruiken, zo moet de activiteit niet herstarten bij elke scan
+public class ScanActivity2 extends AppCompatActivity {
 
     private SurfaceView cameraView;
     private BarcodeDetector barcode;
     private CameraSource cameraSource;
     protected SurfaceHolder holder;
-    public static String naam, id, vorigID = "eersteKeer";
+    public static String id, vorigID = "eersteKeer";
 
 
     private boolean loadFragment(Fragment fragment) {

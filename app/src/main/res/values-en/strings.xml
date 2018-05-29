@@ -34,4 +34,8 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="LeerlingNaam">%1$s | %2$s</string>
+    <string name="waarvan_dit_trimester">Of which this trimester</string>
+    <string name="aantal_keren_te_laat">Number of times late:</string>
+    <string name="leerlingenkaart">Student Card</string>
+    <string name="instellingen">Settings</string>
 </resources>

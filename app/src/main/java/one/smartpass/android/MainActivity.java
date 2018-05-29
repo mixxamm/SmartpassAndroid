@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
                 login.execute("loginLeerkracht", "token", naamLeerkracht, loginToken);
             }
             else if(!isNetworkAvailable() && !"".equals(naamLeerkracht) &&!isConnected()){
-                Toast.makeText(this, "Maak verbinding met internet om automatisch in te loggen.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Maak verbinding met internet om gebruik te kunnen maken van Smartpass.", Toast.LENGTH_LONG).show();
+                this.finishAffinity();
             }
             else if (!isConnected() && !"".equals(naamGebruiker)) {
                 laden();
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(login);
                     finish();}
         });
-        Button leerkrachtLogin = (Button) findViewById(R.id.leerkrachtLogin);
+        Button leerkrachtLogin = findViewById(R.id.leerkrachtLogin);
         leerkrachtLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 LoginActivity.type = "loginLeerkracht";
@@ -81,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
 
-            ;
         });
     }
     private void laden(){

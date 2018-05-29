@@ -1,10 +1,12 @@
 package one.smartpass.android;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -42,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
                     String gebruikersnaam = Gebruikersnaam.getText().toString();
                     String wachtwoord = Wachtwoord.getText().toString();
-
+                    hideKeyboard(LoginActivity.this);
 
                     if(slaagGegevensOp){
                         SharedPreferences account = getSharedPreferences(MainActivity.ACCOUNT, 0);
@@ -60,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
                     String leerkrachtnaam = Gebruikersnaam.getText().toString();
                     String wachtwoord = Wachtwoord.getText().toString();
+                    hideKeyboard(LoginActivity.this);
 
 
                     if(slaagGegevensOp){
@@ -86,5 +89,15 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(wachtwoordInstellen);
             }
         });
+    }
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

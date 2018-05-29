@@ -6,12 +6,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.security.ProviderInstaller;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.mixxamm.smartpassalpha.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -97,7 +103,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 InputStream inputStream = httpsURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
                 String result = "";
-                String line = "";
+                String line;
                 while ((line = bufferedReader.readLine()) != null) {
                     result += line;
                 }
@@ -288,14 +294,14 @@ public class Login extends AsyncTask<String, Void, String> {
             LeerlingenKaartFragment.klas = klas;
             LeerlingenKaartFragment.id = leerlingID;
 
-            if("Leerling niet gevonden".equals(leerlingNaam)){
-                Toast.makeText(context, "Naam of wachtwoord fout", Toast.LENGTH_LONG).show();
+            if("Leerling niet gevonden".equals(leerlingNaam) || leerlingNaam.isEmpty()){
+                /*Toast.makeText(context, "Naam of wachtwoord fout", Toast.LENGTH_LONG).show();*/
                 resetLeerling();
-                LoginActivity loginActivity = new LoginActivity();
-                loginActivity.type = "login";
-                Intent loginTest1 = new Intent(context, LoginActivity.class);
-                context.startActivity(loginTest1);
-                ((Activity) context).finish();
+                LinearLayout loginLayout = ((Activity)context).findViewById(R.id.loginLayout);
+                Snackbar snackbar = Snackbar.make(loginLayout, "Naam of wachtwoord fout (Leerling)", Snackbar.LENGTH_LONG);
+                snackbar.show();
+                ProgressBar progressBar = ((Activity)context).findViewById(R.id.login_laden);
+                progressBar.setVisibility(View.INVISIBLE);
                 /*LoginActivity loginActivity = new LoginActivity();
                 LoginActivity.progressBar.setVisibility(View.INVISIBLE);*/
             }
@@ -314,16 +320,21 @@ public class Login extends AsyncTask<String, Void, String> {
         }
         else if("zetTeLaat".equals(type1) && "sa".equals(type2)){
             if(tekst.contains(fout) || "Er is iets fout gegaan".equals(tekst)){
-                Toast.makeText(context, tekst, Toast.LENGTH_SHORT).show();
+                RelativeLayout scanLayout = ((Activity)context).findViewById(R.id.scanActivityLayout);
+                Snackbar snackbar = Snackbar.make(scanLayout, tekst, Snackbar.LENGTH_LONG);
+                snackbar.show();
             }
             else{
                 ScanFragment.buiten = "0";
                 ScanFragment scanFragment = new ScanFragment();
                 scanFragment.laden();
+                RelativeLayout scanLayout = ((Activity)context).findViewById(R.id.scanActivityLayout);
+                Snackbar snackbar = Snackbar.make(scanLayout, tekst, Snackbar.LENGTH_LONG);
+                snackbar.show();
             }
         }
         else if("loginLeerkracht".equals(type1)){
-                if("1".equals(login)){
+                if("1".equals(login) && !leerkrachtNaam.isEmpty()){
                     Intent leerkrachtenActivity = new Intent(context, LeerkrachtenActivity.class);
                     leerkrachtenActivity.putExtra("type", "normal");
                     if(slaagGegevensOp){
@@ -336,13 +347,12 @@ public class Login extends AsyncTask<String, Void, String> {
                     ((Activity) context).finish();
                 }
                 else{
-                    Toast.makeText(context, "Inloggen als leerkracht mislukt, kijk gegevens na", Toast.LENGTH_SHORT).show();
                     resetLeerkracht();
-                    LoginActivity loginActivity = new LoginActivity();
-                    loginActivity.type = "loginLeerkracht";
-                    Intent loginTest1 = new Intent(context, LoginActivity.class);
-                    context.startActivity(loginTest1);
-                    ((Activity) context).finish();
+                    LinearLayout loginLayout = ((Activity)context).findViewById(R.id.loginLayout);
+                    Snackbar snackbar = Snackbar.make(loginLayout, "Naam of wachtwoord fout (Leerkracht)", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    ProgressBar progressBar = ((Activity)context).findViewById(R.id.login_laden);
+                    progressBar.setVisibility(View.INVISIBLE);
                     /*LoginActivity loginActivity = new LoginActivity();
                     loginActivity.progressOnzichtbaar();*/
                 }
