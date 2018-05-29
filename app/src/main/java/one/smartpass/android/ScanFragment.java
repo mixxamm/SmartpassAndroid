@@ -4,14 +4,15 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mixxamm.smartpassalpha.R;
 import com.squareup.picasso.Picasso;
@@ -43,7 +44,9 @@ public class ScanFragment extends Fragment {
                 String type = "zetTeLaat";
 
                 if("Leerling niet gevonden".equals(naam)){
-                    Toast.makeText(getContext(), "Scan de QR-code van een leerling om deze te laat te zetten.", Toast.LENGTH_SHORT).show();
+                    RelativeLayout scanActivity = getActivity().findViewById(R.id.scanActivityLayout);
+                    Snackbar snackbar = Snackbar.make(scanActivity, naam, Snackbar.LENGTH_LONG);
+                    snackbar.show();
                 }
                 else if(id != null){//Voorkomt crash indien er geen leerling is gescant
                         SharedPreferences account = getContext().getSharedPreferences(MainActivity.ACCOUNT, 0);

@@ -8,8 +8,8 @@ android {
         applicationId "one.smartpass.android"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 18
-        versionName "2.1.7_rc"
+        versionCode 19
+        versionName "2.1.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
