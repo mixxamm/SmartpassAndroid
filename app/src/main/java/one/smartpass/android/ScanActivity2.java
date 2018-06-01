@@ -24,6 +24,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.mixxamm.smartpassalpha.R;
 
 import java.io.IOException;
+import java.util.StringTokenizer;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -33,7 +34,7 @@ public class ScanActivity2 extends AppCompatActivity {
     private BarcodeDetector barcode;
     private CameraSource cameraSource;
     protected SurfaceHolder holder;
-    public static String id, vorigID = "eersteKeer";
+    public static String id, vorigID = "eersteKeer", naarBuitenOpLeerlingScherm;
 
 
     private boolean loadFragment(Fragment fragment) {
@@ -108,9 +109,18 @@ public class ScanActivity2 extends AppCompatActivity {
 
                             if("eersteKeer".equals(vorigID) || !vorigID.equals(id)){
                                 vorigID = id;
+                                String delim = ",";
+                                StringTokenizer idTokenizer = new StringTokenizer(id, delim);
+                                if(id.substring(id.length() - 1).equals(delim)){
+                                    id = idTokenizer.nextToken();
+                                }
+                                else if(id.contains(delim)){
+                                        id = idTokenizer.nextToken();
+                                        naarBuitenOpLeerlingScherm = idTokenizer.nextToken();
+                                }
                                 String type = "infoOphalen2";
                                 LeerlingInfo infoLeerling = new LeerlingInfo(ScanActivity2.this);
-                                infoLeerling.execute(type, id);
+                                infoLeerling.execute(type, id, naarBuitenOpLeerlingScherm, vorigID);
                                 Fragment fragment = new ScanFragment();
                                 loadFragment(fragment);
                             }

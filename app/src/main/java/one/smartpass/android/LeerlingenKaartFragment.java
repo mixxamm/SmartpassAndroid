@@ -146,7 +146,7 @@ public class LeerlingenKaartFragment extends Fragment {
 
         try {
             MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-            BitMatrix bitMatrix = multiFormatWriter.encode(id, BarcodeFormat.QR_CODE,600,600);
+            BitMatrix bitMatrix = multiFormatWriter.encode(id + "," + buiten, BarcodeFormat.QR_CODE,600,600);
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
             ((ImageView) v.findViewById(R.id.qrcode1)).setImageBitmap(bitmap);
