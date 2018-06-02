@@ -72,8 +72,9 @@ public class Login extends AsyncTask<String, Void, String> {
                 String tabel = "tblleerlingen";
                 loginType = params[1];
                 if(loginType.equals("token")){
-                    gebruikersnaam = params[2];
-                    logintoken = params[3];
+                    type2 = params[2];
+                    gebruikersnaam = params[3];
+                    logintoken = params[4];
                     wachtwoord = "";
                 }
                 else{
@@ -346,10 +347,14 @@ public class Login extends AsyncTask<String, Void, String> {
                 /*LoginActivity loginActivity = new LoginActivity();
                 LoginActivity.progressBar.setVisibility(View.INVISIBLE);*/
             }
-            else{
+            else if("ma".equals(type2)){
                 Intent leerlingenkaart = new Intent(context, LeerlingActivity.class);
                 context.startActivity(leerlingenkaart);
                 ((Activity) context).finish();
+            }
+            else if("fragment".equals(type2)){
+                /*LeerlingenKaartFragment leerlingenKaartFragment = new LeerlingenKaartFragment();
+                leerlingenKaartFragment.laden();*/
             }
         }
 

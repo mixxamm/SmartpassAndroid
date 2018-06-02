@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             if(isNetworkAvailable() && !"".equals(naamGebruiker) && isConnected()){
                 laden();
                 Login login = new Login(MainActivity.this);
-                login.execute("login", "token", naamGebruiker, loginToken);
+                login.execute("login", "token", "ma", naamGebruiker, loginToken);
             }
             else if(isNetworkAvailable() && !"".equals(naamLeerkracht) && isConnected()){
                 laden();
