@@ -135,7 +135,8 @@ public class LeerlingInfo extends AsyncTask<String, Void, String> {
             ScanFragment.fotoURL = "https://smartpass.one/foto/" + id + ".png";
             ScanFragment.buiten = naarBuiten;
             String delim = ",";
-            if(!"4".equals(naarBuitenOpLeerlingScherm) && !naarBuiten.equals(naarBuitenOpLeerlingScherm) && qr.contains(delim)){
+            if(!"4".equals(naarBuitenOpLeerlingScherm) && !naarBuiten.equals(naarBuitenOpLeerlingScherm) && qr.contains(delim)
+                    && !"Leerling niet gevonden".equals(leerlingNaam)){
                 RelativeLayout scanActivityLayout = ((Activity)context).findViewById(R.id.scanActivityLayout);
                 Snackbar snackbar = Snackbar.make(scanActivityLayout, "Misbruik gedetecteerd.", Snackbar.LENGTH_LONG);
                 snackbar.show();
