@@ -46,7 +46,7 @@ import static one.smartpass.android.MainActivity.ACCOUNT;
 
 
 public class Login extends AsyncTask<String, Void, String> {
-    protected static String leerlingID, leerlingNaam, naarBuiten, tekst, type, leerkrachtNaam, login, type2, klas, datum, logintoken, gebruikersnaam, wachtwoord, tabel1, fout = "Leerling niet te laat gezet";
+    protected static String leerlingID, leerlingNaam, naarBuiten, tekst, type, leerkrachtNaam, login, type2, loginType, klas, datum, logintoken, gebruikersnaam, wachtwoord, tabel1, fout = "Leerling niet te laat gezet";
     private static int aantalTotaal, aantalTrimester, aantalTotNablijven;
     private static boolean slaagGegevensOp;
     private Context context;
@@ -70,7 +70,7 @@ public class Login extends AsyncTask<String, Void, String> {
             try {
                 login_url = "https://smartpass.one/connect/login.php";
                 String tabel = "tblleerlingen";
-                String loginType = params[1];
+                loginType = params[1];
                 if(loginType.equals("token")){
                     gebruikersnaam = params[2];
                     logintoken = params[3];
@@ -335,7 +335,7 @@ public class Login extends AsyncTask<String, Void, String> {
             LeerlingenKaartFragment.klas = klas;
             LeerlingenKaartFragment.id = leerlingID;
 
-            if("Leerling niet gevonden".equals(leerlingNaam) || leerlingNaam.isEmpty()){
+            if(!"token".equals(loginType) && "Leerling niet gevonden".equals(leerlingNaam) || leerlingNaam.isEmpty() && !"token".equals(loginType)){
                 /*Toast.makeText(context, "Naam of wachtwoord fout", Toast.LENGTH_LONG).show();*/
                 resetLeerling();
                 LinearLayout loginLayout = ((Activity)context).findViewById(R.id.loginLayout);
