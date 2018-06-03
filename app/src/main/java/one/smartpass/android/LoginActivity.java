@@ -45,15 +45,6 @@ public class LoginActivity extends AppCompatActivity {
                     String gebruikersnaam = Gebruikersnaam.getText().toString();
                     String wachtwoord = Wachtwoord.getText().toString();
                     hideKeyboard(LoginActivity.this);
-
-                    if(slaagGegevensOp){
-                        SharedPreferences account = getSharedPreferences(MainActivity.ACCOUNT, 0);
-                        SharedPreferences.Editor editor = account.edit();
-                        editor.putString("naamGebruiker", gebruikersnaam);
-                        editor.commit();
-                    }
-
-
                     Login login = new Login(LoginActivity.this);
                     login.execute(type, gebruikersnaam, wachtwoord, slaagGegevensOpString);
                 }

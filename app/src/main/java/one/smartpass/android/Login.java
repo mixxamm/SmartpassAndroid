@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -347,6 +348,16 @@ public class Login extends AsyncTask<String, Void, String> {
                 /*LoginActivity loginActivity = new LoginActivity();
                 LoginActivity.progressBar.setVisibility(View.INVISIBLE);*/
             }
+            else if("token".equals(loginType) && "Leerling niet gevonden".equals(leerlingNaam) || leerlingNaam.isEmpty() && "token".equals(loginType)){
+                resetLeerling();
+                RelativeLayout mainLayout = ((Activity)context).findViewById(R.id.MainLayout);
+                Snackbar snackbar = Snackbar.make(mainLayout, "U bent uitgelogd omdat u zich heeft aangemeld op een ander toestel.", Snackbar.LENGTH_LONG);
+                snackbar.show();
+                ProgressBar progressBar = ((Activity)context).findViewById(R.id.ProgressBarMainActivity);
+                progressBar.setVisibility(View.INVISIBLE);
+                Button button = ((Activity)context).findViewById(R.id.leerling_login);
+                button.setVisibility(View.VISIBLE);
+            }
             else if("ma".equals(type2)){
                 Intent leerlingenkaart = new Intent(context, LeerlingActivity.class);
                 context.startActivity(leerlingenkaart);
@@ -355,6 +366,11 @@ public class Login extends AsyncTask<String, Void, String> {
             else if("fragment".equals(type2)){
                 /*LeerlingenKaartFragment leerlingenKaartFragment = new LeerlingenKaartFragment();
                 leerlingenKaartFragment.laden();*/
+            }
+            else{
+                Intent leerlingenkaart = new Intent(context, LeerlingActivity.class);
+                context.startActivity(leerlingenkaart);
+                ((Activity) context).finish();
             }
         }
 
@@ -433,6 +449,7 @@ public class Login extends AsyncTask<String, Void, String> {
             editor.putString("id", leerlingID);
             editor.putString("token", logintoken);
             editor.putString("klas", klas);
+            editor.putString("naamGebruiker", leerlingNaam);
             editor.commit();
         }
     }
