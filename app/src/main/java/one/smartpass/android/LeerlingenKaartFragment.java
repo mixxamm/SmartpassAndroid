@@ -1,6 +1,7 @@
 package one.smartpass.android;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -198,5 +199,12 @@ public class LeerlingenKaartFragment extends Fragment {
     public void onDestroy(){
         super.onDestroy();
         setScreenBrightnessTo(BRIGHTNESS_OVERRIDE_NONE);
+        }
+        public void onResume(){
+        super.onResume();
+        if(naamLeerling.equals(null)){
+            Intent mainActivity = new Intent(getContext(), MainActivity.class);
+            startActivity(mainActivity);
+        }
         }
 }
