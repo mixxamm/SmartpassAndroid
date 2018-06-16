@@ -90,8 +90,12 @@ public class LeerlingenKaartFragment extends Fragment {
             klas = account.getString("klas", "");
             buiten = "4";
         }
+        else if(naam.equals(null)){
+            Intent mainActivity = new Intent(getContext(), MainActivity.class);
+            startActivity(mainActivity);
+        }
 
-        if("Leerling niet gevonden".equals(naam)){//log automatisch uit als account niet bestaat
+        else if("Leerling niet gevonden".equals(naam)){//log automatisch uit als account niet bestaat
             resetLeerlingNaam();
         }
 
