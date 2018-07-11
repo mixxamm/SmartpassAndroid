@@ -131,7 +131,7 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
         if("login".equals(type)){
             if("Wachtwoord instellen gelukt.".equals(result1)){
                 Login login = new Login(context);
-                login.execute(type, "token", gebruikersnaam, token);
+                login.execute(type, "token", "fragment", gebruikersnaam, token);
                 Toast.makeText(context, "Automatisch inloggen met nieuwe gegevens.", Toast.LENGTH_LONG).show();
 
                 SharedPreferences account = context.getSharedPreferences(MainActivity.ACCOUNT, 0);
@@ -142,6 +142,9 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
                 editor1.putString("token", token);
                 editor1.apply();
                 ((Activity) context).finish();
+            }
+            else{
+                Toast.makeText(context, "Oud wachtwoord is fout.", Toast.LENGTH_SHORT).show();
             }
         }
         else if("loginLeerkracht".equals(type)){
@@ -158,6 +161,9 @@ public class StelWachtwoordIn extends AsyncTask<String, Void, String> {
                 editor1.putString("token", token);
                 editor1.apply();
                 ((Activity) context).finish();
+            }
+            else{
+                Toast.makeText(context, "Oud wachtwoord is fout.", Toast.LENGTH_SHORT).show();
             }
         }
 
