@@ -1,6 +1,7 @@
 package one.smartpass.android;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -89,8 +90,12 @@ public class LeerlingenKaartFragment extends Fragment {
             klas = account.getString("klas", "");
             buiten = "4";
         }
+        else if(naam.equals(null)){
+            Intent mainActivity = new Intent(getContext(), MainActivity.class);
+            startActivity(mainActivity);
+        }
 
-        if("Leerling niet gevonden".equals(naam)){//log automatisch uit als account niet bestaat
+        else if("Leerling niet gevonden".equals(naam)){//log automatisch uit als account niet bestaat
             resetLeerlingNaam();
         }
 
@@ -146,7 +151,7 @@ public class LeerlingenKaartFragment extends Fragment {
 
         try {
             MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-            BitMatrix bitMatrix = multiFormatWriter.encode(id, BarcodeFormat.QR_CODE,600,600);
+            BitMatrix bitMatrix = multiFormatWriter.encode(id + "," + buiten, BarcodeFormat.QR_CODE,600,600);
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
             ((ImageView) v.findViewById(R.id.qrcode1)).setImageBitmap(bitmap);
@@ -198,5 +203,12 @@ public class LeerlingenKaartFragment extends Fragment {
     public void onDestroy(){
         super.onDestroy();
         setScreenBrightnessTo(BRIGHTNESS_OVERRIDE_NONE);
+        }
+        public void onResume(){
+        super.onResume();
+        if(naamLeerling.equals(null)){
+            Intent mainActivity = new Intent(getContext(), MainActivity.class);
+            startActivity(mainActivity);
+        }
         }
 }

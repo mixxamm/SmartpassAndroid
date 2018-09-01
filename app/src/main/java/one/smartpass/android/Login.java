@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -46,7 +47,7 @@ import static one.smartpass.android.MainActivity.ACCOUNT;
 
 
 public class Login extends AsyncTask<String, Void, String> {
-    protected static String leerlingID, leerlingNaam, naarBuiten, tekst, type1, leerkrachtNaam, login, type2, klas, datum, logintoken, gebruikersnaam, wachtwoord, tabel1, fout = "Leerling niet te laat gezet";
+    protected static String leerlingID, leerlingNaam, naarBuiten, tekst, type, leerkrachtNaam, login, type2, loginType, klas, datum, logintoken, gebruikersnaam, wachtwoord, tabel1, fout = "Leerling niet te laat gezet";
     private static int aantalTotaal, aantalTrimester, aantalTotNablijven;
     private static boolean slaagGegevensOp;
     private Context context;
@@ -64,17 +65,17 @@ public class Login extends AsyncTask<String, Void, String> {
         } catch (GooglePlayServicesNotAvailableException e) {
             e.printStackTrace();
         }
-        String type = params[0];
-        type1 = type;
+        type = params[0];
         String login_url;
         if ("login".equals(type)) {
             try {
                 login_url = "https://smartpass.one/connect/login.php";
                 String tabel = "tblleerlingen";
-                String loginType = params[1];
+                loginType = params[1];
                 if(loginType.equals("token")){
-                    gebruikersnaam = params[2];
-                    logintoken = params[3];
+                    type2 = params[2];
+                    gebruikersnaam = params[3];
+                    logintoken = params[4];
                     wachtwoord = "";
                 }
                 else{
@@ -274,6 +275,48 @@ public class Login extends AsyncTask<String, Void, String> {
 
 
         }
+        else if("meldMisbruik".equals(type)){
+            String id = params[1];
+            String logintoken = params[2];
+            String leerkrachtNaam = params[3];
+
+            login_url = "https://smartpass.one/connect/meldmisbruik.php";
+            try {
+                URL url = new URL(login_url);
+                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+                httpsURLConnection.setRequestMethod("POST");
+                httpsURLConnection.setDoOutput(true);
+                httpsURLConnection.setDoInput(true);
+                OutputStream outputStream = httpsURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8")
+                        + "&" + URLEncoder.encode("token", "UTF-8") + "=" + URLEncoder.encode(logintoken, "UTF-8")
+                        + "&" + URLEncoder.encode("naam", "UTF-8") + "=" + URLEncoder.encode(leerkrachtNaam, "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpsURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                String line = "";
+                while ((line = bufferedReader.readLine()) != null) {
+                    result += line;
+                }
+                JSONObject jsonobj = new JSONObject(result);
+                tekst = jsonobj.getString("tekst");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
         return null;
     }
 
@@ -287,14 +330,14 @@ public class Login extends AsyncTask<String, Void, String> {
     @Override
     public void onPostExecute(String naam) {
 
-        if("login".equals(type1)){
+        if("login".equals(type)){
             LeerlingenKaartFragment.naam = leerlingNaam;
             LeerlingenKaartFragment.fotoURL = "https://smartpass.one/foto/" + leerlingID + ".png";
             LeerlingenKaartFragment.buiten = naarBuiten;
             LeerlingenKaartFragment.klas = klas;
             LeerlingenKaartFragment.id = leerlingID;
 
-            if("Leerling niet gevonden".equals(leerlingNaam) || leerlingNaam.isEmpty()){
+            if(!"token".equals(loginType) && "Leerling niet gevonden".equals(leerlingNaam) || leerlingNaam.isEmpty() && !"token".equals(loginType)){
                 /*Toast.makeText(context, "Naam of wachtwoord fout", Toast.LENGTH_LONG).show();*/
                 resetLeerling();
                 LinearLayout loginLayout = ((Activity)context).findViewById(R.id.loginLayout);
@@ -305,6 +348,25 @@ public class Login extends AsyncTask<String, Void, String> {
                 /*LoginActivity loginActivity = new LoginActivity();
                 LoginActivity.progressBar.setVisibility(View.INVISIBLE);*/
             }
+            else if("token".equals(loginType) && "Leerling niet gevonden".equals(leerlingNaam) || leerlingNaam.isEmpty() && "token".equals(loginType)){
+                resetLeerling();
+                RelativeLayout mainLayout = ((Activity)context).findViewById(R.id.MainLayout);
+                Snackbar snackbar = Snackbar.make(mainLayout, "U bent uitgelogd omdat u zich heeft aangemeld op een ander toestel.", Snackbar.LENGTH_LONG);
+                snackbar.show();
+                ProgressBar progressBar = ((Activity)context).findViewById(R.id.ProgressBarMainActivity);
+                progressBar.setVisibility(View.INVISIBLE);
+                Button button = ((Activity)context).findViewById(R.id.leerling_login);
+                button.setVisibility(View.VISIBLE);
+            }
+            else if("ma".equals(type2)){
+                Intent leerlingenkaart = new Intent(context, LeerlingActivity.class);
+                context.startActivity(leerlingenkaart);
+                ((Activity) context).finish();
+            }
+            else if("fragment".equals(type2)){
+                /*LeerlingenKaartFragment leerlingenKaartFragment = new LeerlingenKaartFragment();
+                leerlingenKaartFragment.laden();*/
+            }
             else{
                 Intent leerlingenkaart = new Intent(context, LeerlingActivity.class);
                 context.startActivity(leerlingenkaart);
@@ -312,13 +374,13 @@ public class Login extends AsyncTask<String, Void, String> {
             }
         }
 
-        else if ("zetTeLaat".equals(type1) && "tli".equals(type2)) {
+        else if ("zetTeLaat".equals(type) && "tli".equals(type2)) {
             if(tekst.contains(fout) || "Er is iets fout gegaan".equals(tekst)){
                 Toast.makeText(context, tekst, Toast.LENGTH_SHORT).show();
             }
 
         }
-        else if("zetTeLaat".equals(type1) && "sa".equals(type2)){
+        else if("zetTeLaat".equals(type) && "sa".equals(type2)){
             if(tekst.contains(fout) || "Er is iets fout gegaan".equals(tekst)){
                 RelativeLayout scanLayout = ((Activity)context).findViewById(R.id.scanActivityLayout);
                 Snackbar snackbar = Snackbar.make(scanLayout, tekst, Snackbar.LENGTH_LONG);
@@ -333,7 +395,7 @@ public class Login extends AsyncTask<String, Void, String> {
                 snackbar.show();
             }
         }
-        else if("loginLeerkracht".equals(type1)){
+        else if("loginLeerkracht".equals(type)){
                 if("1".equals(login) && !leerkrachtNaam.isEmpty()){
                     Intent leerkrachtenActivity = new Intent(context, LeerkrachtenActivity.class);
                     leerkrachtenActivity.putExtra("type", "normal");
@@ -358,13 +420,18 @@ public class Login extends AsyncTask<String, Void, String> {
                 }
 
         }
-        else if("dashboard".equals(type1)){
+        else if("dashboard".equals(type)){
             DashboardFragment.aantalTeLaat = aantalTotaal;
             DashboardFragment.aantalTeLaatTrimester = aantalTrimester;
             DashboardFragment.intAantalTotNablijven = aantalTotNablijven;
             DashboardFragment.datum = datum;
             DashboardFragment dashboardFragment = new DashboardFragment();
             dashboardFragment.laden();
+        }
+        else if("meldMisbruik".equals(type)){
+            RelativeLayout scanActivityLayout = ((Activity)context).findViewById(R.id.scanActivityLayout);
+            Snackbar snackbar = Snackbar.make(scanActivityLayout, "Misbruik gemeld.", Snackbar.LENGTH_LONG);
+            snackbar.show();
         }
 
     }
@@ -382,6 +449,7 @@ public class Login extends AsyncTask<String, Void, String> {
             editor.putString("id", leerlingID);
             editor.putString("token", logintoken);
             editor.putString("klas", klas);
+            editor.putString("naamGebruiker", leerlingNaam);
             editor.commit();
         }
     }

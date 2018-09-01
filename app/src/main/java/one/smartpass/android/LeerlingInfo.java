@@ -1,8 +1,17 @@
 package one.smartpass.android;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.google.zxing.client.android.Intents;
+import com.mixxamm.smartpassalpha.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,15 +26,18 @@ import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.StringTokenizer;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import static one.smartpass.android.MainActivity.ACCOUNT;
 
 /**
  * Created by maxim on 20/12/2017.
  */
 
 public class LeerlingInfo extends AsyncTask<String, Void, String> {
-    private static String leerlingNaam, naarBuiten, id, type, klas;
+    private static String leerlingNaam, naarBuiten, naarBuitenOpLeerlingScherm, id, qr, type, klas;
     protected Context context;
 
 
@@ -74,6 +86,8 @@ public class LeerlingInfo extends AsyncTask<String, Void, String> {
         if ("infoOphalen2".equals(type)) {
             try {
                 id = params[1];
+                naarBuitenOpLeerlingScherm = params[2];
+                qr = params[3];//De originele data van de QR-code, wordt hier gebruikt om te checken of er een "," in voorkomt.
                 URL url = new URL(scan_url);
                 HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
                 httpsURLConnection.setRequestMethod("POST");
@@ -120,6 +134,21 @@ public class LeerlingInfo extends AsyncTask<String, Void, String> {
             ScanFragment.naam = leerlingNaam;
             ScanFragment.fotoURL = "https://smartpass.one/foto/" + id + ".png";
             ScanFragment.buiten = naarBuiten;
+            String delim = ",";
+            if(!"4".equals(naarBuitenOpLeerlingScherm) && !naarBuiten.equals(naarBuitenOpLeerlingScherm) && qr.contains(delim)
+                    && !"Leerling niet gevonden".equals(leerlingNaam)){
+                RelativeLayout scanActivityLayout = ((Activity)context).findViewById(R.id.scanActivityLayout);
+                Snackbar snackbar = Snackbar.make(scanActivityLayout, "Misbruik gedetecteerd.", Snackbar.LENGTH_LONG);
+                snackbar.show();
+                SharedPreferences account = context.getSharedPreferences(ACCOUNT, 0);
+                String token = account.getString("token", "");
+                String leerkrachtNaam = account.getString("naamLeerkracht", "");
+                Login meldMisbruik = new Login(context);
+                meldMisbruik.execute("meldMisbruik", id, token, leerkrachtNaam);
+            }
+            else if(!"Leerling niet gevonden".equals(leerlingNaam) && !qr.contains(delim)){
+                ScanFragment.naam = "Leerling gebruikt outdated versie Smartpass";
+            }
             ScanFragment.id = id;
             ScanFragment.klas = klas;
             ScanFragment.teLaat.setVisibility(View.VISIBLE);
